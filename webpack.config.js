@@ -1,24 +1,31 @@
-/* eslint-disable prefer-template*/
+const path = require('path');
 const webpack = require('webpack');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
-const webpackConfig = {
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
+module.exports = {
+  devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8000',
+    'webpack-dev-server/client?http://localhost:9090',
     'webpack/hot/only-dev-server',
-    './client.js',
+    './src/js/index',
   ],
+
   output: {
-    path: __dirname + '/build/js',
-    publicPath: '/build/js',
-    filename: 'main.js',
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js',
+    publicPath: '/assets/js',
   },
+
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new OpenBrowserPlugin({ url: 'http://localhost:9090' }),
+  ],
+
   module: {
     loaders: [
       {
-        test: /\.(|js|jsx)$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: [
           require.resolve('react-hot-loader'),
@@ -39,23 +46,8 @@ const webpackConfig = {
         test: /\.scss$/,
         loader: 'style!css!sass',
       },
-    ],
+    ]
   },
-  node: {
-    setImmediate: false,
-    console: true,
-    fs: 'empty',
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
-    }),
-  ],
-  devtool: 'sourcemap',
-};
+  postcss: [autoprefixer({ browsers: ['last 50 versions'] })]
 
-module.exports = webpackConfig;
+};

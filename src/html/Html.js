@@ -1,7 +1,7 @@
 import React from 'react';
 import serialize from 'serialize-javascript';
 import ReactDOM from 'react-dom/server';
-
+import Home from '../components/Home.js';
 const isLocal = process.env.NODE_ENV === 'development';
 
 function renderJsFiles() {
@@ -18,16 +18,9 @@ function renderJsFiles() {
 const Html = (props) => {
   const content = props.component ? ReactDOM.renderToString(props.component) : '';
   const state = props.store.getState();
-  return (<html>
-    <head />
-    <body>
-      <div dangerouslySetInnerHTML={{ __html: content }} id="app" />
-      <script dangerouslySetInnerHTML={{ __html: `window.App=${serialize(state)};` }} />
-      {renderJsFiles().map((file, key) => {
-        return <script key={key} type="text/javascript" src={file} />;
-      })}
-    </body>
-  </html>);
+  return (
+    <Home />
+  );
 };
 
 Html.propTypes = {
