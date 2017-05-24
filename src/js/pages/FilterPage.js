@@ -3,7 +3,6 @@ import { deleteTask, updateTask, getUsers } from '../actions';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import Search from 'react-search';
-import SearchFilter from '../components/Search/Search';
 
 import Task from '../components/Task/Task';
 
@@ -49,7 +48,7 @@ class MainPage extends Component {
   }
   render() {
     let items = [
-      { id: 0, value: 'ruby', cost: '2000' },
+      { id: 0, value: 'ruby' },
       { id: 1, value: 'javascript' },
       { id: 2, value: 'lua' },
       { id: 3, value: 'go' },
@@ -61,16 +60,15 @@ class MainPage extends Component {
           <div className="builder-task">
             <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
             <div className="search-wr">
-              <SearchFilter />
               <div className="search-btn">
                 <span><i className="fa fa-search" aria-hidden="true" /></span>
               </div>
-              {/* <Search
+              <Search
                 placeholder=''
                 items={items}
                 value={'j'}
                 onItemsChanged={::this.HiItems}
-              />*/}
+              />
             </div>
             {/* <Search
               items={items}

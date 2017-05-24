@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Task = ({ item, onDelete, children, isAdminPanel }) => {
+const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
  // const cloudImageUrl = `http://openweathermap.org/img/w/${item.weather.weather[0].icon}.png`;
 
   return (
     <div
       className={'task'}
       id={item.id}
+      onClick={onClick}
     >
       <div className="main-cv">
         <div className="line-cv">
@@ -77,6 +78,8 @@ Task.propTypes = {
   children: React.PropTypes.any,
   map: React.PropTypes.any,
   onDelete: React.PropTypes.func,
+  onClick: React.PropTypes.func,
+  isAdminPanel: React.PropTypes.bool,
 };
 
 export default Task;

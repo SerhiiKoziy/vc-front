@@ -9,6 +9,7 @@ import DashBoard from './pages/DashBoard';
 import TaskPage from './pages/TaskPage';
 import EditTask from './pages/EditTask';
 import MainPage from './pages/MainPage';
+import FilterPage from './pages/FilterPage';
 import '../sass/common.scss';
 
 const { store, history } = configureStore(hashHistory);
@@ -33,6 +34,7 @@ render(
         </Route>
         <Route name="DashBoard" path="DashBoard" component={DashBoard} />
         <Route name="MainPage" path="MainPage" component={MainPage} />
+        <Route name="FilterPage" path="FilterPage" component={FilterPage} />
         <IndexRoute name="MainPage" component={MainPage} />
       </Route>
     </Router>
