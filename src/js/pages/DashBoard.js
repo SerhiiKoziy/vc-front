@@ -3,7 +3,6 @@ import { deleteTask, updateTask, getUsers } from '../actions';
 import { connect } from 'react-redux';
 import CreateTask from '../components/Task/CreateTask';
 import Task from '../components/Task/Task';
-import Box from '../components/Task/Box';
 
 class DashBoard extends Component {
   constructor(props) {
@@ -24,13 +23,23 @@ class DashBoard extends Component {
 
   renderTask(item, i) {
     return (
-      <Task item={item} key={i} onDelete={this.deleteTask.bind(this, item.id)} />
+      <Task
+        item={item}
+        key={i}
+        isAdminPanel={true}
+        onDelete={this.deleteTask.bind(this, item.id)}
+      />
     );
   }
   renderDustbins() {
     return this.props.data.map((item, i) => {
       return (
-        <Task item={item} key={i} onDelete={this.deleteTask.bind(this, item.id)} />
+        <Task
+          item={item}
+          key={i}
+          isAdminPanel={true}
+          onDelete={this.deleteTask.bind(this, item.id)}
+        />
       );
     });
   }

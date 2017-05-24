@@ -1,10 +1,8 @@
 
 export const SET_LIST = 'SET_LIST';
-export const ADD_TASK = 'ADD_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const UPDATE_TASK = 'UPDATE_TASK';
-
-
+export const ADD_CV = 'ADD_CV';
+export const DELETE_CV = 'DELETE_CV';
+export const UPDATE_CV = 'UPDATE_CV';
 
 export const REQUEST_API_RESULT = 'REQUEST_API_RESULT';
 

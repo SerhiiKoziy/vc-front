@@ -59,11 +59,10 @@ class CreateTask extends React.Component {
     };
     this.state = this.defaultState;
   }
-  componentDidUpdate() {
-    this.props.getUsers();
+  componentDidMount() {
+    // this.props.getUsers();
   }
   createTask(values) {
-    console.log('values', values);
     const dateObject = new Date(values.originalDate);
     const date = dateFormat(dateObject, 'dddd, mmmm dS');
     const currentTime = new Date().getTime();

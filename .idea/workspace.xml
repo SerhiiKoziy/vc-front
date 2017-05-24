@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="61b8a7e6-fe12-45dc-a856-c36770a1e25c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/actions/index.js" afterPath="$PROJECT_DIR$/src/js/actions/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/components/RadioButton/RadioButton.js" afterPath="$PROJECT_DIR$/src/js/components/RadioButton/RadioButton.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/components/Task/CreateTask.js" afterPath="$PROJECT_DIR$/src/js/components/Task/CreateTask.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/components/Task/Task.js" afterPath="$PROJECT_DIR$/src/js/components/Task/Task.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/constants/ActionTypes.js" afterPath="$PROJECT_DIR$/src/js/constants/ActionTypes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/index.js" afterPath="$PROJECT_DIR$/src/js/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/pages/DashBoard.js" afterPath="$PROJECT_DIR$/src/js/pages/DashBoard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/reducers/DataReducer.js" afterPath="$PROJECT_DIR$/src/js/reducers/DataReducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/store/middleware.js" afterPath="$PROJECT_DIR$/src/js/store/middleware.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sass/pages/_startPage.scss" afterPath="$PROJECT_DIR$/src/sass/pages/_startPage.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />

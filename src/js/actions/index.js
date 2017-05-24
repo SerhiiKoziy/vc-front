@@ -11,7 +11,7 @@ export function setList(payload) {
 export function getUsers() {
   return (dispatch) => {
     getAllUsers().then(res => {
-      console.log(res);
+      console.log('res', res);
       // dispatch(updateTask(task));
     });
   };
@@ -19,7 +19,7 @@ export function getUsers() {
 
 export function editTask(payload) {
   return {
-    type: types.UPDATE_TASK,
+    type: types.UPDATE_CV,
     payload,
   };
 }
@@ -31,17 +31,20 @@ export function editTask(payload) {
 }*/
 export function createTask(payload) {
   return {
-    type: types.ADD_TASK,
+    type: types.ADD_CV,
     payload,
   };
 }
 
 export function deleteTask(taskId) {
   return {
-    type: types.DELETE_TASK,
+    type: types.DELETE_CV,
     payload: taskId,
   };
 }
+
+
+
 
 export function editTask2(task) {
   return (dispatch) => {

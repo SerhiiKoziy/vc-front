@@ -11,7 +11,8 @@ const RadioButton = ({ classNameBox, type, onChange, label, id, defaultChecked, 
           id={`featured-${id}`}
           name={name}
           defaultChecked={defaultChecked}
-          onChange={typeof onChange === 'function' ? onChange : false} />
+          onChange={typeof onChange === 'function' ? onChange : false}
+        />
         <span />
       </div>
     </div>
@@ -22,12 +23,13 @@ RadioButton.propTypes = {
   type: React.PropTypes.string,
   classNameBox: React.PropTypes.string,
   label: React.PropTypes.string,
-  Id: React.PropTypes.string,
+  id: React.PropTypes.string,
   name: React.PropTypes.string,
   key: React.PropTypes.string,
   onClick: React.PropTypes.func,
   onChange: React.PropTypes.func,
   classType: React.PropTypes.string,
+  defaultChecked: React.PropTypes.bool,
 };
 
 RadioButton.defaultProps = {

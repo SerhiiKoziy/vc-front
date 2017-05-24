@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Task = ({ item, onDelete, children }) => {
+const Task = ({ item, onDelete, children, isAdminPanel }) => {
  // const cloudImageUrl = `http://openweathermap.org/img/w/${item.weather.weather[0].icon}.png`;
 
   return (
     <div
-      className={`task ${item.stageProces}`}
+      className={'task'}
       id={item.id}
     >
       <div className="main-cv">
@@ -44,26 +44,30 @@ const Task = ({ item, onDelete, children }) => {
       </div>
 
       {children}
-      <div className="controls">
-        <div className="control control-view">
-          <Link to={`/task/${item.id}`}>
-            <i className="fa fa-eye" aria-hidden="true"></i>
-          </Link>
-        </div>
-        <div className="control control-edit">
-          <Link to={`/task/${item.id}/edit`}>
-            <i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
-        </div>
-        <div className="control control-delete">
-          <div
-            className="deleteButton"
-            onClick={onDelete}
-          >
-            <i className="fa fa-trash" aria-hidden="true"></i>
+      {
+        isAdminPanel && (
+          <div className="controls">
+            <div className="control control-view">
+              <Link to={`/task/${item.id}`}>
+                <i className="fa fa-eye" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="control control-edit">
+              <Link to={`/task/${item.id}/edit`}>
+                <i className="fa fa-pencil-square-o" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="control control-delete">
+              <div
+                className="deleteButton"
+                onClick={onDelete}
+              >
+                <i className="fa fa-trash" aria-hidden="true" />
+              </div>
+            </div>
           </div>
-        </div>
-
-      </div>
+        )
+      }
     </div>);
 };
 

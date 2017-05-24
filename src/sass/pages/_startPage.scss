@@ -69,10 +69,122 @@
           position: absolute;
           z-index: 0;
         }
+
+
+        // main page start wth search
+
       }
 
       .builder-task {
 
+      }
+    }
+
+    &.main-page{
+      .builder-task{
+        background: #fff;
+        .goAdmin{
+          color: #000;
+        }
+        .search-wr{
+          position: relative;
+          .search-btn{
+            position: absolute;
+            right: 0;
+            width: 100px;
+            border-radius: 0 5px 5px 0;
+            height: 100%;
+            background: #3e3e3e;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.4s background;
+
+            span{
+              color: #fff;
+            }
+            &:hover{
+              background: rgba(62, 62, 62, 0.5);
+            }
+          }
+          .autocomplete{
+          .autocomplete__selected{
+            .autocomplete__items{
+              span{
+                color: #000;
+              }
+            }
+          }
+          .autocomplete__menu--wrap{
+            .autocomplete__menu{
+              position: relative;
+              input{
+                height: 40px;
+                margin: 0;
+                padding: 0 0 0 15px;
+                box-sizing: border-box;
+                border-radius: 5px;
+                border: none;
+                font-size: 20px;
+                background: #ccc;
+              }
+              ul.autocomplete__items{
+                position: absolute;
+                top: 40px;
+                width: 100%;
+                background: #bebebe;
+                z-index: 10;
+                padding: 2px 0 0 0;
+                border-radius: 5px;
+                max-height: 300px;
+                overflow: auto;
+                li{
+                  color: #585858;
+                  padding: 5px 0 5px 15px;
+                  font-size: 20px;
+                  cursor: pointer;
+                  transition: 0.4s background;
+                  span{
+                    text-transform: none;
+                    font-family: serif;
+                    font-size: 18px;
+                  }
+                  &:hover{
+                    background: #ccc;
+                  }
+
+                }
+              }
+              &.autocomplete__menu--hidden{
+                ul.autocomplete__items{
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+        }
+      }
+      .inside-wr{
+        .lists-wr{
+          display: block;
+          .task{
+            float: left;
+            width: 30%;
+            margin: 0 5% 20px 0;
+            cursor: pointer;
+            transition: 0.4s background;
+            background: rgba(255, 255, 255, 0.0);
+            &:nth-child(3n){
+              margin: 0 0 20px 0;
+            }
+            &:hover{
+              background: rgba(255, 255, 255, 0.2);
+            }
+          }
+        }
       }
     }
   }
