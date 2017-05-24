@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/SerhiiKoziy",
   "dependencies": {
+    "autosuggest-highlight": "^3.1.0",
     "axios": "^0.15.3",
     "dateformat": "^2.0.0",
     "express": "^4.15.2",

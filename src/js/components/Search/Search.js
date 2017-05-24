@@ -1,86 +1,27 @@
 import Autosuggest from 'react-autosuggest';
+import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
+import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import React from 'react';
-const languages = [
+const people = [
   {
-    title: '$3000',
-    languages: [
-      {
-        name: 'C',
-        year: 1972,
-      },
-    ],
+    first: 'Charlie',
+    last: 'Brown',
+    twitter: 'dancounsell',
   },
   {
-    title: '$2000',
-    languages: [
-      {
-        name: 'C++',
-        year: 1983,
-      },
-      {
-        name: 'Perl',
-        year: 1987,
-      },
-    ],
+    first: 'Charlotte',
+    last: 'White',
+    twitter: 'mtnmissy',
   },
   {
-    title: '$3500',
-    languages: [
-      {
-        name: 'Haskell',
-        year: 1990,
-      },
-      {
-        name: 'Python',
-        year: 1991,
-      },
-      {
-        name: 'Java',
-        year: 1995,
-      },
-      {
-        name: 'Javascript',
-        year: 1995,
-      },
-      {
-        name: 'PHP',
-        year: 1995,
-      },
-      {
-        name: 'Ruby',
-        year: 1995,
-      },
-    ],
+    first: 'Chloe',
+    last: 'Jones',
+    twitter: 'ladylexy',
   },
   {
-    title: '$3200',
-    languages: [
-      {
-        name: 'C#',
-        year: 2000,
-      },
-      {
-        name: 'Scala',
-        year: 2003,
-      },
-      {
-        name: 'Clojure',
-        year: 2007,
-      },
-      {
-        name: 'Go',
-        year: 2009,
-      },
-    ],
-  },
-  {
-    title: '$1500',
-    languages: [
-      {
-        name: 'Elm',
-        year: 2012,
-      },
-    ],
+    first: 'Cooper',
+    last: 'King',
+    twitter: 'steveodom',
   },
 ];
 
@@ -96,36 +37,35 @@ function getSuggestions(value) {
     return [];
   }
 
-  const regex = new RegExp('^' + escapedValue, 'i');
+  const regex = new RegExp('\\b' + escapedValue, 'i');
 
-  return languages
-    .map(section => {
-      return {
-        title: section.title,
-        languages: section.languages.filter(language => regex.test(language.name)),
-      };
-    })
-    .filter(section => section.languages.length > 0);
+  return people.filter(person => regex.test(getSuggestionValue(person)));
 }
 
 function getSuggestionValue(suggestion) {
-  return suggestion.name;
+  return `${suggestion.first} ${suggestion.last}`;
 }
 
-function renderSuggestion(suggestion) {
+function renderSuggestion(suggestion, { query }) {
+  const suggestionText = `${suggestion.first} ${suggestion.last}`;
+  const matches = AutosuggestHighlightMatch(suggestionText, query);
+  const parts = AutosuggestHighlightParse(suggestionText, matches);
+
   return (
-    <span>{suggestion.name}</span>
-  );
-}
+    <span className={'suggestion-content'}>
+      <span className="name">
+        {
+          parts.map((part, index) => {
+            const className = part.highlight ? 'highlight' : null;
 
-function renderSectionTitle(section) {
-  return (
-    <strong>{section.title}</strong>
+            return (
+              <span className={className} key={index}>{part.text}</span>
+            );
+          })
+        }
+      </span>
+    </span>
   );
-}
-
-function getSectionSuggestions(section) {
-  return section.languages;
 }
 
 class SearchFilter extends React.Component {
@@ -166,18 +106,17 @@ class SearchFilter extends React.Component {
 
     return (
       <Autosuggest
-        multiSection={true}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
-        renderSectionTitle={renderSectionTitle}
-        getSectionSuggestions={getSectionSuggestions}
         inputProps={inputProps}
       />
     );
   }
 }
+
+
 export default SearchFilter;
 
