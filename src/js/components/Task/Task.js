@@ -20,8 +20,27 @@ const Task = ({ item, onDelete, children }) => {
           <p>Experience: </p> <p>{item.experience}</p>
         </div>
         <div className="line-cv">
+          <p>inHouse: </p> <p>{item.inHouse ? 'inHouse' : ''}</p>
+        </div>
+        <div className="line-cv">
           <p>Date made cv: </p> <p>{`${item.date}`}</p>
         </div>
+      </div>
+      <div className="skills-list">
+        <ul>
+        {
+          item.skills.map((skill, i) => {
+            return (
+              <li key={i}>
+                {`${skill.skill} : ${skill.experience} year(s)`}
+                {
+                  skill.isMain ? <span>main</span> : ''
+                }
+              </li>
+            );
+          })
+        }
+        </ul>
       </div>
 
       {children}

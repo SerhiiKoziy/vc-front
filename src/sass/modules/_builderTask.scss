@@ -4,11 +4,11 @@
   background: rgba(255, 255, 255, 0.8);
   border-radius: 2px;
   box-sizing: border-box;
-  margin: 40px 0 0 0;
+  margin: 60px 0 0 0;
   padding: 40px 0 40px 0;
 
   &.edit-builder-task {
-    width: 40%;
+    width: 100%;
   }
   .form-wr {
     display: flex;
@@ -48,6 +48,7 @@
 
       .have-skills{
         .skill-form{
+          position: relative;
           border-bottom: 1px solid #ccc;
           padding: 20px 0 0 0;
           box-sizing: border-box;
@@ -58,6 +59,13 @@
               &:first-child{
                 min-width: 20%;
               }
+            }
+            &.del-skill{
+              position: absolute;
+              right: 20px;
+              top: 10px;
+              color: #f10000;
+              cursor: pointer;
             }
           }
         }
@@ -72,6 +80,14 @@
       padding: 0 10px;
       .input-wr{
         padding: 15px 0 0;
+        input{
+          height: 50px;
+        }
+      }
+      .input-box{
+        .error{
+          opacity: 0;
+        }
       }
       .addSkillButton{
         margin: 15px 0 0;
@@ -84,14 +100,18 @@
       .label{
         color: #757575;
         display: flex;
-        padding: 0 30px 0 0;
+        padding: 0 30px 15px 0;
         align-items: center;
       }
       .radio-inputs {
         display: flex;
         width: 100%;
+        padding-bottom: 15px;
+        height: 50px;
+
         .inside-wr {
           position: relative;
+          width: 100%;
           padding: 0;
           border: 1px solid #ccc;
           input{

@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getWeatherByCoordinates } from './api';
+import { getAllUsers } from './api';
 
 export function setList(payload) {
   return {
@@ -8,14 +8,28 @@ export function setList(payload) {
   };
 }
 
-export function updateTask(payload) {
+export function getUsers() {
+  return (dispatch) => {
+    getAllUsers().then(res => {
+      console.log(res);
+      // dispatch(updateTask(task));
+    });
+  };
+}
+
+export function editTask(payload) {
   return {
     type: types.UPDATE_TASK,
     payload,
   };
 }
-
-export function addTask(payload) {
+/* export function getUsers(payload) {
+  return {
+    type: types.UPDATE_TASK,
+    payload,
+  };
+}*/
+export function createTask(payload) {
   return {
     type: types.ADD_TASK,
     payload,
@@ -29,23 +43,25 @@ export function deleteTask(taskId) {
   };
 }
 
-export function editTask(task) {
+export function editTask2(task) {
   return (dispatch) => {
-    getWeatherByCoordinates(task).then(weather => {
+    /* getWeatherByCoordinates(task).then(weather => {
       task.weather = weather;
       dispatch(updateTask(task));
     }
-    );
+    );*/
   };
 }
 
-export function createTask(task) {
+export function createTask2(task) {
   return (dispatch) => {
-    getWeatherByCoordinates(task).then(
+    console.log(task);
+    dispatch(addTask(task));
+    /* getWeatherByCoordinates(task).then(
       (weather) => {
         const taskWithWeather = { weather, ...task };
         dispatch(addTask(taskWithWeather));
       }
-    );
+    );*/
   };
 }

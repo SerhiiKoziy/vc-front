@@ -17,12 +17,14 @@
   overflow: hidden;
   box-sizing: border-box;
   border-radius: 2px;
+  display: flex;
   color: #fff;
   box-shadow: 0 0 10px transparentize(#000, 0.7);
   background: linear-gradient(135deg, rgba(253, 253, 253, 0.4), rgba(0, 127, 163, 0));
 
   .main-cv{
     display: flex;
+    width: 50%;
     flex-direction: column;
     .line-cv{
       display: flex;
@@ -30,16 +32,19 @@
       h4{
         margin: 0;
         &:first-child{
-          min-width: 20%;
+          min-width: 50%;
         }
       }
       p{
         margin: 0;
         &:first-child{
-          min-width: 20%;
+          min-width: 50%;
         }
       }
     }
+  }
+  .skills-list{
+    width: 50%;
   }
   h4 {
 
@@ -62,8 +67,9 @@
     }
   }
   .controls {
-    margin-top: 15px;
     display: flex;
+    width: 40px;
+    flex-direction: column;
     justify-content: space-around;
     text-align: center;
     position: relative;

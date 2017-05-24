@@ -17,29 +17,6 @@ class TaskPage extends Component {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
   }
-
-  renderWeather() {
-    const weather = this.props.currentTask.weather;
-    return Object.keys(weather).map(key => {
-      if (key !== 'weather' && key !== 'temp') {
-        return (
-          <div key={key}>
-            <span>{key} :</span>
-            <span>{weather[key]}</span>
-          </div>
-        );
-      }
-
-      return null;
-    });
-  }
-
-  renderMap() {
-    return (
-      <div />
-    );
-  }
-
   render() {
     if (this.props.currentTask) {
       return (
@@ -55,11 +32,8 @@ class TaskPage extends Component {
               <Task
                 item={this.props.currentTask}
                 onDelete={::this.deleteTask}
-                map={this.renderMap()}
                 weather={this.props.currentTask.weather}
-              >
-                {this.renderWeather()}
-              </Task>
+              />
 
             </div>
             {this.props.children}

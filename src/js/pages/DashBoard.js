@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteTask, updateTask } from '../actions';
+import { deleteTask, updateTask, getUsers } from '../actions';
 import { connect } from 'react-redux';
 import CreateTask from '../components/Task/CreateTask';
 import Task from '../components/Task/Task';
@@ -22,21 +22,11 @@ class DashBoard extends Component {
     this.props.deleteTask(taskId);
   }
 
-  renderTask(item, i, type) {
+  renderTask(item, i) {
     return (
       <Task item={item} key={i} onDelete={this.deleteTask.bind(this, item.id)} />
     );
   }
-
-  handleDrop(index, item, target) {
-    const changedTask = this.props.data.filter(element => {
-      return element.id == item.taskId;
-    });
-    changedTask[0].stageProces = target;
-    console.log(index, item, target);
-    this.props.updateTask(changedTask);
-  }
-
   renderDustbins() {
     return this.props.data.map((item, i) => {
       return (

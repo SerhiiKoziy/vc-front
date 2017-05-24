@@ -3,33 +3,31 @@ import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
 import TextField from '../TextField/TextField';
 import RadioButton from '../RadioButton/RadioButton';
-import { createTask, editTask } from '../../actions';
+import { createTask, editTask, getUsers } from '../../actions';
 
 class CreateTask extends React.Component {
   static propTypes = {
     currentTask: React.PropTypes.object,
     buttonText: React.PropTypes.string,
     editTask: React.PropTypes.func,
+    getUsers: React.PropTypes.func,
     createTask: React.PropTypes.func,
   };
 
   constructor(props) {
     super(props);
-
     const nextDay = new Date();
     nextDay.setDate(nextDay.getDate() + 1);
-
     const defaultValues = {
       address: 'Kiev, Kyiv city, Ukraine',
       title: '',
       cost: '',
-      experience: '',
-      skillName: '',
-      skillExp: '',
       inHouse: true,
-      isMain: true,
+      experience: '',
       daysToDate: 1,
       originalDate: nextDay,
+      skillsChange: false,
+      skills: [],
     };
     this.defaultState = {
       values: this.props.currentTask || defaultValues,
@@ -37,14 +35,11 @@ class CreateTask extends React.Component {
         title: false,
         cost: false,
         experience: false,
-        skillName: false,
-        skillExp: false,
       },
       errorMessages: {
         title: 'Title is required',
         cost: 'Cost is required',
         experience: 'Experience is required',
-        skillName: 'Experience is required',
         skillExp: 'skillExp is required',
       },
       validation: {
@@ -57,43 +52,61 @@ class CreateTask extends React.Component {
         experience: (value) => {
           return value.length > 0;
         },
-        skillName: (value) => {
-          return value.length > 0;
-        },
       },
-      skills: [],
+      skillName: '',
+      skillExp: '',
+      isMain: false,
     };
     this.state = this.defaultState;
   }
-  updateValue(target, value) {
-    this.setState({
-      values: {
-        ...this.state.values,
-        [target]: value,
-      },
-    });
+  componentDidUpdate() {
+    this.props.getUsers();
   }
   createTask(values) {
+    console.log('values', values);
     const dateObject = new Date(values.originalDate);
     const date = dateFormat(dateObject, 'dddd, mmmm dS');
     const currentTime = new Date().getTime();
 
     return {
+      inHouse: this.state.inHouse,
       ...values,
       date,
       id: currentTime,
-      createdAt: currentTime,
-      updatedAt: currentTime,
+      /* createdAt: currentTime,
+      updatedAt: currentTime,*/
     };
   }
   handleInputChange(target, e) {
-    console.log('handleInputChange', target, e)
+    // console.log('handleInputChange', target, e)
     this.updateValue(target, e.target.value);
+  }
+  updateValue(target, value) {
+    if (target === 'skillName' || target === 'skillExp') {
+      this.setState({
+        ...this.state,
+        [target]: value,
+      });
+    } else {
+      this.setState({
+        values: {
+          ...this.state.values,
+          [target]: value,
+        },
+      });
+    }
+  }
+  handleCheckBoxInHouse(value) {
+    this.setState({
+      values: {
+        ...this.state.values,
+        inHouse: value,
+      },
+    });
   }
   handleFormSubmit(event) {
     event.preventDefault();
     const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createTask;
-    console.log(this.props, submitHandler);
     const task = this.createTask(this.state.values);
 
     if (this.props.currentTask) {
@@ -103,6 +116,8 @@ class CreateTask extends React.Component {
     }
 
     submitHandler(task);
+    const skills = this.props.currentTask;
+    this.defaultState.values.skills = skills ? skills.skills : [];
     this.setState(this.defaultState);
   }
   isValidForm() {
@@ -131,16 +146,35 @@ class CreateTask extends React.Component {
     });
   }
   addSkill() {
-    const skill = this.state.values.skillName;
-    const experience = this.state.values.skillExp;
+    const skill = this.state.skillName;
+    const experience = this.state.skillExp;
     const isMain = this.state.isMain;
-    const newSkills = this.state.skills;
-    console.log(newSkills);
+    const newSkills = this.state.values.skills;
     newSkills.push({ skill, experience, isMain });
-    console.log(newSkills);
-    this.setState({ skills: newSkills });
+    this.setState({
+      skillExp: '',
+      skillName: '',
+      values: {
+        ...this.state.values,
+        skills: newSkills,
+        skillsChange: true,
+      },
+    });
   }
-
+  deleteSkill(skillId) {
+    const skills = this.state.values.skills;
+    const newSkills = [];
+    skills.map((item, i) => {
+      i === skillId ? null : newSkills.push(item);
+    })
+    this.setState({
+      values: {
+        ...this.state.values,
+        skills: newSkills,
+        skillsChange: true,
+      },
+    });
+  }
   render() {
     return (
       <div className="form-wr">
@@ -162,7 +196,7 @@ class CreateTask extends React.Component {
             fieldName="cost"
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
-            errorText={this.showError('description')}
+            errorText={this.showError('cost')}
           />
           <TextField
             classNameBox={'input-wr'}
@@ -171,31 +205,34 @@ class CreateTask extends React.Component {
             fieldName="experience"
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
-            errorText={this.showError('description')}
+            errorText={this.showError('experience')}
           />
           <RadioButton
             classNameBox={'input-wr'}
             fieldName={"inHouse"}
             id={'inHouse'}
             label={'inHouse'}
+            defaultChecked={this.state.values.inHouse}
             name={'checkbox'}
             type={'checkbox'}
             onChange={() => {
-              this.setState({
-                inHouse: !this.state.inHouse,
-              });
+              this.handleCheckBoxInHouse(!this.state.values.inHouse);
             }}
             onBlur={::this.handleInputBlur}
             errorText={this.showError('inHouse')}
           />
           <div className="have-skills">
             {
-              this.state.skills.map((item, i) => {
+              this.state.values.skills.map((item, i) => {
+                // let skillId = {` ${item.skill} + ${i}`}
                 return (
                   <ul className="skill-form" key={i}>
                     <li><span>skill: </span><span>{item.skill}</span></li>
                     <li><span>experience: </span><span>{item.experience}</span></li>
                     <li><span>isMain: </span><span>{item.isMain ? '' : 'main'}</span></li>
+                    <li className="del-skill" onClick={ this.deleteSkill.bind(this, i)}>
+                      <i className="fa fa-trash" aria-hidden="true" />
+                    </li>
                   </ul>
                 );
               })
@@ -213,46 +250,44 @@ class CreateTask extends React.Component {
           <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter skill'}
-            value={this.state.values.skillName}
+            value={this.state.skillName}
             fieldName="skillName"
             maxLength="25"
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
-            errorText={this.showError('skillName')}
           />
           <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter skill experience'}
-            value={this.state.values.skillExp}
+            value={this.state.skillExp}
             fieldName="skillExp"
             maxLength="25"
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
-            errorText={this.showError('skillName')}
           />
           <RadioButton
             classNameBox={'input-wr'}
             fieldName={"isMain"}
-            value={this.state.values.skillExp}
+            value={this.state.isMain}
             id={'isMain'}
             label={'isMain'}
             name={'checkbox'}
             type={'checkbox'}
             defaultChecked={true}
-            // onChange={::this.handleInputChange}
             onChange={() => {
               this.setState({
                 isMain: !this.state.isMain,
               });
             }}
             onBlur={::this.handleInputBlur}
-            errorText={this.showError('inHouse')}
+            errorText={this.showError('isMain')}
           />
 
           <button
             type=""
             className="btn btn--fw addSkillButton"
             onClick={::this.addSkill}
+            disabled={this.state.skillExp && this.state.skillName ? '' : 'disabled'}
           >
             {this.props.buttonText || 'Add skill'}
           </button>
@@ -262,4 +297,4 @@ class CreateTask extends React.Component {
   }
 }
 
-export default connect(null, { createTask, editTask })(CreateTask);
+export default connect(null, { createTask, editTask, getUsers })(CreateTask);
