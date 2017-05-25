@@ -1,9 +1,9 @@
 ﻿import React, { Component } from 'react';
 import { deleteTask, updateTask, getUsers } from '../actions';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Search from 'react-search';
-import SearchFilter from '../components/Search/Search';
+import SearchFilter from '../components/SearchFilter/SearchFilter';
 
 import Task from '../components/Task/Task';
 
@@ -22,19 +22,24 @@ class MainPage extends Component {
     push: React.PropTypes.func,
     data: React.PropTypes.array,
   };
+  componentDidMount() {
+   // this.props.getUsers();
+  }
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
   }
   renderDustbins() {
     return this.props.data.map((item, i) => {
       return (
-        <Task
-          item={item}
-          key={i}
-          isAdminPanel={false}
-          onClick={::this.goToMainFilter}
-          onDelete={this.deleteTask.bind(this, item.id)}
-        />
+        <Link key={`task-${i}`} to={`/task/${item.id}`}>
+          <Task
+            item={item}
+            isAdminPanel={false}
+            onClick={::this.goToMainFilter}
+            onDelete={(e) => { this.deleteTask(item.id, e); }
+            /* this.deleteTask.bind(this, item.id)*/}
+          />
+        </Link>
       );
     });
   }
@@ -44,26 +49,21 @@ class MainPage extends Component {
   goToMainFilter() {
     this.props.push('/FilterPage');
   }
-  HiItems(items) {
-    console.log(items);
-  }
+  // HiItems(items) {
+  //   console.log(items);
+  // }
   render() {
-    let items = [
-      { id: 0, value: 'ruby', cost: '2000' },
-      { id: 1, value: 'javascript' },
-      { id: 2, value: 'lua' },
-      { id: 3, value: 'go' },
-      { id: 4, value: 'julia' },
-    ]
     return (
       <div className={'page start-page columns'}>
         <div className="dashboard-wr main-page">
           <div className="builder-task">
             <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
             <div className="search-wr">
-              <SearchFilter />
+              <SearchFilter data={this.props.data} />
               <div className="search-btn">
-                <span><i className="fa fa-search" aria-hidden="true" /></span>
+                <Link to={'/FilterPage'}>
+                  <span><i className="fa fa-search" aria-hidden="true" /></span>
+                </Link>
               </div>
               {/* <Search
                 placeholder=''
@@ -96,7 +96,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, push,
+    deleteTask, updateTask, push, getUsers,
   }
 )(MainPage);
 

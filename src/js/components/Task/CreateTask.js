@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
 import TextField from '../TextField/TextField';
-import RadioButton from '../RadioButton/RadioButton';
+import CheckBox from '../CheckBox/CheckBox';
 import { createTask, editTask, getUsers } from '../../actions';
 
 class CreateTask extends React.Component {
@@ -59,9 +59,7 @@ class CreateTask extends React.Component {
     };
     this.state = this.defaultState;
   }
-  componentDidMount() {
-    // this.props.getUsers();
-  }
+
   createTask(values) {
     const dateObject = new Date(values.originalDate);
     const date = dateFormat(dateObject, 'dddd, mmmm dS');
@@ -162,10 +160,13 @@ class CreateTask extends React.Component {
   }
   deleteSkill(skillId) {
     const skills = this.state.values.skills;
-    const newSkills = [];
+    /* const newSkills = [];
     skills.map((item, i) => {
       i === skillId ? null : newSkills.push(item);
-    })
+    })*/
+    const newSkills = skills.filter((item, i) => {
+      return i !== skillId;
+    });
     this.setState({
       values: {
         ...this.state.values,
@@ -206,7 +207,7 @@ class CreateTask extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('experience')}
           />
-          <RadioButton
+          <CheckBox
             classNameBox={'input-wr'}
             fieldName={"inHouse"}
             id={'inHouse'}
@@ -229,7 +230,10 @@ class CreateTask extends React.Component {
                     <li><span>skill: </span><span>{item.skill}</span></li>
                     <li><span>experience: </span><span>{item.experience}</span></li>
                     <li><span>isMain: </span><span>{item.isMain ? '' : 'main'}</span></li>
-                    <li className="del-skill" onClick={ this.deleteSkill.bind(this, i)}>
+                    <li
+                      className="del-skill"
+                      onClick={(e) => { this.deleteSkill(i, e); }}
+                    >
                       <i className="fa fa-trash" aria-hidden="true" />
                     </li>
                   </ul>
@@ -264,7 +268,7 @@ class CreateTask extends React.Component {
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
           />
-          <RadioButton
+          <CheckBox
             classNameBox={'input-wr'}
             fieldName={"isMain"}
             value={this.state.isMain}

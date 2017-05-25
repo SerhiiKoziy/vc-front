@@ -10,7 +10,11 @@ module.exports = {
     'webpack/hot/only-dev-server',
     './src/js/index',
   ],
-
+  devServer: {
+    proxy: {
+      '/': 'http://localhost:3001',
+    },
+  },
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
@@ -46,8 +50,8 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style!css!sass',
       },
-    ]
+    ],
   },
-  postcss: [autoprefixer({ browsers: ['last 50 versions'] })]
+  postcss: [autoprefixer({ browsers: ['last 50 versions'] })],
 
 };

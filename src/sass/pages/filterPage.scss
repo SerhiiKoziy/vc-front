@@ -1,4 +1,4 @@
-.page.start-page {
+.page.filter-page {
   h3 {
     //font-size: 60px;
     font-size: 15px;
@@ -75,16 +75,18 @@
 
       }
 
-      .builder-task {
-
-      }
     }
 
-    &.main-page{
+    &.filter-page{
+      position: relative;
       .builder-task{
-        background: #fff;
-        padding: 40px 0 0 0;
+        position: absolute;
+        background: transparent;
+        padding: 0;
+        margin: 40px 0 0 0;
+        padding: 0 20px;
         .goAdmin{
+          height: 50px;
           color: #000;
         }
         .search-wr{
@@ -98,15 +100,16 @@
             height: 100%;
             background: #3e3e3e;
             z-index: 1;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: 0.4s background;
 
-            span{
-              color: #fff;
-            }
+              span{
+                color: #fff;
+              }
             &:hover{
               background: rgba(62, 62, 62, 0.5);
             }
@@ -170,13 +173,15 @@
 
 
           .react-autosuggest__container {
+
             position: relative;
           }
 
           .react-autosuggest__input {
-            width: 240px;
-            height: 30px;
+            width: 100%;
+            height: 50px;
             padding: 10px 20px;
+            box-sizing: border-box;
             font-family: Helvetica, sans-serif;
             font-weight: 300;
             font-size: 16px;
@@ -187,7 +192,9 @@
           .react-autosuggest__input:focus {
             outline: none;
           }
-
+          .dancounsell {
+            background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/48.jpg);
+          }
           .react-autosuggest__container--open .react-autosuggest__input {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
@@ -201,7 +208,7 @@
             display: block;
             position: absolute;
             top: 51px;
-            width: 280px;
+            width: 100%;
             border: 1px solid #aaa;
             background-color: #fff;
             font-family: Helvetica, sans-serif;
@@ -233,16 +240,25 @@
           }
 
           .suggestion-content {
+            position: relative;
             display: flex;
             align-items: center;
             background-repeat: no-repeat;
             span{
               color: #3e3e3e;
             }
+            .cost-cv{
+              position: absolute;
+              right: 20px;
+              top:50%;
+              transform: translate(0, -50%);
+
+              color: #000;
+            }
           }
 
           .name {
-            margin-left: 68px;
+
             line-height: 45px;
           }
 
@@ -255,9 +271,6 @@
             color: #120000;
           }
 
-          /*.react-autosuggest__section-container--first {
-
-          }*/
 
           .react-autosuggest__section-title {
             position: absolute;
@@ -272,18 +285,148 @@
         }
       }
       .inside-wr{
+        display: flex;
+        padding-top: 150px;
+        height: calc(100vh - 150px);
+        .left-filter{
+          position: relative;
+          width: 100%;
+          max-width: 300px;
+          padding: 0 20px 70px 20px;
+          border-right: 1px solid #ccc;
+          box-sizing: border-box;
+          min-height: 60vh;
+
+
+          .range-filter{
+            padding: 0 0 50px 0;
+            .input-range__label-container{
+              opacity: 0;
+            }
+            .input-range{
+
+            }
+            .filter-cost{
+              display: flex;
+              justify-content: space-between;
+              span{
+                padding: 10px 0 0 0;
+                color: #fff;
+                font-size: 20px;
+              }
+            }
+          }
+          .experience-year{
+            .radio-wr{
+              margin: 0 0 5px 0;
+              input{
+                height: 40px;
+              }
+            }
+            .radio-wr{
+              $color1: #f4f4f4;
+              $color2: #3197EE;
+              input[type="radio"] {
+                position: absolute;
+                opacity: 0;
+                + .radio-label {
+                  &:before {
+                    content: '';
+                    background: $color1;
+                    border-radius: 100%;
+                    border: 1px solid darken($color1, 25%);
+                    display: inline-block;
+                    width: 1.4em;
+                    height: 1.4em;
+                    position: relative;
+                    top: -0.2em;
+                    margin-right: 1em;
+                    vertical-align: top;
+                    cursor: pointer;
+                    text-align: center;
+                    transition: all 250ms ease;
+                  }
+                }
+                &:checked {
+                  + .radio-label {
+                    &:before {
+                      background-color: $color2;
+                      box-shadow: inset 0 0 0 4px $color1;
+                    }
+                  }
+                }
+                &:focus {
+                  + .radio-label {
+                    &:before {
+                      outline: none;
+                      border-color: $color2;
+                    }
+                  }
+                }
+                &:disabled {
+                  + .radio-label {
+                    &:before {
+                      box-shadow: inset 0 0 0 4px $color1;
+                      border-color: darken($color1, 25%);
+                      background: darken($color1, 25%);
+                    }
+                  }
+                }
+                + .radio-label {
+                  &:empty {
+                    &:before {
+                      margin-right: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .bottom-control{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            width: 100%;
+            &>div{
+              width: 100%;
+              height: 70px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-top: 1px solid #ccc ;
+              cursor: pointer;
+              transition: 0.4s background;
+              background: rgba(255, 255, 255, 0);
+              &.clear{
+                border-right: 1px solid #ccc ;
+              }
+              &:hover{
+                background: rgba(255, 255, 255, 0.2);
+              }
+            }
+          }
+        }
         .lists-wr{
           display: block;
-          .task{
+          width: 100%;
+          padding: 20px;
+          box-sizing: border-box;
+          overflow: auto;
+          &>a{
             float: left;
             width: 30%;
             margin: 0 5% 20px 0;
-            cursor: pointer;
-            transition: 0.4s background;
-            background: rgba(255, 255, 255, 0.0);
             &:nth-child(3n){
               margin: 0 0 20px 0;
             }
+          }
+          .task{
+            cursor: pointer;
+            transition: 0.4s background;
+            background: rgba(255, 255, 255, 0.0);
+
             &:hover{
               background: rgba(255, 255, 255, 0.2);
             }

@@ -1,40 +1,36 @@
 import React from 'react';
 
 
-const RadioButton = ({ classNameBox, type, onChange, label, id, defaultChecked, name, key }) => (
-  <div className={`radio-wr ${classNameBox}`} key={key}>
-    <label className="label" htmlFor={`featured-${id}`}>{label}</label>
-    <div className="radio-inputs">
-      <div className="inside-wr">
-        <input
-          type={type}
-          id={`featured-${id}`}
-          name={name}
-          defaultChecked={defaultChecked}
-          onChange={typeof onChange === 'function' ? onChange : false}
-        />
-        <span />
-      </div>
+const RadioButton = ({ classType, type, onChange, label, id, defaultChecked, name, key }) => {
+  return (
+    <div className={`radio-wr ${classType}`} key={key}>
+      <input
+        type={type}
+        id={`${id}`}
+        defaultChecked={defaultChecked}
+        name={name}
+        onChange={typeof onChange === 'function' ? onChange : false}
+      />
+      <label className="radio-label" htmlFor={`${id}`}>{label}</label>
     </div>
-  </div>
-);
+  );
+};
 
+// Make ESLint happy again: add validation to props
 RadioButton.propTypes = {
+  onChange: React.PropTypes.func,
+  key: React.PropTypes.number,
+  classType: React.PropTypes.string,
   type: React.PropTypes.string,
-  classNameBox: React.PropTypes.string,
   label: React.PropTypes.string,
   id: React.PropTypes.string,
+  defaultChecked: React.PropTypes.string,
   name: React.PropTypes.string,
-  key: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  classType: React.PropTypes.string,
-  defaultChecked: React.PropTypes.bool,
 };
 
 RadioButton.defaultProps = {
-  type: 'default',
-  defaultChecked: false,
+  type: 'radio',
+  defaultChecked: '',
 };
 
 export default RadioButton;

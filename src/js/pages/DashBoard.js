@@ -20,17 +20,6 @@ class DashBoard extends Component {
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
   }
-
-  renderTask(item, i) {
-    return (
-      <Task
-        item={item}
-        key={i}
-        isAdminPanel={true}
-        onDelete={this.deleteTask.bind(this, item.id)}
-      />
-    );
-  }
   renderDustbins() {
     return this.props.data.map((item, i) => {
       return (
@@ -38,7 +27,8 @@ class DashBoard extends Component {
           item={item}
           key={i}
           isAdminPanel={true}
-          onDelete={this.deleteTask.bind(this, item.id)}
+          // onDelete={this.deleteTask.bind(this, item.id)}
+          onDelete={(e) => { this.deleteTask(item.id, e); }}
         />
       );
     });
