@@ -79,41 +79,43 @@
 
     &.filter-page{
       position: relative;
-      .builder-task{
-        position: absolute;
-        background: transparent;
-        padding: 0;
-        margin: 40px 0 0 0;
-        padding: 0 20px;
+      .header-wr{
+        //margin: 40px 0 0 0;
+        padding: 0 0 20px 0;
         .goAdmin{
-          height: 50px;
           color: #000;
         }
         .search-wr{
           position: relative;
-          .search-btn{
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100px;
-            border-radius: 0 5px 5px 0;
-            height: 100%;
-            background: #3e3e3e;
-            z-index: 1;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.4s background;
+          box-sizing: border-box;
+          padding: 0 20px;
+          .search-wr-inside{
+            position: relative;
+            .search-btn{
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 100px;
+              border-radius: 0 5px 5px 0;
+              height: 100%;
+              background: #3e3e3e;
+              z-index: 1;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: 0.4s background;
 
               span{
                 color: #fff;
               }
-            &:hover{
-              background: rgba(62, 62, 62, 0.5);
+              &:hover{
+                background: rgba(62, 62, 62, 0.5);
+              }
             }
           }
+
           .autocomplete{
           .autocomplete__selected{
             .autocomplete__items{
@@ -286,13 +288,14 @@
       }
       .inside-wr{
         display: flex;
-        padding-top: 150px;
+        padding: 0;
         height: calc(100vh - 150px);
+        border-top: 1px solid #ccc;
         .left-filter{
           position: relative;
           width: 100%;
           max-width: 300px;
-          padding: 0 20px 70px 20px;
+          padding: 20px 20px 70px 20px;
           border-right: 1px solid #ccc;
           box-sizing: border-box;
           min-height: 60vh;
@@ -401,6 +404,13 @@
               background: rgba(255, 255, 255, 0);
               &.clear{
                 border-right: 1px solid #ccc ;
+                span{
+                  position: relative;
+                  i{
+                    position: absolute;
+                    left: -20px;
+                  }
+                }
               }
               &:hover{
                 background: rgba(255, 255, 255, 0.2);

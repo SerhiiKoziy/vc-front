@@ -185,12 +185,25 @@ class MainPage extends Component {
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
-          <div className="builder-task">
+          <div className="header-wr">
+            <div className="header">
+              <div className="header-fiq">
+                <span>? FIQ</span>
+              </div>
+              <div className="header-title">
+                <h4>Header</h4>
+              </div>
+              <div className="header-contact">
+                <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
+              </div>
+            </div>
             <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
             <div className="search-wr">
-              {this.renderSearchFilter()}
-              <div className="search-btn">
-                <span><i className="fa fa-search" aria-hidden="true" /></span>
+              <div className="search-wr-inside">
+                {this.renderSearchFilter()}
+                <div className="search-btn">
+                  <span><i className="fa fa-search" aria-hidden="true" /></span>
+                </div>
               </div>
             </div>
           </div>
@@ -270,7 +283,10 @@ class MainPage extends Component {
               </div>
               <div className="bottom-control">
                 <div className="clear" onClick={::this.filterClear}>
-                  <span>clear filter</span>
+                  <span>
+                    <i className="fa fa-times-circle-o" aria-hidden="true" />
+                    clear filter
+                  </span>
                 </div>
                 <div className="total-filter" onClick={::this.filterDataTitle}>
                   <span>show-result</span>

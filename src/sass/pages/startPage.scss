@@ -11,6 +11,9 @@
     display: flex;
     flex-direction: column;
     padding: 40px;
+    .builder-task{
+      margin: 0;
+    }
     .inside-wr {
       padding-top: 40px;
       display: flex;
@@ -82,9 +85,12 @@
     }
 
     &.main-page{
-      .builder-task{
-        background: #fff;
-        padding: 40px 0 0 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      .header-wr{
+        //background: #fff;
         .goAdmin{
           color: #000;
         }

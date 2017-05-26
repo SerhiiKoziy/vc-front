@@ -22,6 +22,19 @@ class TaskPage extends Component {
       return (
         <div className={'page task-page'}>
           <div className="inside-wr">
+            <div className="header-wr">
+              <div className="header">
+                <div className="header-fiq">
+                  <span>? FIQ</span>
+                </div>
+                <div className="header-title">
+                  <h4>Header</h4>
+                </div>
+                <div className="header-contact">
+                  <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
+                </div>
+              </div>
+            </div>
             <div className="task-wr">
               <div className="task-header">
                 <Link to="/">
@@ -35,6 +48,16 @@ class TaskPage extends Component {
                 weather={this.props.currentTask.weather}
               />
 
+            </div>
+            <div className="footer-task">
+              <div className="footer-wr">
+                <div className="send-btn">
+                  <span>Send me to email</span>
+                </div>
+                <div className="proc-btn">
+                  <span>Proceed to Request</span>
+                </div>
+              </div>
             </div>
             {this.props.children}
           </div>

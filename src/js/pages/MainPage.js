@@ -56,14 +56,27 @@ class MainPage extends Component {
     return (
       <div className={'page start-page columns'}>
         <div className="dashboard-wr main-page">
-          <div className="builder-task">
+          <div className="header-wr">
+            <div className="header">
+              <div className="header-fiq">
+                <span>? FIQ</span>
+              </div>
+              <div className="header-title">
+                <h4>Header</h4>
+              </div>
+              <div className="header-contact">
+                <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
+              </div>
+            </div>
             <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
             <div className="search-wr">
-              <SearchFilter data={this.props.data} />
-              <div className="search-btn">
-                <Link to={'/FilterPage'}>
-                  <span><i className="fa fa-search" aria-hidden="true" /></span>
-                </Link>
+              <div className="search-wr-inside">
+                <SearchFilter data={this.props.data} />
+                <div className="search-btn">
+                  <Link to={'/FilterPage'}>
+                    <span><i className="fa fa-search" aria-hidden="true" /></span>
+                  </Link>
+                </div>
               </div>
               {/* <Search
                 placeholder=''
