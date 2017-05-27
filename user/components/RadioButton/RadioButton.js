@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-const RadioButton = ({ classType, type, onChange, label, id, defaultChecked, name, key }) => {
+const RadioButton = ({ classType, type, onChange, label, id, defaultChecked, name }) => {
   return (
-    <div className={`radio-wr ${classType}`} key={key}>
+    <div className={`radio-wr ${classType}`}>
       <input
         type={type}
         id={`${id}`}
@@ -19,7 +19,6 @@ const RadioButton = ({ classType, type, onChange, label, id, defaultChecked, nam
 // Make ESLint happy again: add validation to props
 RadioButton.propTypes = {
   onChange: React.PropTypes.func,
-  key: React.PropTypes.number,
   classType: React.PropTypes.string,
   type: React.PropTypes.string,
   label: React.PropTypes.string,
