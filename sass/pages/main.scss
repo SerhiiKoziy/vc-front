@@ -1,0 +1,45 @@
+main {
+  position: relative;
+  height: 100%;
+
+  .route-wr {
+    height: calc(100% - 60px);
+  }
+
+  .root, .page {
+    height: 100%;
+  }
+
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+.header-wr{
+  margin: 0;
+  //padding: 0 0 20px 0;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 20px;
+  align-items: center;
+  color: #000;
+  background: #fff;
+  .header-fiq{
+
+  }
+  .header-title{
+    h4{
+      margin: 0;
+    }
+
+  }
+  .header-contact{
+
+  }
+}

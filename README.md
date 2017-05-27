@@ -1,11 +1,7 @@
 # ToDo forecast manager 
 
-
-![](https://raw.githubusercontent.com/SerhiiKoziy/ToDo-Manager/master/public/assets/images/gif.gif)
-
-
-install:
+# install:
 npm i
 
-start:
+# start:
 npm run dev

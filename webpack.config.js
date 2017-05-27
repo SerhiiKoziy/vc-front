@@ -3,22 +3,22 @@ const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
+const basicEntry = [
+  'webpack-dev-server/client?http://localhost:9090',
+  'webpack/hot/only-dev-server',
+  'babel-polyfill',
+];
+
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    'webpack-dev-server/client?http://localhost:9090',
-    'webpack/hot/only-dev-server',
-    './src/js/index',
-  ],
-  devServer: {
-    proxy: {
-      '/': 'http://localhost:3001',
-    },
+  entry: {
+    user: basicEntry.concat(['./user/client.js']),
+    admin: basicEntry.concat(['./admin/client.js']),
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/assets/js',
+    filename: '[name]-main.js',
+    publicPath: '/public/js',
   },
 
   plugins: [

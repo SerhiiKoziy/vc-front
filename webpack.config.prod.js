@@ -4,13 +4,19 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+const basicEntry = [
+  'babel-polyfill',
+];
 
 module.exports = {
-  entry: ['babel-polyfill', './src/js/index'],
+  entry: {
+    user: basicEntry.concat(['./user/client.js']),
+    admin: basicEntry.concat(['./admin/client.js']),
+  },
   output: {
     path: path.join(__dirname, 'public/assets/js/'),
-    filename: 'bundle.js',
-    publicPath: '/assets/js/'
+    filename: '[name]-main.js',
+    publicPath: '/public/js',
   },
 
   plugins: [
