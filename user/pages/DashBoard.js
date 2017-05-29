@@ -17,13 +17,14 @@ class DashBoard extends Component {
   static propTypes = {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
-    data: React.PropTypes.array,
+    data: React.PropTypes.object,
   };
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
   }
   renderDustbins() {
-    return this.props.data.map((item, i) => {
+    if(this.props.data.data){
+    return this.props.data.data.map((item, i) => {
       return (
         <Task
           item={item}
@@ -34,6 +35,7 @@ class DashBoard extends Component {
         />
       );
     });
+    }
   }
 
   render() {

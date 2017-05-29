@@ -20,7 +20,7 @@ class MainPage extends Component {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
     push: React.PropTypes.func,
-    data: React.PropTypes.array,
+    data: React.PropTypes.object,
   };
   componentDidMount() {
     this.props.getUsers();
@@ -29,7 +29,7 @@ class MainPage extends Component {
     this.props.deleteTask(taskId);
   }
   renderDustbins() {
-    const data = this.props.data || [];
+    const data = this.props.data.data || [];
     return data.map((item, i) => {
       return (
         <Link key={`task-${i}`} to={`/task/${item.id}`}>
@@ -72,7 +72,7 @@ class MainPage extends Component {
             <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
             <div className="search-wr">
               <div className="search-wr-inside">
-                <SearchFilter data={this.props.data} />
+                <SearchFilter data={this.props.data.data} />
                 <div className="search-btn">
                   <Link to={'/FilterPage'}>
                     <span><i className="fa fa-search" aria-hidden="true" /></span>

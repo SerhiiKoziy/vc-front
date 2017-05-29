@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteTask, updateTask } from '../actions';
+import { deleteTask, updateTask, getUsers } from '../actions';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
@@ -9,6 +9,8 @@ import Autosuggest from 'react-autosuggest';
 import autosuggestHighlightMatch from 'autosuggest-highlight/match';
 import autosuggestHighlightParse from 'autosuggest-highlight/parse';
 
+import Select from 'react-select';
+//import 'react-select/dist/react-select.css';
 
 import RadioButton from '../components/RadioButton/RadioButton';
 import Task from '../components/Task/Task';
@@ -25,6 +27,15 @@ class MainPage extends Component {
       isUseFiler: false,
       value: '',
       suggestions: [],
+      multi: true,
+      multiValue: [],
+      /*options: [
+        { value: 'Red', label: 'Red' },
+        { value: 'Green', label: 'Green' },
+        { value: 'Blue', label: 'Blue' },
+        { value: 'Blue', label: 'Blue' }
+      ],*/
+      //options: this.props.data.options
     };
   }
 
@@ -32,20 +43,96 @@ class MainPage extends Component {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
     push: React.PropTypes.func,
-    data: React.PropTypes.array,
+    data: React.PropTypes.object,
   };
+  componentDidMount() {
+    this.props.getUsers();
+    /*if(this.props.data.data()) {
+      this.optionsSelect;
+    }*/
+
+  }
+  optionsSelect() {
+    const valueSelect = [];
+    this.props.data.data.map(item => {
+      const title = item.title;
+      const obj = {value: title, label: title };
+      console.log('obj', obj);
+      valueSelect.push(obj)
+
+    });
+    console.log('valueSelect', this.props.data)
+    this.setState({options: valueSelect})
+  }
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
   }
   filterDataTitle() {
-    const { data } = this.props;
-    const { value } = this.state;
-    const dataFilterTitle = data.filter((item) => {
+    const { data } = this.props.data;
+    const { multiValue } = this.state;
+    /*const dataFilterTitle = data.filter((item) => {
       return value ? value === item.title : item;
+    });*/
+    const dataFilterTitleOrSkill = [];
+    const CVMock = [
+      {
+        title: 'title',
+        skills: [
+          {
+            main: true,
+            skill: 'php',
+          },
+          {
+            main: true,
+            skill: 'java',
+          }
+
+        ]
+      },
+      {
+        title: 'title2',
+        skills: [
+          {
+            main: true,
+            skill: 'php',
+          },
+          {
+            main: false,
+            skill: 'java',
+          }
+
+        ]
+      }
+    ];
+    data.map( dataCV => {
+      const title = dataCV.title;
+      let found = false;
+      if(dataCV.skills){
+        dataCV.skills.map(skill => {
+          if(skill.main){
+            //mainSkills.push(skill.skill)
+            multiValue.map(item => {
+              if(item.value === skill.skill){
+                found = true;
+                dataFilterTitleOrSkill.push(dataCV)
+              }
+            })
+          }
+        })
+      }else if (!found) {
+        multiValue.map(item => {
+          if(item.value === title){
+            found = true;
+            dataFilterTitleOrSkill.push(dataCV)
+          }
+        })
+      }
+
     });
 
     this.setState({ isUseFiler: true });
-    this.filterDataCost(dataFilterTitle);
+    console.log('dataFilterTitleOrSkill', dataFilterTitleOrSkill)
+    this.filterDataCost(dataFilterTitleOrSkill);
   }
   filterDataCost(dataFilterTitle) {
     const { valueCost } = this.state;
@@ -76,112 +163,50 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const { filterData, isUseFiler } = this.state;
-    const data = filterData.length > 0 ? filterData : (!isUseFiler ? this.props.data : []);
-    return data.map((item, i) => {
-      return (
-        <Link key={`task-${i}`} to={`/task/${item.id}`}>
-          <Task
-            item={item}
-            key={i}
-            isAdminPanel={false}
-            onClick={::this.goToMainFilter}
-            onDelete={(e) => { this.deleteTask(item.id, e); }}
-            /* onDelete={this.deleteTask.bind(this, item.id)}*/
-          />
-        </Link>
-      );
-    });
-  }
-  escapeRegexCharacters(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  getSuggestions(value) {
-    const escapedValue = this.escapeRegexCharacters(value.trim());
-    const normaliseData = [];
-    this.props.data.map(item => {
-      normaliseData.push({
-        first: item.title,
-        cost: item.cost,
+    console.log(this.props.data.data);
+    if(this.props.data.data){
+      const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? this.props.data.data : []);
+      return dataSel.map((item, i) => {
+        return (
+          <Link key={`task-${i}`} to={`/task/${item.id}`}>
+            <Task
+              item={item}
+              key={i}
+              isAdminPanel={false}
+              onClick={::this.goToMainFilter}
+              onDelete={(e) => { this.deleteTask(item.id, e); }}
+              /* onDelete={this.deleteTask.bind(this, item.id)}*/
+            />
+          </Link>
+        );
       });
-      return null;
-    });
-    if (escapedValue === '') {
-      return [];
     }
-    const regex = new RegExp('\\b' + escapedValue, 'i');
-    return normaliseData.filter(person => regex.test(this.getSuggestionValue(person)));
+
   }
 
-  getSuggestionValue(suggestion) {
-    return `${suggestion.first}`;
-  }
-
-  renderSuggestion(suggestion, { query }) {
-    const suggestionText = `${suggestion.first}`;
-    const matches = autosuggestHighlightMatch(suggestionText, query);
-    const parts = autosuggestHighlightParse(suggestionText, matches);
-    return (
-      <span className={'suggestion-content'}>
-        <span className="name">
-          {
-            parts.map((part, index) => {
-              const className = part.highlight ? 'highlight' : null;
-              return (
-                <span className={className} key={index}>{part.text}</span>
-              );
-            })
-          }
-        </span>
-        <p className="cost-cv">{` $${suggestion.cost}`}</p>
-      </span>
-    );
-  }
-  onChange = (event, { newValue }) => {
-    const valueArray = [];
-    this.setState({
-      value: newValue,
-    });
-  };
-
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: this.getSuggestions(value),
-    });
-  };
-
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: [],
-    });
-  };
-  renderSearchFilter() {
-    const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: 'Search "java"',
-      value,
-      onChange: this.onChange,
-    };
-
-    return (
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={this.getSuggestionValue}
-        renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps}
-      />
-    );
-  }
   goToAdmin() {
     this.props.push('/DashBoard');
   }
   goToMainFilter() {
     this.props.push('/FilterPage');
   }
+  handleOnChange (valueSelect) {
+    const { multi } = this.state;
+    if (multi) {
+      this.setState({ multiValue: valueSelect });
+    } else {
+      // this.setState({ valueSelect });
+    }
+  }
+  onChange (value) {
+    this.setState({
+      value: value,
+    });
+  }
   render() {
-    const { filterData, isUseFiler } = this.state;
+    const { options } = this.props.data;
+
+    const { multi, multiValue, filterData, isUseFiler } = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -201,7 +226,14 @@ class MainPage extends Component {
 
             <div className="search-wr">
               <div className="search-wr-inside">
-                {this.renderSearchFilter()}
+
+                <Select
+                  multi={multi}
+                  options={options}
+                  onChange={::this.handleOnChange}
+                  value={ multiValue }
+                />
+
                 <div className="search-btn">
                   <span><i className="fa fa-search" aria-hidden="true" /></span>
                 </div>
@@ -314,7 +346,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, push,
+    deleteTask, updateTask, push, getUsers
   }
 )(MainPage);
 
