@@ -5,11 +5,8 @@ import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
 import { Link } from 'react-router';
 import InputRange from 'react-input-range';
-import Autosuggest from 'react-autosuggest';
-import autosuggestHighlightMatch from 'autosuggest-highlight/match';
-import autosuggestHighlightParse from 'autosuggest-highlight/parse';
-
 import Select from 'react-select';
+
 //import 'react-select/dist/react-select.css';
 
 import RadioButton from '../components/RadioButton/RadioButton';

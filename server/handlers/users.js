@@ -25,16 +25,27 @@ router.post('/create', function (req, res) {
   });
 });
 
-router.get('/:user_id/destroy', function (req, res) {
+router.delete('/:user_id', function (req, res) {
   models.User.destroy({
     where: {
       id: req.params.user_id
     }
-  }).then(function () {
-    res.redirect('/');
+  }).then(function (result) {
+    res.send({succese: true});
   });
 });
-
+router.get('/:user_id', function (req, res) {
+  models.User.findAll({
+    where: {
+      id: req.params.user_id
+    }
+  }).then(function (result) {
+    if(result.length === 0){
+      res.status(404).send('error 404');
+    }
+    res.send(result);
+  });
+});
 router.post('/:user_id/tasks/create', function (req, res) {
   models.Task.create({
     title: req.body.title,
