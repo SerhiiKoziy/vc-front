@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsers } from './api';
+import { getAllUsers, createNewCV } from './api';
 
 export function setList(payload) {
   return {
@@ -8,21 +8,38 @@ export function setList(payload) {
   };
 }
 
+export function addDataBase(payload) {
+  console.log('payload', payload)
+  return {
+    type: types.ADD_DATA,
+    payload,
+  };
+}
+
 export function getUsers() {
   return (dispatch) => {
     getAllUsers().then(res => {
       console.log('res', res);
-      // dispatch(updateTask(task));
+      dispatch(addDataBase(res.data));
     });
   };
 }
 
+export function createCV(dataCV) {
+  return (dispatch) => {
+    createNewCV(dataCV).then(res => {
+      console.log('res', res);
+     // dispatch(addDataBase(res.data));
+    });
+  };
+}
 export function editTask(payload) {
   return {
     type: types.UPDATE_CV,
     payload,
   };
 }
+
 /* export function getUsers(payload) {
   return {
     type: types.UPDATE_TASK,

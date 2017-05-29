@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
 import TextField from '../TextField/TextField';
 import CheckBox from '../CheckBox/CheckBox';
-import { createTask, editTask, getUsers } from '../../actions';
+import { createTask, editTask, getUsers, createCV } from '../../actions';
 
 class CreateTask extends React.Component {
   static propTypes = {
@@ -12,6 +12,7 @@ class CreateTask extends React.Component {
     editTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
     createTask: React.PropTypes.func,
+    createCV: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -70,8 +71,6 @@ class CreateTask extends React.Component {
       ...values,
       date,
       id: currentTime,
-      /* createdAt: currentTime,
-      updatedAt: currentTime,*/
     };
   }
   handleInputChange(target, e) {
@@ -103,15 +102,15 @@ class CreateTask extends React.Component {
   }
   handleFormSubmit(event) {
     event.preventDefault();
-    const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createTask;
+    const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createCV;
     const task = this.createTask(this.state.values);
+    // const task = {"id":45,"username":"33333333","title":"Java $2000","experience":4,"cost":2000,"inHouse":true,"createdAt":"2017-05-21T21:06:54.448Z","updatedAt":"2017-05-21T21:06:54.448Z"};
 
     if (this.props.currentTask) {
-      task.createdAt = this.props.currentTask.createdAt;
       task.id = this.props.currentTask.id;
-      task.stageProces = this.props.currentTask.stageProces;
     }
 
+    console.log('222222222', task)
     submitHandler(task);
     const skills = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
@@ -223,7 +222,7 @@ class CreateTask extends React.Component {
           />
           <div className="have-skills">
             {
-              this.state.values.skills.map((item, i) => {
+              this.state.values.skills && (this.state.values.skills.map((item, i) => {
                 // let skillId = {` ${item.skill} + ${i}`}
                 return (
                   <ul className="skill-form" key={i}>
@@ -239,6 +238,7 @@ class CreateTask extends React.Component {
                   </ul>
                 );
               })
+              )
             }
           </div>
           <button
@@ -300,4 +300,4 @@ class CreateTask extends React.Component {
   }
 }
 
-export default connect(null, { createTask, editTask, getUsers })(CreateTask);
+export default connect(null, { createTask, editTask, getUsers, createCV })(CreateTask);

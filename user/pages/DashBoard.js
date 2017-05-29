@@ -11,7 +11,9 @@ class DashBoard extends Component {
       dustbins: [],
     };
   }
-
+  componentDidMount() {
+    this.props.getUsers();
+  }
   static propTypes = {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
@@ -57,7 +59,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask,
+    deleteTask, updateTask, getUsers
   }
 )(DashBoard);
 

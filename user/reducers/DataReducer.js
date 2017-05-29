@@ -14,14 +14,18 @@ export default function DataReducer(state = INITIAL_STATE, action) {
         return item.id !== payload;
       });
 
+    case types.ADD_DATA:
+      return payload;
+
+
     case types.UPDATE_CV:
       const filteredElements = data.filter(element => {
         return element.id !== payload.id;
       });
       return [...filteredElements, payload];
 
-    case types.SET_LIST:
-      return payload;
+    /*case types.SET_LIST:
+      return payload;*/
 
     default:
       return state;

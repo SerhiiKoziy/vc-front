@@ -30,7 +30,7 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
       <div className="skills-list">
         <ul>
         {
-          item.skills.map((skill, i) => {
+          item.skills && (item.skills.map((skill, i) => {
             return (
               <li key={i}>
                 {`${skill.skill} : ${skill.experience} year(s)`}
@@ -40,6 +40,7 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
               </li>
             );
           })
+          )
         }
         </ul>
       </div>

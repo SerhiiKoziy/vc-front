@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
 import { Link } from 'react-router';
 import InputRange from 'react-input-range';
-// import 'react-input-range/lib/css/index.css';
 import Autosuggest from 'react-autosuggest';
 import autosuggestHighlightMatch from 'autosuggest-highlight/match';
 import autosuggestHighlightParse from 'autosuggest-highlight/parse';
@@ -139,6 +138,7 @@ class MainPage extends Component {
     );
   }
   onChange = (event, { newValue }) => {
+    const valueArray = [];
     this.setState({
       value: newValue,
     });
@@ -193,11 +193,12 @@ class MainPage extends Component {
               <div className="header-title">
                 <h4>Header</h4>
               </div>
+              <div className="" onClick={::this.goToAdmin}>goToAdmin</div>
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>
             </div>
-            <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
+
             <div className="search-wr">
               <div className="search-wr-inside">
                 {this.renderSearchFilter()}
