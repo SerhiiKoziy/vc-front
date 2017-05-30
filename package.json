@@ -46,6 +46,7 @@
     "react-dnd": "^2.2.4",
     "react-dnd-html5-backend": "^2.2.4",
     "react-dom": "15.3.1",
+    "react-file-base64": "^1.0.2",
     "react-input-range": "^1.1.4",
     "react-mdl": "*",
     "react-places-autocomplete": "^3.0.0",

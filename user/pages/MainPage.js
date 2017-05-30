@@ -65,11 +65,12 @@ class MainPage extends Component {
               <div className="header-title">
                 <h4>Header</h4>
               </div>
+              <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>
             </div>
-            <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
+
             <div className="search-wr">
               <div className="search-wr-inside">
                 <SearchFilter data={this.props.data.data} />

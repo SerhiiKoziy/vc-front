@@ -1,38 +1,59 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsers, createNewCV } from './api';
+import { getAllUsersAPI, getUserAPI, createNewCvAPI, deleteUserAPI } from './api';
 
-export function setList(payload) {
-  return {
-    type: types.SET_LIST,
-    payload,
+//POST to API
+export function createUser(dataCV) {
+  return (dispatch) => {
+    createNewCvAPI(dataCV).then(res => {
+      //console.log('createUser res', res);
+      dispatch(getUsers());
+    });
+  };
+}
+//GET ALL USERS from API
+export function getUsers() {
+  return (dispatch) => {
+    getAllUsersAPI().then(res => {
+      //console.log('res', res);
+      dispatch(addDataBase(res.data));
+    });
+  };
+}
+//GET ONE USER from API
+export function getUser(userId) {
+  return (dispatch) => {
+    getUserAPI(userId).then(res => {
+      if(res){
+        //console.log('res getUser', res);
+        // dispatch(getUsers());
+      }
+    });
+  };
+}
+//DELETE to API
+export function deleteUser(userId) {
+  return (dispatch) => {
+    deleteUserAPI(userId).then(res => {
+      if(res){
+        //console.log('res delete', res);
+        dispatch(getUsers());
+      }
+    });
   };
 }
 
+
 export function addDataBase(payload) {
-  console.log('payload', payload)
+  console.log('payload', payload);
   return {
     type: types.ADD_DATA,
     payload,
   };
 }
 
-export function getUsers() {
-  return (dispatch) => {
-    getAllUsers().then(res => {
-      console.log('res', res);
-      dispatch(addDataBase(res.data));
-    });
-  };
-}
 
-export function createCV(dataCV) {
-  return (dispatch) => {
-    createNewCV(dataCV).then(res => {
-      console.log('res', res);
-     // dispatch(addDataBase(res.data));
-    });
-  };
-}
+
+
 export function editTask(payload) {
   return {
     type: types.UPDATE_CV,
@@ -40,12 +61,6 @@ export function editTask(payload) {
   };
 }
 
-/* export function getUsers(payload) {
-  return {
-    type: types.UPDATE_TASK,
-    payload,
-  };
-}*/
 export function createTask(payload) {
   return {
     type: types.ADD_CV,
@@ -57,31 +72,5 @@ export function deleteTask(taskId) {
   return {
     type: types.DELETE_CV,
     payload: taskId,
-  };
-}
-
-
-
-
-export function editTask2(task) {
-  return (dispatch) => {
-    /* getWeatherByCoordinates(task).then(weather => {
-      task.weather = weather;
-      dispatch(updateTask(task));
-    }
-    );*/
-  };
-}
-
-export function createTask2(task) {
-  return (dispatch) => {
-    console.log(task);
-    dispatch(addTask(task));
-    /* getWeatherByCoordinates(task).then(
-      (weather) => {
-        const taskWithWeather = { weather, ...task };
-        dispatch(addTask(taskWithWeather));
-      }
-    );*/
   };
 }

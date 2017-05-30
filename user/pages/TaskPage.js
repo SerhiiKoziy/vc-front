@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
-import { deleteTask } from '../actions';
+import { deleteTask, getUser } from '../actions';
 import Task from '../components/Task/Task';
 
 class TaskPage extends Component {
@@ -12,13 +12,15 @@ class TaskPage extends Component {
     deleteTask: React.PropTypes.func,
     children: React.PropTypes.any,
   };
-
+  componentDidMount() {
+    this.props.getUser(this.props.data.data[0].id);
+  }
   deleteTask() {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
   }
   render() {
-    if (this.props.currentTask) {
+    if (this.props.data) {
       return (
         <div className={'page task-page'}>
           <div className="inside-wr">
@@ -43,9 +45,8 @@ class TaskPage extends Component {
                 </Link>
               </div>
               <Task
-                item={this.props.currentTask}
+                item={this.props.data.data[0]}
                 onDelete={::this.deleteTask}
-                weather={this.props.currentTask.weather}
               />
 
             </div>
@@ -71,12 +72,15 @@ class TaskPage extends Component {
 }
 
 export default connect(
-  (state, ownProps) => {
+  /*(state, ownProps) => {
     return {
       currentTask: state.data.find(task => {
         return task.id === parseFloat(ownProps.params.taskId);
       }),
     };
+  },*/
+  (state, ownProps) => {
+    return { data: state.data };
   },
-  { deleteTask, push }
+  { deleteTask, getUser, push }
 )(TaskPage);

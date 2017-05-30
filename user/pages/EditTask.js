@@ -5,13 +5,14 @@ import CreateTask from '../components/Task/CreateTask';
 class EditTask extends PureComponent {
   static propTypes = {
     params: React.PropTypes.object,
-    data: React.PropTypes.array,
+    data: React.PropTypes.object,
   };
 
   render() {
-    const currentTask = this.props.data.find(item => {
+    const currentTask = this.props.data.data.find(item => {
       return item.id === parseFloat(this.props.params.taskId);
     });
+    //const num = location.pathname; RegExp(/task/([\s\S]*?)<\/edit)
 
     return (
       <div className="builder-task edit-builder-task">

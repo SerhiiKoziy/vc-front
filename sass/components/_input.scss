@@ -48,6 +48,48 @@
       display: block;
     }
   }
+  .file-input-wr{
+    position: relative;
+    padding: 50px 0px 0px;
+    box-sizing: border-box;
+    input{
+      top:0;
+      z-index: 10;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    span{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      color: #080808;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      height: 50px;
+    }
+    p{
+      margin: 0;
+    }
+    .preVision{
+      max-width: 100%;
+      padding: 10px 0 0 0;
+      &.hidden{
+        display: none;
+      }
+      img{
+        width: 100%;
+
+      }
+    }
+  }
+
+
 
 
 }

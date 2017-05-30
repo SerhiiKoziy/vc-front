@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import dateFormat from 'dateformat';
 
 const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
  // const cloudImageUrl = `http://openweathermap.org/img/w/${item.weather.weather[0].icon}.png`;
@@ -24,7 +25,7 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
           <p>inHouse: </p> <p>{item.inHouse ? 'inHouse' : ''}</p>
         </div>
         <div className="line-cv">
-          <p>Date made cv: </p> <p>{`${item.date}`}</p>
+          <p>Created: </p> <p>{`${dateFormat(item.createdAt, 'dddd, mmmm dS')}`}</p>
         </div>
       </div>
       <div className="skills-list">

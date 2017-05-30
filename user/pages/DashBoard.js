@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteTask, updateTask, getUsers } from '../actions';
+import { deleteUser, updateTask, getUsers } from '../actions';
 import { connect } from 'react-redux';
 import CreateTask from '../components/Task/CreateTask';
 import Task from '../components/Task/Task';
@@ -19,8 +19,9 @@ class DashBoard extends Component {
     updateTask: React.PropTypes.func,
     data: React.PropTypes.object,
   };
-  deleteTask(taskId) {
-    this.props.deleteTask(taskId);
+  deleteTask(userId) {
+    console.log('userId', userId)
+    this.props.deleteUser(userId);
   }
   renderDustbins() {
     if(this.props.data.data){
@@ -61,7 +62,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, getUsers
+    deleteUser, updateTask, getUsers
   }
 )(DashBoard);
 

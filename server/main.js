@@ -9,7 +9,7 @@ const server = express();
 
 console.log(path.join(__dirname, '/../assets'));
 // TODO : add middleware
-server.use(bodyParser.json());
+server.use(bodyParser.json({limit: '5000mb'}));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use('/assets',express.static(path.join(__dirname, '/../assets')));

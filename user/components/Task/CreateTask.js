@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
+
 import TextField from '../TextField/TextField';
 import CheckBox from '../CheckBox/CheckBox';
-import { createTask, editTask, getUsers, createCV } from '../../actions';
+import { createTask, editTask, getUsers, createUser } from '../../actions';
 
 class CreateTask extends React.Component {
   static propTypes = {
@@ -12,7 +13,7 @@ class CreateTask extends React.Component {
     editTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
     createTask: React.PropTypes.func,
-    createCV: React.PropTypes.func,
+    createUser: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -29,6 +30,8 @@ class CreateTask extends React.Component {
       originalDate: nextDay,
       skillsChange: false,
       skills: [],
+      image: '',
+      fileName: '',
     };
     this.defaultState = {
       values: this.props.currentTask || defaultValues,
@@ -41,6 +44,7 @@ class CreateTask extends React.Component {
         title: 'Title is required',
         cost: 'Cost is required',
         experience: 'Experience is required',
+        image: 'Image is required',
         skillExp: 'skillExp is required',
       },
       validation: {
@@ -53,6 +57,9 @@ class CreateTask extends React.Component {
         experience: (value) => {
           return value.length > 0;
         },
+        image: (value) => {
+          return value.length > 0;
+        },
       },
       skillName: '',
       skillExp: '',
@@ -62,7 +69,7 @@ class CreateTask extends React.Component {
   }
 
   createTask(values) {
-    const dateObject = new Date(values.originalDate);
+    const dateObject = new Date();
     const date = dateFormat(dateObject, 'dddd, mmmm dS');
     const currentTime = new Date().getTime();
 
@@ -75,7 +82,7 @@ class CreateTask extends React.Component {
   }
   handleInputChange(target, e) {
     // console.log('handleInputChange', target, e)
-    this.updateValue(target, e.target.value);
+    this.updateValue(target, e.target.value.toString());
   }
   updateValue(target, value) {
     if (target === 'skillName' || target === 'skillExp') {
@@ -102,7 +109,7 @@ class CreateTask extends React.Component {
   }
   handleFormSubmit(event) {
     event.preventDefault();
-    const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createCV;
+    const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createUser;
     const task = this.createTask(this.state.values);
     // const task = {"id":45,"username":"33333333","title":"Java $2000","experience":4,"cost":2000,"inHouse":true,"createdAt":"2017-05-21T21:06:54.448Z","updatedAt":"2017-05-21T21:06:54.448Z"};
 
@@ -110,7 +117,6 @@ class CreateTask extends React.Component {
       task.id = this.props.currentTask.id;
     }
 
-    console.log('222222222', task)
     submitHandler(task);
     const skills = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
@@ -121,7 +127,7 @@ class CreateTask extends React.Component {
     const validations = Object.keys(this.state.validation).filter(field => {
       return !this.state.validation[field](this.state.values[field]);
     });
-    return (validations.length === 0 && address.length > 0);
+    return (validations.length === 0);
   }
   showError(target) {
     if (this.state.touched[target]) {
@@ -174,6 +180,28 @@ class CreateTask extends React.Component {
       },
     });
   }
+  onDropHandler(target, e) {
+    // console.log(target, e.target.files);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    let result;
+    reader.onload = (event) => {
+      result = event.target.result;
+      // console.log(event.target.result)
+      this.setState({
+        image: event.target.result,
+        fileName: file.name,
+        values: {
+          ...this.state.values,
+          image: event.target.result,
+          fileName: file.name,
+        },
+      });
+      //console.log(event.target.result);
+    };
+
+    reader.readAsDataURL(file);
+  }
   render() {
     return (
       <div className="form-wr">
@@ -206,6 +234,18 @@ class CreateTask extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('experience')}
           />
+          <TextField
+            classNameBox={'input-wr'}
+            placeholder={'Enter image'}
+            value={'name'}
+            fileName={this.state.values.fileName}
+            preVision={this.state.values.image}
+            type={'file'}
+            fieldName="image"
+            onChange={::this.onDropHandler}
+            onBlur={::this.handleInputBlur}
+            errorText={this.showError('image')}
+          />
           <CheckBox
             classNameBox={'input-wr'}
             fieldName={"inHouse"}
@@ -220,6 +260,11 @@ class CreateTask extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('inHouse')}
           />
+
+          {/*<FileBase64*/}
+            {/*multiple={ true }*/}
+            {/*onDone={ this.getFiles.bind(this) }*/}
+          {/*/>*/}
           <div className="have-skills">
             {
               this.state.values.skills && (this.state.values.skills.map((item, i) => {
@@ -300,4 +345,4 @@ class CreateTask extends React.Component {
   }
 }
 
-export default connect(null, { createTask, editTask, getUsers, createCV })(CreateTask);
+export default connect(null, { createTask, editTask, getUsers, createUser })(CreateTask);

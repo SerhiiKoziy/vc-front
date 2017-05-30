@@ -26,12 +26,13 @@ router.post('/create', function (req, res) {
 });
 
 router.delete('/:user_id', function (req, res) {
+  console.log('delete req', req);
   models.User.destroy({
     where: {
       id: req.params.user_id
     }
   }).then(function (result) {
-    res.send({succese: true});
+    res.send({success: true});
   });
 });
 router.get('/:user_id', function (req, res) {
