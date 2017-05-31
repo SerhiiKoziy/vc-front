@@ -20,9 +20,12 @@ class TaskPage extends Component {
     this.props.deleteTask(this.props.currentTask.id);
   }
   render() {
+    const { application } = this.props.data;
+    const base = (application === 'admin') ? 'admin' : '';
+    //console.log(isAdminPanel)
     if (this.props.data) {
       return (
-        <div className={'page task-page'}>
+        <div className={`page task-page ${application}-task`}>
           <div className="inside-wr">
             <div className="header-wr">
               <div className="header">
@@ -39,10 +42,30 @@ class TaskPage extends Component {
             </div>
             <div className="task-wr">
               <div className="task-header">
-                <Link to="/">
+                <Link className="left-part" to={`/${base}`}>
                   <i className="fa fa-angle-left" aria-hidden="true"></i>
                   <span>Back to board</span>
                 </Link>
+                <div className="right-part">
+
+                  <div className="header-center-wr">
+                    <img src="" alt=""/>
+                    <div className="center-info">
+                      <p className="name">Yura Kolesnicov</p>
+                      <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
+                    </div>
+                  </div>
+
+                  <div className="cost-info">
+                    <p className="cost">$3000/month</p>
+                    <p className="cost-desc">this cost is all</p>
+                  </div>
+
+                  <div className="proc-btn">
+                    <span>Proceed to Request</span>
+                  </div>
+
+                </div>
               </div>
               <Task
                 item={this.props.data.data[0]}

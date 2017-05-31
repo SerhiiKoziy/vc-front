@@ -24,13 +24,15 @@ class DashBoard extends Component {
     this.props.deleteUser(userId);
   }
   renderDustbins() {
-    if(this.props.data.data){
+    const {data, application} = this.props.data;
+    // application === 'admin' ?
+    if(data){
     return this.props.data.data.map((item, i) => {
       return (
         <Task
           item={item}
           key={i}
-          isAdminPanel={true}
+          isAdminPanel={application}
           // onDelete={this.deleteTask.bind(this, item.id)}
           onDelete={(e) => { this.deleteTask(item.id, e); }}
         />

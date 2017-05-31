@@ -19,6 +19,7 @@ export default function createHandler(AREA) {
       type: 'SET_AREA',
       payload: AREA,
     });
+
     match({
       history: history,
       routes: getRoutes(store),

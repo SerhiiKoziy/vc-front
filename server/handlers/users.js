@@ -47,6 +47,21 @@ router.get('/:user_id', function (req, res) {
     res.send(result);
   });
 });
+router.put('/:user_id', function (req, res) {
+  models.User.update({OwnerId: peopleInfo.newuser},
+    {where: {id: peopleInfo.scenario.id}})
+    .then(function (result) {
+      models.People.findById(peopleInfo.scenario.id)
+        .then(function(user){
+          res(user).code(200);
+        })
+        .catch(function (err) {
+
+        });
+    }).catch(function (err) {
+        request.server.log(['error'], err.stack);
+    })
+})
 router.post('/:user_id/tasks/create', function (req, res) {
   models.Task.create({
     title: req.body.title,

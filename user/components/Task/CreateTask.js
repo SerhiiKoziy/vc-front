@@ -109,6 +109,10 @@ class CreateTask extends React.Component {
   }
   handleFormSubmit(event) {
     event.preventDefault();
+
+    let formData = new FormData(document.getElementById('upload_form'));
+    formData.append('tax_file', document.getElementById('file-input').files);
+    console.log('formData', formData);
     const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createUser;
     const task = this.createTask(this.state.values);
     // const task = {"id":45,"username":"33333333","title":"Java $2000","experience":4,"cost":2000,"inHouse":true,"createdAt":"2017-05-21T21:06:54.448Z","updatedAt":"2017-05-21T21:06:54.448Z"};
@@ -117,7 +121,7 @@ class CreateTask extends React.Component {
       task.id = this.props.currentTask.id;
     }
 
-    submitHandler(task);
+    submitHandler(formData);
     const skills = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
     this.setState(this.defaultState);
@@ -205,7 +209,7 @@ class CreateTask extends React.Component {
   render() {
     return (
       <div className="form-wr">
-        <form onSubmit={::this.handleFormSubmit}>
+        <form id="upload_form" onSubmit={::this.handleFormSubmit} encType="multipart/form-data">
           <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter title'}
@@ -235,6 +239,7 @@ class CreateTask extends React.Component {
             errorText={this.showError('experience')}
           />
           <TextField
+            id={'file-input'}
             classNameBox={'input-wr'}
             placeholder={'Enter image'}
             value={'name'}

@@ -26,13 +26,6 @@ class MainPage extends Component {
       suggestions: [],
       multi: true,
       multiValue: [],
-      /*options: [
-        { value: 'Red', label: 'Red' },
-        { value: 'Green', label: 'Green' },
-        { value: 'Blue', label: 'Blue' },
-        { value: 'Blue', label: 'Blue' }
-      ],*/
-      //options: this.props.data.options
     };
   }
 
@@ -44,9 +37,6 @@ class MainPage extends Component {
   };
   componentDidMount() {
     this.props.getUsers();
-    /*if(this.props.data.data()) {
-      this.optionsSelect;
-    }*/
 
   }
   optionsSelect() {
@@ -128,7 +118,6 @@ class MainPage extends Component {
     });
 
     this.setState({ isUseFiler: true });
-    console.log('dataFilterTitleOrSkill', dataFilterTitleOrSkill)
     this.filterDataCost(dataFilterTitleOrSkill);
   }
   filterDataCost(dataFilterTitle) {
@@ -160,7 +149,7 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const { filterData, isUseFiler } = this.state;
-    console.log(this.props.data.data);
+    const {data, application} = this.props.data;
     if(this.props.data.data){
       const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? this.props.data.data : []);
       return dataSel.map((item, i) => {
@@ -169,7 +158,7 @@ class MainPage extends Component {
             <Task
               item={item}
               key={i}
-              isAdminPanel={false}
+              isAdminPanel={application}
               onClick={::this.goToMainFilter}
               onDelete={(e) => { this.deleteTask(item.id, e); }}
               /* onDelete={this.deleteTask.bind(this, item.id)}*/

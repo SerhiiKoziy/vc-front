@@ -8,7 +8,7 @@ import MainPage from './pages/MainPage';
 import FilterPage from './pages/FilterPage';
 
 export default function getRoutes(store){
-
+  let base = "/client";
   return (
     <Route name="Root" path="/" component={Root}>
       <Route name="task" path="task/:taskId" component={TaskPage}>

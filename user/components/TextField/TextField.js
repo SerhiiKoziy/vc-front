@@ -60,7 +60,7 @@ TextField.propTypes = {
   fieldName: React.PropTypes.string,
   classNameBox: React.PropTypes.string,
   value: React.PropTypes.any,
-  id: React.PropTypes.number,
+  id: React.PropTypes.any,
   maxLength: React.PropTypes.any,
 
 };

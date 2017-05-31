@@ -44,7 +44,7 @@ export function deleteUser(userId) {
 
 
 export function addDataBase(payload) {
-  console.log('payload', payload);
+  // console.log('payload', payload);
   return {
     type: types.ADD_DATA,
     payload,

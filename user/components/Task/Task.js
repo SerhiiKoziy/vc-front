@@ -4,7 +4,7 @@ import dateFormat from 'dateformat';
 
 const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
  // const cloudImageUrl = `http://openweathermap.org/img/w/${item.weather.weather[0].icon}.png`;
-
+  const base = (isAdminPanel === 'admin') ? 'admin' : '';
   return (
     <div
       className={'task'}
@@ -48,15 +48,15 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
 
       {children}
       {
-        isAdminPanel && (
+        (isAdminPanel === 'admin') && (
           <div className="controls">
             <div className="control control-view">
-              <Link to={`/task/${item.id}`}>
+              <Link to={`${base}/task/${item.id}`}>
                 <i className="fa fa-eye" aria-hidden="true" />
               </Link>
             </div>
             <div className="control control-edit">
-              <Link to={`/task/${item.id}/edit`}>
+              <Link to={`${base}/task/${item.id}/edit`}>
                 <i className="fa fa-pencil-square-o" aria-hidden="true" />
               </Link>
             </div>
@@ -81,7 +81,7 @@ Task.propTypes = {
   map: React.PropTypes.any,
   onDelete: React.PropTypes.func,
   onClick: React.PropTypes.func,
-  isAdminPanel: React.PropTypes.bool,
+  isAdminPanel: React.PropTypes.string,
 };
 
 export default Task;

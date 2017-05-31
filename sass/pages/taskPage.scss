@@ -1,4 +1,5 @@
 .page.task-page {
+  height: 100vh;
   h3 {
     color: #006ec5;
     //font-size: 60px;
@@ -11,15 +12,62 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
     //height: 100vh;
 
     .task-header {
       line-height: 60px;
       height: 60px;
-
+      display: flex;
+      justify-content: space-between;
       a {
         i {
           margin-right: 15px;
+        }
+      }
+      .left-part{
+
+      }
+      .right-part{
+        display: flex;
+        p{
+          height: 30px;
+          margin: 0;
+          line-height: 30px;
+        }
+        span{
+          line-height: 30px;
+        }
+        .header-center-wr{
+          padding: 0 20px 0 0;
+          img{
+
+          }
+          .center-info{
+            .name{
+
+            }
+            .info-position{
+              font-size: 13px;
+            }
+          }
+        }
+        .cost-info{
+          padding: 0 20px 0 0;
+          .cost-desc{
+            font-size: 13px;
+          }
+        }
+        .proc-btn{
+          height: 40px;
+          display: flex;
+          align-items: center;
+          background: #3e3e3e;
+          border-radius: 4px;
+          padding: 0 15px;
+          margin: 10px 10px 10px 0;
+          cursor: pointer;
+          transition: 0.4s background;
         }
       }
     }

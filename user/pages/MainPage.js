@@ -30,12 +30,13 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const data = this.props.data.data || [];
+    const { application} = this.props.data;
     return data.map((item, i) => {
       return (
         <Link key={`task-${i}`} to={`/task/${item.id}`}>
           <Task
             item={item}
-            isAdminPanel={false}
+            isAdminPanel={application}
             onClick={::this.goToMainFilter}
             onDelete={(e) => { this.deleteTask(item.id, e); }
             /* this.deleteTask.bind(this, item.id)*/}
@@ -44,15 +45,9 @@ class MainPage extends Component {
       );
     });
   }
-  goToAdmin() {
-    this.props.push('/DashBoard');
-  }
   goToMainFilter() {
     this.props.push('/FilterPage');
   }
-  // HiItems(items) {
-  //   console.log(items);
-  // }
   render() {
     return (
       <div className={'page start-page columns'}>
@@ -65,7 +60,7 @@ class MainPage extends Component {
               <div className="header-title">
                 <h4>Header</h4>
               </div>
-              <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>
+              {/*<div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>*/}
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>
