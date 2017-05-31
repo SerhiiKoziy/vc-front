@@ -1,5 +1,6 @@
 import express from 'express';
 import models from '../../models';
+import sendMessage from '../mailSender';
 
 const router = express.Router();
 
@@ -88,5 +89,20 @@ router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
   });
 });
 
+router.post('/:id/contact', (req, res) => {
+  models.User.findAll({
+    where: {
+      id: req.params.id
+    }
+  }).then(function (result) {
+    if(result.length === 0){
+      res.status(404).send('error 404');
+    }
+    console.log(JSON.stringify(result));
+    sendMessage(req.body.from, result[0]).then((info) => {
+      res.send(info);
+    });
+  });
+});
 
 export default router;
