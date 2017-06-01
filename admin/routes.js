@@ -5,8 +5,8 @@ import TaskPage from '../user/pages/TaskPage';
 import EditTask from '../user/pages/EditTask';
 import DashBoard from '../user/pages/DashBoard';
 
-export default function getRoutes(store){
-  let base = "/admin";
+export default function getRoutes(store) {
+  let base = '/admin';
   return (
     <Route name="Root" path={base} component={Root}>
       <Route name="task" path={`${base}/task/:taskId`} component={TaskPage}>

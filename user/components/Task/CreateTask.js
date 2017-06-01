@@ -271,7 +271,7 @@ class CreateTask extends React.Component {
                   <ul className="skill-form" key={i}>
                     <li><span>skill: </span><span>{item.skill}</span></li>
                     <li><span>experience: </span><span>{item.experience}</span></li>
-                    <li><span>isMain: </span><span>{item.main ? '' : 'main'}</span></li>
+                    <li><span>isMain: </span><span>{item.main ? 'main' : ''}</span></li>
                     <li
                       className="del-skill"
                       onClick={(e) => { this.deleteSkill(i, e); }}
@@ -319,7 +319,7 @@ class CreateTask extends React.Component {
             label={'isMain'}
             name={'checkbox'}
             type={'checkbox'}
-            defaultChecked={true}
+            defaultChecked={this.state.isMain}
             onChange={() => {
               this.setState({
                 isMain: !this.state.isMain,
