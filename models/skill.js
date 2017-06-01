@@ -12,9 +12,6 @@ module.exports = function(sequelize, DataTypes) {
         // Can also simply do Task.belongsTo(models.User);
         Skill.belongsTo(models.User, {
           onDelete: "CASCADE",
-          foreignKey: {
-            allowNull: false
-          }
         });
       }
     }

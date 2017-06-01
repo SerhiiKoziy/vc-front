@@ -12,7 +12,9 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.Skill)
+        User.Skill = User.hasMany(models.Skill, {
+          as: 'skills',
+        })
       }
     }
   });

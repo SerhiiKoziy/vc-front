@@ -4,7 +4,11 @@ import models from '../../models';
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  models.User.findAll().then(function (result) {
+  models.User.findAll({
+    include: [{
+      association: models.User.Skill,
+    }]
+  }).then(function (result) {
     res.send(result);
   });
 });
@@ -17,8 +21,9 @@ router.post('/create', function (req, res) {
     experience: req.body.experience,
     cost: req.body.cost,
     inHouse: req.body.inHouse,
-    image: req.body.image,
-    fileName: req.body.fileName,
+    skills: req.body.skills,
+  }, {
+    include: [models.User.Skill],
   }).then(function (result) {
     res.send({
       success: true,
