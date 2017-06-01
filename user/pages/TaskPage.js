@@ -15,33 +15,36 @@ class TaskPage extends Component {
     children: React.PropTypes.any,
     data: React.PropTypes.object,
   };
+
   constructor(props) {
     super(props);
     this.state = {
       valueSend: '',
     };
   }
+
   componentDidMount() {
-    this.props.getUser(this.props.data.data[0].id);
+    // this.props.getUser(this.props.data.data[0].id);
   }
+
   deleteTask() {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
   }
+
   handleInputChange(target, e) {
     console.log(e.target.value)
     this.setState({
       valueSend: e.target.value,
     });
   }
+
   render() {
-    const { application } = this.props.data;
-    const dataTask = this.props.data.data[0];
-    const base = (application === 'admin') ? 'admin' : '';
+    const base = (this.props.application === 'admin') ? 'admin' : '';
     // console.log(isAdminPanel)
-    if (this.props.data) {
+    if (this.props.user) {
       return (
-        <div className={`page task-page ${application}-task`}>
+        <div className={`page task-page ${this.props.application}-task`}>
           <div className="inside-wr">
             <div className="header-wr">
               <div className="header">
@@ -71,7 +74,7 @@ class TaskPage extends Component {
                     </div>
                   </div>
                   <div className="cost-info">
-                    <p className="cost">{`$${dataTask.cost}/month`}</p>
+                    <p className="cost">{`$${this.props.user.cost}/month`}</p>
                     <p className="cost-desc">this cost is all</p>
                   </div>
                   <div className="proc-btn">
@@ -80,7 +83,7 @@ class TaskPage extends Component {
                 </div>
               </div>
               <TaskView
-                item={this.props.data.data[0]}
+                item={this.props.user}
                 onDelete={::this.deleteTask}
               />
             </div>
@@ -93,8 +96,8 @@ class TaskPage extends Component {
                 <div className="input-wr">
                   <input
                     placeholder=""
-                   /* value={this.state.valueSend}
-                    onChange={(e) => this.setState({ valueSend: e.target.value })}*/
+                    /* value={this.state.valueSend}
+                     onChange={(e) => this.setState({ valueSend: e.target.value })}*/
                   />
                 </div>
                 <div className="send-btn-wr">
@@ -129,14 +132,27 @@ class TaskPage extends Component {
 
 export default connect(
   /* (state, ownProps) => {
-    return {
-      currentTask: state.data.find(task => {
-        return task.id === parseFloat(ownProps.params.taskId);
-      }),
-    };
-  },*/
-  (state) => {
-    return { data: state.data };
+   return {
+   currentTask: state.data.find(task => {
+   return task.id === parseFloat(ownProps.params.taskId);
+   }),
+   };
+   },*/
+  (state, ownProps) => {
+    if (state.data && state.data.data && state.data.data.length > 0) {
+      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId));
+
+      if (user) {
+        return {
+          user,
+          application: state.data.application,
+        };
+      }
+
+      return {};
+    }
+
+    return {};
   },
   { deleteTask, getUser, push }
 )(TaskPage);

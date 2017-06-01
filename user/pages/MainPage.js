@@ -23,9 +23,6 @@ class MainPage extends Component {
     push: React.PropTypes.func,
     data: React.PropTypes.object,
   };
-  componentDidMount() {
-    this.props.getUsers();
-  }
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
   }
