@@ -1,10 +1,19 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI, getUserAPI, createNewCvAPI, deleteUserAPI } from './api';
+import { getAllUsersAPI, getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI } from './api';
 
 //POST to API
 export function createUser(dataCV) {
   return (dispatch) => {
-    createNewCvAPI(dataCV).then(res => {
+    createUserAPI(dataCV).then(res => {
+      //console.log('createUser res', res);
+      dispatch(getUsers());
+    });
+  };
+}
+//PUT to API
+export function updateUser(dataCV) {
+  return (dispatch) => {
+    updateUserAPI(dataCV).then( res => {
       //console.log('createUser res', res);
       dispatch(getUsers());
     });

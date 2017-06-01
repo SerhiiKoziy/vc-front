@@ -9,15 +9,15 @@ import '../sass/common.scss';
 
 const { store, history } = configureStore(browserHistory, window.App);
 
-if (localStorage.getItem('LocalStorageTaskList')) {
-  const string = localStorage.getItem('LocalStorageTaskList');
-  try {
-    const tasksList = JSON.parse(string);
-    store.dispatch(setList(tasksList));
-  } catch (e) {
-    console.error('JSON parsing error:', e);
-  }
-}
+// if (localStorage.getItem('LocalStorageTaskList')) {
+//   const string = localStorage.getItem('LocalStorageTaskList');
+//   try {
+//     const tasksList = JSON.parse(string);
+//     store.dispatch(setList(tasksList));
+//   } catch (e) {
+//     console.error('JSON parsing error:', e);
+//   }
+// }
 match({
   history,
   routes: getRoutes(store),

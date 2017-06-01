@@ -9,7 +9,7 @@ import '../sass/common.scss';
 
 const { store, history } = configureStore(browserHistory, window.App);
 
-if (localStorage.getItem('LocalStorageTaskList')) {
+/*if (localStorage.getItem('LocalStorageTaskList')) {
   const string = localStorage.getItem('LocalStorageTaskList');
   try {
     const tasksList = JSON.parse(string);
@@ -17,7 +17,7 @@ if (localStorage.getItem('LocalStorageTaskList')) {
   } catch (e) {
     console.error('JSON parsing error:', e);
   }
-}
+}*/
 match({
   history,
   routes: getRoutes(store),

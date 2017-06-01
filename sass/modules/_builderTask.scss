@@ -9,6 +9,9 @@
 
   &.edit-builder-task {
     width: 100%;
+    height: 100%;
+    overflow-Y: auto;
+    margin: 20px 0 60px 0;
   }
   .form-wr {
     display: flex;

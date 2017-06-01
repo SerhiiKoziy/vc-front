@@ -4,7 +4,7 @@ import dateFormat from 'dateformat';
 
 import TextField from '../TextField/TextField';
 import CheckBox from '../CheckBox/CheckBox';
-import { createTask, editTask, getUsers, createUser } from '../../actions';
+import { createTask, updateUser, getUsers, createUser } from '../../actions';
 
 class CreateTask extends React.Component {
   static propTypes = {
@@ -39,6 +39,7 @@ class CreateTask extends React.Component {
         title: false,
         cost: false,
         experience: false,
+        /*image: false,*/
       },
       errorMessages: {
         title: 'Title is required',
@@ -58,7 +59,7 @@ class CreateTask extends React.Component {
           return value.length > 0;
         },
         image: (value) => {
-          return value.length > 0;
+          return  value.length > 0
         },
       },
       skillName: '',
@@ -112,26 +113,28 @@ class CreateTask extends React.Component {
 
     let formData = new FormData(document.getElementById('upload_form'));
     formData.append('tax_file', document.getElementById('file-input').files);
-    console.log('formData', formData);
-    const submitHandler = this.props.currentTask ? this.props.editTask : this.props.createUser;
+    //console.log('formData', formData);
+    const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
     const task = this.createTask(this.state.values);
-    // const task = {"id":45,"username":"33333333","title":"Java $2000","experience":4,"cost":2000,"inHouse":true,"createdAt":"2017-05-21T21:06:54.448Z","updatedAt":"2017-05-21T21:06:54.448Z"};
 
     if (this.props.currentTask) {
       task.id = this.props.currentTask.id;
     }
 
-    submitHandler(formData);
+    //submitHandler(formData);
+    submitHandler(task);
     const skills = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
     this.setState(this.defaultState);
   }
   isValidForm() {
     const address = this.state.values.address;
-    const validations = Object.keys(this.state.validation).filter(field => {
-      return !this.state.validation[field](this.state.values[field]);
+    const validations = Object.keys(this.state.validation).filter( field => {
+      return !this.state.validation[field]( this.state.values[field] );
     });
+    // console.log('validations', validations)
     return (validations.length === 0);
+    return ([].length === 0);
   }
   showError(target) {
     if (this.state.touched[target]) {
@@ -167,6 +170,9 @@ class CreateTask extends React.Component {
       },
     });
   }
+  editSkill(){
+
+  }
   deleteSkill(skillId) {
     const skills = this.state.values.skills;
     /* const newSkills = [];
@@ -185,13 +191,11 @@ class CreateTask extends React.Component {
     });
   }
   onDropHandler(target, e) {
-    // console.log(target, e.target.files);
     const file = e.target.files[0];
     const reader = new FileReader();
     let result;
     reader.onload = (event) => {
       result = event.target.result;
-      // console.log(event.target.result)
       this.setState({
         image: event.target.result,
         fileName: file.name,
@@ -201,9 +205,7 @@ class CreateTask extends React.Component {
           fileName: file.name,
         },
       });
-      //console.log(event.target.result);
     };
-
     reader.readAsDataURL(file);
   }
   render() {
@@ -242,7 +244,6 @@ class CreateTask extends React.Component {
             id={'file-input'}
             classNameBox={'input-wr'}
             placeholder={'Enter image'}
-            value={'name'}
             fileName={this.state.values.fileName}
             preVision={this.state.values.image}
             type={'file'}
@@ -265,11 +266,6 @@ class CreateTask extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('inHouse')}
           />
-
-          {/*<FileBase64*/}
-            {/*multiple={ true }*/}
-            {/*onDone={ this.getFiles.bind(this) }*/}
-          {/*/>*/}
           <div className="have-skills">
             {
               this.state.values.skills && (this.state.values.skills.map((item, i) => {
@@ -350,4 +346,4 @@ class CreateTask extends React.Component {
   }
 }
 
-export default connect(null, { createTask, editTask, getUsers, createUser })(CreateTask);
+export default connect(null, { createTask, updateUser, getUsers, createUser })(CreateTask);

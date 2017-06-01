@@ -37,7 +37,7 @@ const TextField = (props) => {
             />
             <span>{props.fileName || 'Choose image...'}</span>
             <p className={`preVision ${props.preVision?'':'hidden'}`}>
-              <img src={props.preVision || ''} alt=""/>
+              <img src={props.preVision} alt=""/>
             </p>
           </div>
         )

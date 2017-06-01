@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     cost: DataTypes.INTEGER,
     inHouse: DataTypes.BOOLEAN,
     image: DataTypes.STRING,
+    fileName: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function(models) {
