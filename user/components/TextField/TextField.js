@@ -36,8 +36,8 @@ const TextField = (props) => {
               onChange={onChange}
             />
             <span>{props.fileName || 'Choose image...'}</span>
-            <p className={`preVision ${props.preVision?'':'hidden'}`}>
-              <img src={props.preVision} alt=""/>
+            <p className={`preVision ${props.preVision ? '' : 'hidden'}`}>
+              <img src={props.preVision} alt="" />
             </p>
           </div>
         )
@@ -70,7 +70,7 @@ TextField.defaultProps = {
   placeholder: '',
   errorVisible: false,
   type: '',
-  fieldName: 'Choose image...'
+  fieldName: 'Choose image...',
 
 };
 

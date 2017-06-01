@@ -27,7 +27,6 @@ class DashBoard extends Component {
   }
   renderDustbins() {
     const { data, application } = this.props.data;
-    // application === 'admin' ?
     if (data) {
       return this.props.data.data.map((item, i) => {
         return (

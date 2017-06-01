@@ -102,7 +102,82 @@
         }
       }
     }
+    .bg-popup{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.5);
+      &.hidden{
+        display: none;
+      }
+    }
+    .popup-send-mail{
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 400px;
+      width: 400px;
+      background: #ccc;
+      z-index: 30;
+      &.hidden{
+        display: none;
+      }
+      p.header-send{
+        margin: 0;
+        background: #848181;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        span{
 
+        }
+      }
+      .body-send{
+        .input-wr{
+          width: 100%;
+          padding: 40px 20px 0 20px;
+          box-sizing: border-box;
+          input{
+            border: none;
+            padding: 0 10px;
+            height: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+          }
+        }
+        .send-btn-wr{
+          display: flex;
+          justify-content: space-between;
+          max-width: 260px;
+          margin: 40px auto 0;
+          &>div{
+            width: 80px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #3e3e3e;
+            border-radius: 4px;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: 0.4s background;
+            &:hover{
+              background: rgba(62, 62, 62, 0.89);
+            }
+            span{
+
+            }
+          }
+
+        }
+      }
+    }
     .footer-task{
       position: absolute;
       bottom: 0;

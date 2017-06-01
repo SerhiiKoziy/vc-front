@@ -54,7 +54,7 @@ router.put('/:user_id', function (req, res) {
     }).catch(function (err) {
       request.server.log(['error'], err.stack);
     });
-})
+});
 router.delete('/:user_id', function (req, res) {
   models.User.destroy({
     where: {
@@ -77,15 +77,15 @@ router.get('/:user_id', function (req, res) {
   });
 });
 
-        });
-    }).catch(function (err) {
-        request.server.log(['error'], err.stack);
-    })
-})
+//         });
+//     }).catch(function (err) {
+//         request.server.log(['error'], err.stack);
+//     })
+// })
 router.post('/:user_id/tasks/create', function (req, res) {
   models.Task.create({
     title: req.body.title,
-    UserId: req.params.user_id
+    UserId: req.params.user_id,
   }).then(function () {
     res.redirect('/');
   });
@@ -94,8 +94,8 @@ router.post('/:user_id/tasks/create', function (req, res) {
 router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
   models.Task.destroy({
     where: {
-      id: req.params.task_id
-    }
+      id: req.params.task_id,
+    },
   }).then(function () {
     res.redirect('/');
   });
@@ -104,10 +104,10 @@ router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
 router.post('/:id/contact', (req, res) => {
   models.User.findAll({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   }).then(function (result) {
-    if(result.length === 0){
+    if (result.length === 0) {
       res.status(404).send('error 404');
     }
     console.log(JSON.stringify(result));

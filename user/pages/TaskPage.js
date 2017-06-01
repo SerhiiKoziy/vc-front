@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import { deleteTask, getUser } from '../actions';
-import Task from '../components/Task/Task';
+import TaskView from '../components/Task/TaskView';
+import TextField from '../components/TextField/TextField';
 
 class TaskPage extends Component {
   static propTypes = {
@@ -14,6 +15,12 @@ class TaskPage extends Component {
     children: React.PropTypes.any,
     data: React.PropTypes.object,
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      valueSend: '',
+    };
+  }
   componentDidMount() {
     this.props.getUser(this.props.data.data[0].id);
   }
@@ -21,8 +28,15 @@ class TaskPage extends Component {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
   }
+  handleInputChange(target, e) {
+    console.log(e.target.value)
+    this.setState({
+      valueSend: e.target.value,
+    });
+  }
   render() {
     const { application } = this.props.data;
+    const dataTask = this.props.data.data[0];
     const base = (application === 'admin') ? 'admin' : '';
     // console.log(isAdminPanel)
     if (this.props.data) {
@@ -45,11 +59,10 @@ class TaskPage extends Component {
             <div className="task-wr">
               <div className="task-header">
                 <Link className="left-part" to={`/${base}`}>
-                  <i className="fa fa-angle-left" aria-hidden="true"></i>
+                  <i className="fa fa-angle-left" aria-hidden="true" />
                   <span>Back to board</span>
                 </Link>
                 <div className="right-part">
-
                   <div className="header-center-wr">
                     <img src="" alt="" />
                     <div className="center-info">
@@ -57,23 +70,42 @@ class TaskPage extends Component {
                       <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
                     </div>
                   </div>
-
                   <div className="cost-info">
-                    <p className="cost">$3000/month</p>
+                    <p className="cost">{`$${dataTask.cost}/month`}</p>
                     <p className="cost-desc">this cost is all</p>
                   </div>
-
                   <div className="proc-btn">
                     <span>Proceed to Request</span>
                   </div>
-
                 </div>
               </div>
-              <Task
+              <TaskView
                 item={this.props.data.data[0]}
                 onDelete={::this.deleteTask}
               />
-
+            </div>
+            <div className="bg-popup hidden" />
+            <div className="popup-send-mail hidden">
+              <p className="header-send">
+                <span>Enter your email</span>
+              </p>
+              <div className="body-send">
+                <div className="input-wr">
+                  <input
+                    placeholder=""
+                   /* value={this.state.valueSend}
+                    onChange={(e) => this.setState({ valueSend: e.target.value })}*/
+                  />
+                </div>
+                <div className="send-btn-wr">
+                  <div className="cancel-btn">
+                    <span>Cancel</span>
+                  </div>
+                  <div className="send-btn">
+                    <span>Send</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="footer-task">
               <div className="footer-wr">
@@ -88,7 +120,6 @@ class TaskPage extends Component {
             {this.props.children}
           </div>
         </div>
-
       );
     }
 

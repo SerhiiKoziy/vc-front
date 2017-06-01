@@ -83,7 +83,6 @@ class CreateTask extends React.Component {
     };
   }
   handleInputChange(target, e) {
-    // console.log('handleInputChange', target, e)
     this.updateValue(target, e.target.value.toString());
   }
   updateValue(target, value) {
