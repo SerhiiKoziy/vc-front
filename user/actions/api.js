@@ -16,8 +16,8 @@ export function getAllUsersAPI() {
     console.error(error);
   });
 }
-export function getUserAPI(user_id) {
-  return axios.get(`${API.GET_USER}/${user_id}`).then((response) => {
+export function getUserAPI(userId) {
+  return axios.get(`${API.GET_USER}/${userId}`).then((response) => {
     if (response) {
       return response;
     }
@@ -30,7 +30,7 @@ export function getUserAPI(user_id) {
   });
 }
 export function createUserAPI(dataCV) {
-  console.log('createUserAPI', dataCV)
+  console.log('createUserAPI', dataCV);
   return axios.post(API.POST_USER, dataCV).then((response) => {
     if (response) {
       return response;
@@ -59,8 +59,8 @@ export function updateUserAPI(dataCV) {
     console.error(error);
   });
 }
-export function deleteUserAPI(user_id) {
-  return axios.delete(`${API.DELETE_USER}/${user_id}`).then((response) => {
+export function deleteUserAPI(userId) {
+  return axios.delete(`${API.DELETE_USER}/${userId}`).then((response) => {
     if (response) {
       return response;
     }

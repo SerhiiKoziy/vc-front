@@ -19,6 +19,7 @@ class MainPage extends Component {
   static propTypes = {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
+    getUsers: React.PropTypes.func,
     push: React.PropTypes.func,
     data: React.PropTypes.object,
   };
@@ -30,7 +31,7 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const data = this.props.data.data || [];
-    const { application} = this.props.data;
+    const { application } = this.props.data;
     return data.map((item, i) => {
       return (
         <Link key={`task-${i}`} to={`/task/${item.id}`}>
@@ -60,7 +61,7 @@ class MainPage extends Component {
               <div className="header-title">
                 <h4>Header</h4>
               </div>
-              {/*<div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>*/}
+              {/* <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>*/}
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>

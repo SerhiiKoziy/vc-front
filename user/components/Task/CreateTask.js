@@ -12,6 +12,7 @@ class CreateTask extends React.Component {
     buttonText: React.PropTypes.string,
     editTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
+    updateUser: React.PropTypes.func,
     createTask: React.PropTypes.func,
     createUser: React.PropTypes.func,
   };
@@ -59,7 +60,7 @@ class CreateTask extends React.Component {
           return value.length > 0;
         },
         image: (value) => {
-          return  value.length > 0
+          return value.length > 0;
         },
       },
       skillName: '',
@@ -111,9 +112,9 @@ class CreateTask extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
 
-    let formData = new FormData(document.getElementById('upload_form'));
+    const formData = new FormData(document.getElementById('upload_form'));
     formData.append('tax_file', document.getElementById('file-input').files);
-    //console.log('formData', formData);
+    // console.log('formData', formData);
     const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
     const task = this.createTask(this.state.values);
 
@@ -121,20 +122,19 @@ class CreateTask extends React.Component {
       task.id = this.props.currentTask.id;
     }
 
-    //submitHandler(formData);
+    // submitHandler(formData);
     submitHandler(task);
     const skills = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
     this.setState(this.defaultState);
   }
   isValidForm() {
-    const address = this.state.values.address;
-    const validations = Object.keys(this.state.validation).filter( field => {
-      return !this.state.validation[field]( this.state.values[field] );
+    const validations = Object.keys(this.state.validation).filter(field => {
+      return !this.state.validation[field](this.state.values[field]);
     });
     // console.log('validations', validations)
     return (validations.length === 0);
-    return ([].length === 0);
+    // return ([].length === 0);
   }
   showError(target) {
     if (this.state.touched[target]) {
@@ -157,9 +157,9 @@ class CreateTask extends React.Component {
   addSkill() {
     const skill = this.state.skillName;
     const experience = this.state.skillExp;
-    const isMain = this.state.isMain;
+    const main = this.state.isMain;
     const newSkills = this.state.values.skills;
-    newSkills.push({ skill, experience, isMain });
+    newSkills.push({ skill, experience, main });
     this.setState({
       skillExp: '',
       skillName: '',
@@ -169,9 +169,6 @@ class CreateTask extends React.Component {
         skillsChange: true,
       },
     });
-  }
-  editSkill(){
-
   }
   deleteSkill(skillId) {
     const skills = this.state.values.skills;
@@ -274,7 +271,7 @@ class CreateTask extends React.Component {
                   <ul className="skill-form" key={i}>
                     <li><span>skill: </span><span>{item.skill}</span></li>
                     <li><span>experience: </span><span>{item.experience}</span></li>
-                    <li><span>isMain: </span><span>{item.isMain ? '' : 'main'}</span></li>
+                    <li><span>isMain: </span><span>{item.main ? '' : 'main'}</span></li>
                     <li
                       className="del-skill"
                       onClick={(e) => { this.deleteSkill(i, e); }}

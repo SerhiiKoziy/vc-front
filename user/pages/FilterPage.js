@@ -7,8 +7,6 @@ import { Link } from 'react-router';
 import InputRange from 'react-input-range';
 import Select from 'react-select';
 
-//import 'react-select/dist/react-select.css';
-
 import RadioButton from '../components/RadioButton/RadioButton';
 import Task from '../components/Task/Task';
 
@@ -32,24 +30,12 @@ class MainPage extends Component {
   static propTypes = {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
+    getUsers: React.PropTypes.func,
     push: React.PropTypes.func,
     data: React.PropTypes.object,
   };
   componentDidMount() {
     this.props.getUsers();
-
-  }
-  optionsSelect() {
-    const valueSelect = [];
-    this.props.data.data.map(item => {
-      const title = item.title;
-      const obj = {value: title, label: title };
-      console.log('obj', obj);
-      valueSelect.push(obj)
-
-    });
-    console.log('valueSelect', this.props.data)
-    this.setState({options: valueSelect})
   }
   deleteTask(taskId) {
     this.props.deleteTask(taskId);
@@ -57,64 +43,33 @@ class MainPage extends Component {
   filterDataTitle() {
     const { data } = this.props.data;
     const { multiValue } = this.state;
-    /*const dataFilterTitle = data.filter((item) => {
+    /* const dataFilterTitle = data.filter((item) => {
       return value ? value === item.title : item;
     });*/
     const dataFilterTitleOrSkill = [];
-    const CVMock = [
-      {
-        title: 'title',
-        skills: [
-          {
-            main: true,
-            skill: 'php',
-          },
-          {
-            main: true,
-            skill: 'java',
-          }
-
-        ]
-      },
-      {
-        title: 'title2',
-        skills: [
-          {
-            main: true,
-            skill: 'php',
-          },
-          {
-            main: false,
-            skill: 'java',
-          }
-
-        ]
-      }
-    ];
-    data.map( dataCV => {
+    data.map(dataCV => {
       const title = dataCV.title;
       let found = false;
-      if(dataCV.skills){
+      if (dataCV.skills) {
         dataCV.skills.map(skill => {
-          if(skill.main){
-            //mainSkills.push(skill.skill)
+          if (skill.main) {
+            // mainSkills.push(skill.skill)
             multiValue.map(item => {
-              if(item.value === skill.skill){
+              if (item.value === skill.skill) {
                 found = true;
-                dataFilterTitleOrSkill.push(dataCV)
+                dataFilterTitleOrSkill.push(dataCV);
               }
-            })
+            });
           }
-        })
-      }else if (!found) {
+        });
+      } else if (!found) {
         multiValue.map(item => {
-          if(item.value === title){
+          if (item.value === title) {
             found = true;
-            dataFilterTitleOrSkill.push(dataCV)
+            dataFilterTitleOrSkill.push(dataCV);
           }
-        })
+        });
       }
-
     });
 
     this.setState({ isUseFiler: true });
@@ -149,9 +104,9 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const { filterData, isUseFiler } = this.state;
-    const {data, application} = this.props.data;
-    if(this.props.data.data){
-      const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? this.props.data.data : []);
+    const { data, application } = this.props.data;
+    if (this.props.data.data) {
+      const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? data : []);
       return dataSel.map((item, i) => {
         return (
           <Link key={`task-${i}`} to={`/task/${item.id}`}>
@@ -167,7 +122,6 @@ class MainPage extends Component {
         );
       });
     }
-
   }
 
   goToAdmin() {
@@ -176,7 +130,7 @@ class MainPage extends Component {
   goToMainFilter() {
     this.props.push('/FilterPage');
   }
-  handleOnChange (valueSelect) {
+  handleOnChange(valueSelect) {
     const { multi } = this.state;
     if (multi) {
       this.setState({ multiValue: valueSelect });
@@ -184,11 +138,11 @@ class MainPage extends Component {
       // this.setState({ valueSelect });
     }
   }
-  onChange (value) {
-    this.setState({
-      value: value,
-    });
-  }
+  // onChange(value) {
+  //   this.setState({
+  //     value: value,
+  //   });
+  // }
   render() {
     const { options } = this.props.data;
 
@@ -217,7 +171,7 @@ class MainPage extends Component {
                   multi={multi}
                   options={options}
                   onChange={::this.handleOnChange}
-                  value={ multiValue }
+                  value={multiValue}
                 />
 
                 <div className="search-btn">
@@ -332,7 +286,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, push, getUsers
+    deleteTask, updateTask, push, getUsers,
   }
 )(MainPage);
 

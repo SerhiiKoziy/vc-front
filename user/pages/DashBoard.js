@@ -17,27 +17,29 @@ class DashBoard extends Component {
   static propTypes = {
     deleteTask: React.PropTypes.func,
     updateTask: React.PropTypes.func,
+    deleteUser: React.PropTypes.func,
+    getUsers: React.PropTypes.func,
     data: React.PropTypes.object,
   };
   deleteTask(userId) {
-    console.log('userId', userId)
+    console.log('userId', userId);
     this.props.deleteUser(userId);
   }
   renderDustbins() {
-    const {data, application} = this.props.data;
+    const { data, application } = this.props.data;
     // application === 'admin' ?
-    if(data){
-    return this.props.data.data.map((item, i) => {
-      return (
-        <Task
-          item={item}
-          key={i}
-          isAdminPanel={application}
-          // onDelete={this.deleteTask.bind(this, item.id)}
-          onDelete={(e) => { this.deleteTask(item.id, e); }}
-        />
-      );
-    });
+    if (data) {
+      return this.props.data.data.map((item, i) => {
+        return (
+          <Task
+            item={item}
+            key={i}
+            isAdminPanel={application}
+            // onDelete={this.deleteTask.bind(this, item.id)}
+            onDelete={(e) => { this.deleteTask(item.id, e); }}
+          />
+        );
+      });
     }
   }
 
@@ -64,7 +66,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteUser, updateTask, getUsers
+    deleteUser, updateTask, getUsers,
   }
 )(DashBoard);
 

@@ -3,32 +3,32 @@ import { INITIAL_STATE } from '../constants/InitialState';
 
 export default function DataReducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
-  //const data = state;
+  // const data = state;
   switch (type) {
     case types.ADD_DATA:
       const selectOptions = [];
       payload.map((cv) => {
-        if(!!cv.title){
+        if (!!cv.title) {
           selectOptions.push({ value: cv.title, label: cv.title });
         }
-        if(cv.skills){
+        if (cv.skills) {
           cv.skills.map((skill) => {
-            if(skill.main === true){
+            if (skill.main === true) {
               selectOptions.push({ value: skill.skill, label: skill.skill });
             }
-          })
+          });
         }
       });
       return {
         ...state,
-        data:payload,
-        options: selectOptions
+        data: payload,
+        options: selectOptions,
       };
 
     case 'SET_AREA':
       return {
         ...state,
-        application: payload
+        application: payload,
       };
     // case types.UPDATE_CV:
     //   const filteredElements = data.filter(element => {

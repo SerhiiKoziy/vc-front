@@ -9,8 +9,10 @@ class TaskPage extends Component {
   static propTypes = {
     currentTask: React.PropTypes.object,
     push: React.PropTypes.func,
+    getUser: React.PropTypes.func,
     deleteTask: React.PropTypes.func,
     children: React.PropTypes.any,
+    data: React.PropTypes.object,
   };
   componentDidMount() {
     this.props.getUser(this.props.data.data[0].id);
@@ -22,7 +24,7 @@ class TaskPage extends Component {
   render() {
     const { application } = this.props.data;
     const base = (application === 'admin') ? 'admin' : '';
-    //console.log(isAdminPanel)
+    // console.log(isAdminPanel)
     if (this.props.data) {
       return (
         <div className={`page task-page ${application}-task`}>
@@ -49,7 +51,7 @@ class TaskPage extends Component {
                 <div className="right-part">
 
                   <div className="header-center-wr">
-                    <img src="" alt=""/>
+                    <img src="" alt="" />
                     <div className="center-info">
                       <p className="name">Yura Kolesnicov</p>
                       <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
@@ -95,14 +97,14 @@ class TaskPage extends Component {
 }
 
 export default connect(
-  /*(state, ownProps) => {
+  /* (state, ownProps) => {
     return {
       currentTask: state.data.find(task => {
         return task.id === parseFloat(ownProps.params.taskId);
       }),
     };
   },*/
-  (state, ownProps) => {
+  (state) => {
     return { data: state.data };
   },
   { deleteTask, getUser, push }

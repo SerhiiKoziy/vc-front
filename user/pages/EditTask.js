@@ -12,7 +12,7 @@ class EditTask extends PureComponent {
     const currentTask = this.props.data.data.find(item => {
       return item.id === parseFloat(this.props.params.taskId);
     });
-    //const num = location.pathname; RegExp(/task/([\s\S]*?)<\/edit)
+    // const num = location.pathname; RegExp(/task/([\s\S]*?)<\/edit)
 
     return (
       <div className="builder-task edit-builder-task">

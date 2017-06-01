@@ -134,4 +134,11 @@
       }
     }
   }
+
+  &.admin-task{
+    height: 100%;
+    .footer-task{
+      display: none;
+    }
+  }
 }
