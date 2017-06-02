@@ -2,46 +2,82 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
-import { deleteTask, getUser } from '../actions';
+import { deleteTask, getUser, sendMail } from '../actions';
+// import MAIL_REG from '../constants/regExp';
 import TaskView from '../components/Task/TaskView';
-// import TextField from '../components/TextField/TextField';
+import TextField from '../components/TextField/TextField';
 
 class TaskPage extends Component {
   static propTypes = {
     currentTask: React.PropTypes.object,
+    user: React.PropTypes.object,
     push: React.PropTypes.func,
     getUser: React.PropTypes.func,
     deleteTask: React.PropTypes.func,
     children: React.PropTypes.any,
     data: React.PropTypes.object,
+    application: React.PropTypes.string,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      valueSend: '',
+      mail: '',
+      openPopup: false,
+      validation: {
+        mail: (value) => {
+          const mail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return mail.test(value);
+        },
+      },
+      touched: {
+        mail: false,
+      },
+      errorMessages: {
+        mail: 'Mail is required (need real email)',
+      },
     };
   }
-
-  componentDidMount() {
-    // this.props.getUser(this.props.data.data[0].id);
+  sendMail() {
+    const userId = this.props.user.id;
+    const clientMail = this.state.mail;
+    this.props.sendMail(userId, clientMail);
   }
-
   deleteTask() {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
   }
-
   handleInputChange(target, e) {
-    console.log(e.target.value);
+    this.updateValue(target, e.target.value.toString());
+  }
+  updateValue(target, value) {
     this.setState({
-      valueSend: e.target.value,
+      ...this.state.values,
+      [target]: value,
     });
+  }
+  handleInputBlur(target) {
+    this.setState({
+      touched: {
+        ...this.state.touched,
+        [target]: true,
+      },
+    });
+  }
+  showError(target) {
+    if (this.state.touched[target]) {
+      if (!this.state.validation[target](this.state[target])) {
+        return this.state.errorMessages[target];
+      }
+    }
+    return null;
+  }
+  handlePopup() {
+    this.setState({ openPopup: !this.state.openPopup });
   }
 
   render() {
     const base = (this.props.application === 'admin') ? 'admin' : '';
-    // console.log(isAdminPanel)
     if (this.props.user) {
       return (
         <div className={`page task-page ${this.props.application}-task`}>
@@ -67,7 +103,9 @@ class TaskPage extends Component {
                 </Link>
                 <div className="right-part">
                   <div className="header-center-wr">
-                    <img src="" alt="" />
+                    <div className="image-wr">
+                      <img src={this.props.user.image} alt="" />
+                    </div>
                     <div className="center-info">
                       <p className="name">Yura Kolesnicov</p>
                       <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
@@ -87,24 +125,31 @@ class TaskPage extends Component {
                 onDelete={::this.deleteTask}
               />
             </div>
-            <div className="bg-popup hidden" />
-            <div className="popup-send-mail hidden">
+            <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
+            <div className={`popup-send-mail ${this.state.openPopup ? '' : 'hidden'}`}>
               <p className="header-send">
                 <span>Enter your email</span>
               </p>
               <div className="body-send">
                 <div className="input-wr">
-                  <input
-                    placeholder=""
-                    /* value={this.state.valueSend}
-                     onChange={(e) => this.setState({ valueSend: e.target.value })}*/
+                  <TextField
+                    classNameBox={'input-wr'}
+                    placeholder={'Enter mail'}
+                    value={this.state.mail}
+                    fieldName="mail"
+                    onChange={::this.handleInputChange}
+                    onBlur={::this.handleInputBlur}
+                    errorText={this.showError('mail')}
                   />
                 </div>
                 <div className="send-btn-wr">
-                  <div className="cancel-btn">
+                  <div className="cancel-btn" onClick={::this.handlePopup}>
                     <span>Cancel</span>
                   </div>
-                  <div className="send-btn">
+                  <div
+                    className="send-btn"
+                    onClick={::this.sendMail}
+                  >
                     <span>Send</span>
                   </div>
                 </div>
@@ -112,7 +157,10 @@ class TaskPage extends Component {
             </div>
             <div className="footer-task">
               <div className="footer-wr">
-                <div className="send-btn">
+                <div
+                  className="send-btn"
+                  onClick={::this.handlePopup}
+                >
                   <span>Send me to email</span>
                 </div>
                 <div className="proc-btn">
@@ -131,28 +179,18 @@ class TaskPage extends Component {
 }
 
 export default connect(
-  /* (state, ownProps) => {
-   return {
-   currentTask: state.data.find(task => {
-   return task.id === parseFloat(ownProps.params.taskId);
-   }),
-   };
-   },*/
   (state, ownProps) => {
     if (state.data && state.data.data && state.data.data.length > 0) {
-      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId));
-
+      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId, 10));
       if (user) {
         return {
           user,
           application: state.data.application,
         };
       }
-
       return {};
     }
-
     return {};
   },
-  { deleteTask, getUser, push }
+  { deleteTask, getUser, sendMail, push }
 )(TaskPage);

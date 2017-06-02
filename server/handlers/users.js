@@ -76,22 +76,16 @@ router.get('/:user_id', function (req, res) {
     res.send(result);
   });
 });
-
-//         });
-//     }).catch(function (err) {
-//         request.server.log(['error'], err.stack);
-//     })
-// })
-router.post('/:user_id/tasks/create', function (req, res) {
+/* router.post('/:user_id/tasks/create', function (req, res) {
   models.Task.create({
     title: req.body.title,
     UserId: req.params.user_id,
   }).then(function () {
     res.redirect('/');
   });
-});
+});*/
 
-router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
+/* router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
   models.Task.destroy({
     where: {
       id: req.params.task_id,
@@ -99,7 +93,7 @@ router.get('/:user_id/tasks/:task_id/destroy', function (req, res) {
   }).then(function () {
     res.redirect('/');
   });
-});
+});*/
 
 router.post('/:id/contact', (req, res) => {
   models.User.findAll({
@@ -110,7 +104,6 @@ router.post('/:id/contact', (req, res) => {
     if (result.length === 0) {
       res.status(404).send('error 404');
     }
-    console.log(JSON.stringify(result));
     sendMessage(req.body.from, result[0]).then((info) => {
       res.send(info);
     });

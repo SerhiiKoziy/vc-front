@@ -73,3 +73,19 @@ export function deleteUserAPI(userId) {
     console.error(error);
   });
 }
+
+export function sendMailAPI(userId, from) {
+  console.log('createUserAPI', userId, from);
+  return axios.post(`${API.SEND_MAIL}/${userId}/contact`, from).then((response) => {
+    if (response) {
+      return response;
+    }
+    if (response.error) {
+      console.log('response', response.error);
+      throw new Error(response.error);
+    }
+    return null;
+  }).catch(error => {
+    console.error(error);
+  });
+}

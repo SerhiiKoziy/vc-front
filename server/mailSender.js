@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
     user: 'serhiikoziy@gmail.com',
-    pass: 'nopassword:)',
+    pass: '1478963258Zxc',
   },
   logger: bunyan.createLogger({
     name: 'nodemailer',
@@ -31,16 +31,23 @@ const DEFAULT_EMAIL = 'serhiikoziy@gmail.com';
 class Email extends React.PureComponent {
   render() {
     const { from, user } = this.props;
+    const userObjectSend = {
+      username: user.username,
+      title: user.title,
+      experience: user.experience,
+      cost: user.cost,
+      inHouse: user.inHouse,
+    };
     return (
       <div>
         <p>{from}</p>
-        <pre><code>{JSON.stringify(user, null, 4)}</code></pre>
+        <pre><code>{JSON.stringify(userObjectSend, null, 4)}</code></pre>
       </div>
     );
   }
 }
 
-function createMessage(from = 'nobody', user = {}) {
+function createMessage(from, user = {}) {
   return {
 
     // Comma separated list of recipients
@@ -60,9 +67,7 @@ function createMessage(from = 'nobody', user = {}) {
     watchHtml: '<b>Hello</b> to myself',
   };
 }
-
 console.log('Sending Mail');
-
 export default function sendMessage(from, user) {
   return new Promise((resolve, reject) => {
     transporter.sendMail(createMessage(from, user), (error, info) => {

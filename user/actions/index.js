@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI, getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI } from './api';
+import { getAllUsersAPI, getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {
   // console.log('payload', payload);
@@ -54,6 +54,17 @@ export function deleteUser(userId) {
       if (res) {
         // console.log('res delete', res);
         dispatch(getUsers());
+      }
+    });
+  };
+}
+// SEND_MAIL to API
+export function sendMail(userId, clientMail) {
+  return (dispatch) => {
+    sendMailAPI(userId, clientMail).then(res => {
+      if (res) {
+         console.log('res sendMail', res);
+        // dispatch(getUsers());
       }
     });
   };

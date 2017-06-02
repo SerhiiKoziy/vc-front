@@ -119,6 +119,7 @@ class MainPage extends Component {
         );
       });
     }
+    return null;
   }
 
   goToAdmin() {

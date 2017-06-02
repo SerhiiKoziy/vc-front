@@ -7,7 +7,7 @@ export default function ApplicationReducer(state = INITIAL_STATE, action) {
     case 'SET_AREA':
       return {
         ...state,
-        application: payload
+        application: payload,
       };
 
     default:
