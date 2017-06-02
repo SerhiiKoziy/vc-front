@@ -22,7 +22,7 @@
   box-shadow: 0 0 10px transparentize(#000, 0.7);
   background: linear-gradient(135deg, rgba(253, 253, 253, 0.4), rgba(0, 127, 163, 0));
 
-  .main-cv{
+  .main-cv, .description-cv{
     display: flex;
     width: 50%;
     flex-direction: column;
@@ -47,8 +47,8 @@
       }
     }*/
 
-    .main-skills, .addition-skills{
-      .skill-title{
+    .main-skills, .addition-skills, .desc-work, .conclusion{
+      .skill-title, .desc-title{
         position: relative;
         padding: 0 0 30px 0;
         box-sizing: border-box;
@@ -56,8 +56,8 @@
           content: '';
           position: absolute;
           left: 19px;
-          bottom: -20px;
-          height: 50px;
+          bottom: -40px;
+          height: 100%;
           width: 2px;
           background: #2b74ba;
         }
@@ -88,14 +88,14 @@
       }
       .skill{
         position: relative;
-        padding: 0 0 40px 0;
+        padding: 0 0 10px 0;
         box-sizing: border-box;
         &:before{
           content: '';
           position: absolute;
           left: 19px;
-          bottom: 20px;
-          height: 40px;
+          top: 20px;
+          height: 100%;
           width: 2px;
           background: #2b74ba;
         }
@@ -126,12 +126,57 @@
           line-height: 40px;
           font-size: 18px;
         }
+        &:last-child{
+          &:before{
+            opacity: 0;
+          }
+
+        }
+
+      }
+    }
+
+    .main-skills{
+      .skill{
+        padding: 0 0 10px 0;
+        &:last-child {
+          &:before {
+            top: 0;
+            height: 100%;
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+    .conclusion{
+      .desc-title{
+        padding: 0;
+        &:before{
+          display: none;
+        }
+      }
+      .recruter-header{
+        display: flex;
+        justify-content: flex-end;
+      }
+      .conclusion-text{
+        position: relative;
+        &:after{
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 50px;
+          width: 50px;
+          //background: url("");
+        }
+        p{
+          padding: 0 0 0 80px;
+          box-sizing: border-box;
+        }
       }
     }
   }
-  .skills-list{
-    width: 50%;
-  }
+
   h4 {
 
   }

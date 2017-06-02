@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class TaskView extends React.PureComponent {
   static propTypes = {};
 
   renderMainSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
-      const mainSkills = this.props.item.skills.filter((skill, i) => skill.main);
+      const mainSkills = this.props.item.skills.filter((skill) => skill.main);
 
       return mainSkills.map(this.renderSkill);
     }
@@ -14,18 +15,34 @@ export default class TaskView extends React.PureComponent {
 
   renderOtherSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
-      const mainSkills = this.props.item.skills.filter((skill, i) => !skill.main);
+      const mainSkills = this.props.item.skills.filter((skill) => !skill.main);
 
       return mainSkills.map(this.renderSkill);
     }
     return null;
   }
-
   renderSkill(skill, i) {
     return (
       <div key={i} className="skill">
         <span><span /></span>
         <p>{skill.skill}</p>
+      </div>
+    );
+  }
+  renderWorkExperience() {
+    if (this.props.item.skills && this.props.item.skills.length > 0) {
+      const mainSkills = this.props.item.skills.filter((skill) => skill.main);
+
+      return mainSkills.map(this.renderExperience);
+    }
+    return null;
+  }
+  renderExperience(skill, i) {
+    return (
+      <div key={i} className="skill">
+        <span><span /></span>
+        <p>{skill.skill}</p>
+        <p>Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</p>
       </div>
     );
   }
@@ -81,6 +98,32 @@ export default class TaskView extends React.PureComponent {
                 <p>addition skill</p>
               </div>
               {this.renderOtherSkills()}
+            </div>
+          </div>
+          <div className="description-cv">
+            <div className="desc-work">
+              <div className="desc-title">
+                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
+                <p>Work experience</p>
+              </div>
+              {this.renderWorkExperience()}
+            </div>
+            <div className="conclusion">
+              <div className="desc-title">
+                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
+                <p>Summary from Mobilunity recruter</p>
+              </div>
+              <div className="recruter-header">
+                <p>Jane Doe</p>
+                <img src="" alt="" />
+              </div>
+              <div className="conclusion-text">
+                <p>
+                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                </p>
+              </div>
             </div>
           </div>
           {this.renderAdminControls()}

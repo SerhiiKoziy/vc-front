@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import { deleteTask, getUser } from '../actions';
 import TaskView from '../components/Task/TaskView';
-import TextField from '../components/TextField/TextField';
+// import TextField from '../components/TextField/TextField';
 
 class TaskPage extends Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class TaskPage extends Component {
   }
 
   handleInputChange(target, e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
     this.setState({
       valueSend: e.target.value,
     });

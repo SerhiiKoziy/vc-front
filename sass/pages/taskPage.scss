@@ -25,40 +25,40 @@
           margin-right: 15px;
         }
       }
-      .left-part{
+      .left-part {
 
       }
-      .right-part{
+      .right-part {
         display: flex;
-        p{
+        p {
           height: 30px;
           margin: 0;
           line-height: 30px;
         }
-        span{
+        span {
           line-height: 30px;
         }
-        .header-center-wr{
+        .header-center-wr {
           padding: 0 20px 0 0;
-          img{
+          img {
 
           }
-          .center-info{
-            .name{
+          .center-info {
+            .name {
 
             }
-            .info-position{
+            .info-position {
               font-size: 13px;
             }
           }
         }
-        .cost-info{
+        .cost-info {
           padding: 0 20px 0 0;
-          .cost-desc{
+          .cost-desc {
             font-size: 13px;
           }
         }
-        .proc-btn{
+        .proc-btn {
           height: 40px;
           display: flex;
           align-items: center;
@@ -102,7 +102,7 @@
         }
       }
     }
-    .bg-popup{
+    .bg-popup {
       position: fixed;
       top: 0;
       left: 0;
@@ -110,39 +110,39 @@
       bottom: 0;
       z-index: 20;
       background: rgba(0, 0, 0, 0.5);
-      &.hidden{
+      &.hidden {
         display: none;
       }
     }
-    .popup-send-mail{
+    .popup-send-mail {
       position: absolute;
-      top:50%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       height: 400px;
       width: 400px;
       background: #ccc;
       z-index: 30;
-      &.hidden{
+      &.hidden {
         display: none;
       }
-      p.header-send{
+      p.header-send {
         margin: 0;
         background: #848181;
         display: flex;
         align-items: center;
         justify-content: center;
         height: 60px;
-        span{
+        span {
 
         }
       }
-      .body-send{
-        .input-wr{
+      .body-send {
+        .input-wr {
           width: 100%;
           padding: 40px 20px 0 20px;
           box-sizing: border-box;
-          input{
+          input {
             border: none;
             padding: 0 10px;
             height: 40px;
@@ -151,12 +151,12 @@
             border-radius: 5px;
           }
         }
-        .send-btn-wr{
+        .send-btn-wr {
           display: flex;
           justify-content: space-between;
           max-width: 260px;
           margin: 40px auto 0;
-          &>div{
+          & > div {
             width: 80px;
             height: 40px;
             display: flex;
@@ -167,10 +167,10 @@
             padding: 0 15px;
             cursor: pointer;
             transition: 0.4s background;
-            &:hover{
+            &:hover {
               background: rgba(62, 62, 62, 0.89);
             }
-            span{
+            span {
 
             }
           }
@@ -178,7 +178,7 @@
         }
       }
     }
-    .footer-task{
+    .footer-task {
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -186,11 +186,11 @@
       justify-content: space-around;
       padding: 10px 0;
       border-top: 1px solid #ccc;
-      .footer-wr{
+      .footer-wr {
         max-width: 500px;
         display: flex;
         justify-content: space-between;
-        &>div{
+        & > div {
           height: 40px;
           display: flex;
           align-items: center;
@@ -199,10 +199,10 @@
           padding: 0 15px;
           cursor: pointer;
           transition: 0.4s background;
-          &:hover{
+          &:hover {
             background: rgba(62, 62, 62, 0.89);
           }
-          &.send-btn{
+          &.send-btn {
             margin: 0 20px 0 0;
           }
         }
@@ -210,9 +210,20 @@
     }
   }
 
-  &.admin-task{
+  &.user-task {
+    .inside-wr {
+      .task-wr {
+        height: calc(100% - 110px);
+        .taskView{
+          margin: 0;
+          height: calc(100% - 60px);
+        }
+      }
+    }
+  }
+  &.admin-task {
     height: 100%;
-    .footer-task{
+    .footer-task {
       display: none;
     }
   }
