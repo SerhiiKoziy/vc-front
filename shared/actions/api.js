@@ -76,7 +76,7 @@ export function deleteUserAPI(userId) {
 
 export function sendMailAPI(userId, from) {
   console.log('createUserAPI', userId, from);
-  return axios.post(`${API.SEND_MAIL}/${userId}/contact`, from).then((response) => {
+  return axios.post(`${API.SEND_MAIL}/${userId}/contact`, { from }).then((response) => {
     if (response) {
       return response;
     }

@@ -73,20 +73,7 @@ class MainPage extends Component {
                   </Link>
                 </div>
               </div>
-              {/* <Search
-                placeholder=''
-                items={items}
-                value={'j'}
-                onItemsChanged={::this.HiItems}
-              />*/}
             </div>
-            {/* <Search
-              items={items}
-              placeholder='Pick your language'
-              maxSelected={3}
-              multiple={true}
-              onItemsChanged={::this.HiItems}
-            />*/}
           </div>
           <div className="inside-wr">
             <div className="lists-wr main-lists-wr">

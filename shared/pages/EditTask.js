@@ -9,20 +9,21 @@ class EditTask extends PureComponent {
   };
 
   render() {
-    const currentTask = this.props.data.data.find(item => {
-      return item.id === parseFloat(this.props.params.taskId);
-    });
-    // const num = location.pathname; RegExp(/task/([\s\S]*?)<\/edit)
-
-    return (
-      <div className="builder-task edit-builder-task">
-        <CreateTask
-          key={currentTask.updatedAt}
-          currentTask={currentTask || {}}
-          buttonText="Edit task"
-        />
-      </div>
-    );
+    if (this.props.data.data) {
+      const currentTask = this.props.data.data.find(item => {
+        return item.id === parseFloat(this.props.params.taskId);
+      });
+      return (
+        <div className="builder-task edit-builder-task">
+          <CreateTask
+            key={currentTask.updatedAt}
+            currentTask={currentTask || {}}
+            buttonText="Edit task"
+          />
+        </div>
+      );
+    }
+    return null;
   }
 }
 

@@ -2,7 +2,6 @@ import * as types from '../constants/ActionTypes';
 import { getAllUsersAPI, getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {
-  // console.log('payload', payload);
   return {
     type: types.ADD_DATA,
     payload,
@@ -58,17 +57,24 @@ export function deleteUser(userId) {
     });
   };
 }
+export function letterSended(payload) {
+  return {
+    type: types.LETTER_SENDED,
+    payload,
+  };
+}
 // SEND_MAIL to API
 export function sendMail(userId, clientMail) {
   return (dispatch) => {
     sendMailAPI(userId, clientMail).then(res => {
       if (res) {
-         console.log('res sendMail', res);
-        // dispatch(getUsers());
+        console.log('res sendMail', res);
+        dispatch(letterSended(res.statusText));
       }
     });
   };
 }
+
 export function editTask(payload) {
   return {
     type: types.UPDATE_CV,

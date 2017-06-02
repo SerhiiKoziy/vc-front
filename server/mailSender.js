@@ -48,6 +48,7 @@ class Email extends React.PureComponent {
 }
 
 function createMessage(from, user = {}) {
+  console.log('Sending Mail', from, user);
   return {
 
     // Comma separated list of recipients
@@ -73,7 +74,7 @@ export default function sendMessage(from, user) {
     transporter.sendMail(createMessage(from, user), (error, info) => {
       if (error) {
         console.log('Error occurred');
-        console.log(error.message);
+        console.log(error.message, from, user);
         reject(error);
         return;
       }

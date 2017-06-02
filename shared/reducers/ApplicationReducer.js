@@ -9,7 +9,6 @@ export default function ApplicationReducer(state = INITIAL_STATE, action) {
         ...state,
         application: payload,
       };
-
     default:
       return state;
   }
