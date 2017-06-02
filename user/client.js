@@ -2,8 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { browserHistory, match } from 'react-router';
 import getEntry from '../shared/EntryComponent';
-import configureStore from './store/configureStore';
-import { setList } from './actions';
+import configureStore from '../shared/store/configureStore';
 import getRoutes from './routes';
 import '../sass/common.scss';
 

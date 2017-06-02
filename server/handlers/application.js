@@ -4,7 +4,7 @@ import { match } from 'react-router';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
 import getEntry from '../../shared/EntryComponent';
 import Html from '../../shared/components/Html';
-import configureStore from '../../user/store/configureStore';
+import configureStore from '../../shared/store/configureStore';
 import getUserRoutes from '../../user/routes';
 import getAdminRoutes from '../../admin/routes';
 
@@ -26,7 +26,7 @@ export default function createHandler(AREA) {
       location: req.originalUrl,
     }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) {
-        res.redirect(redirectLocation.pathname + redirectLocation.search)
+        res.redirect(redirectLocation.pathname + redirectLocation.search);
       } else if (error) {
         res.send(error);
       } else if (renderProps) {
@@ -36,10 +36,10 @@ export default function createHandler(AREA) {
           {getEntry(true, store, renderProps)}
           </Html>
         );
-        res.status(200).type('html').send(`<!DOCTYPE html>${html}`)
+        res.status(200).type('html').send(`<!DOCTYPE html>${html}`);
       } else {
-        res.status(404).send('not found')
+        res.status(404).send('not found');
       }
     });
-  }
+  };
 }

@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { DataReducer, ApplicationReducer } from '../reducers';
 import createLogger from 'redux-logger';
 import { INITIAL_STATE } from '../constants/InitialState';
-//import updateLocalStorage from './middleware';
+// import updateLocalStorage from './middleware';
 import { routerReducer, routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 
 const reducer = combineReducers({

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Root from './pages/Root';
-import DashBoard from './pages/DashBoard';
-import TaskPage from './pages/TaskPage';
-import EditTask from './pages/EditTask';
-import MainPage from './pages/MainPage';
-import FilterPage from './pages/FilterPage';
-import { getUsers } from './actions';
+import Root from '../shared/pages/Root';
+import DashBoard from '../shared/pages/DashBoard';
+import TaskPage from '../shared/pages/TaskPage';
+import EditTask from '../shared/pages/EditTask';
+import MainPage from '../shared/pages/MainPage';
+import FilterPage from '../shared/pages/FilterPage';
+import { getUsers } from '../shared/actions';
 
 export default function getRoutes(store) {
   function isDataStored() {
