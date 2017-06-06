@@ -33,6 +33,7 @@ class DashBoard extends Component {
         );
       });
     }
+    return null;
   }
 
   render() {

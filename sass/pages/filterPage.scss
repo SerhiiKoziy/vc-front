@@ -561,6 +561,7 @@
         padding: 0;
         height: calc(100vh - 100px);
         border-top: 1px solid #ccc;
+        overflow: hidden;
         .left-filter{
           position: relative;
           width: 100%;
@@ -569,7 +570,8 @@
           border-right: 1px solid #ccc;
           box-sizing: border-box;
           min-height: 60vh;
-          transition: 0.6s width, 0.6s padding;
+          transition: 0.6s width, 0.6s padding, 0.6s transform;
+          overflow: hidden;
 
           .range-filter{
             padding: 0 0 50px 0;
@@ -769,13 +771,11 @@
           }
 
           &.hidden{
-            padding: 0;
+            padding: 20px 0 70px 0;
             width: 0;
             border: 0;
             overflow: hidden;
-            .range-filter{
-              //opacity: 0;
-            }
+            transform: translate( -120%, 0);
           }
         }
         .lists-wr{
