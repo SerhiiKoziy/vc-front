@@ -2,18 +2,17 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
-import { deleteTask, getUser, sendMail } from '../actions';
+import { getUser, sendMail } from '../actions';
 // import MAIL_REG from '../constants/regExp';
-import TaskView from '../components/Task/TaskView';
+import ViewCv from '../components/CV/ViewCv';
 import TextField from '../components/TextField/TextField';
 
-class TaskPage extends Component {
+class PageCV extends Component {
   static propTypes = {
     currentTask: React.PropTypes.object,
     user: React.PropTypes.object,
     push: React.PropTypes.func,
     getUser: React.PropTypes.func,
-    deleteTask: React.PropTypes.func,
     sendMail: React.PropTypes.func,
     children: React.PropTypes.any,
     data: React.PropTypes.object,
@@ -44,10 +43,10 @@ class TaskPage extends Component {
     const clientMail = this.state.mail;
     this.props.sendMail(userId, clientMail);
   }
-  deleteTask() {
+  /* deleteTask() {
     this.props.push('/');
     this.props.deleteTask(this.props.currentTask.id);
-  }
+  }*/
   handleInputChange(target, e) {
     this.updateValue(target, e.target.value.toString());
   }
@@ -130,7 +129,7 @@ class TaskPage extends Component {
                         <img src={this.props.user.image} alt="" />
                       </div>
                       <div className="center-info">
-                        <p className="name">Yura Kolesnicov</p>
+                        <p className="name">{this.props.user.username}</p>
                         <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
                       </div>
                     </div>
@@ -143,9 +142,8 @@ class TaskPage extends Component {
                     </div>
                   </div>
                 </div>
-                <TaskView
+                <ViewCv
                   item={this.props.user}
-                  onDelete={::this.deleteTask}
                 />
               </div>
             )
@@ -210,5 +208,5 @@ export default connect(
     }
     return {};
   },
-  { deleteTask, getUser, sendMail, push }
-)(TaskPage);
+  { getUser, sendMail, push }
+)(PageCV);

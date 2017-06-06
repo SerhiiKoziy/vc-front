@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteTask, updateTask, getUsers } from '../actions';
+import { getUsers } from '../actions';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 // import { push } from 'react-router-redux';
@@ -8,7 +8,7 @@ import InputRange from 'react-input-range';
 import Select from 'react-select';
 
 import RadioButton from '../components/RadioButton/RadioButton';
-import Task from '../components/Task/Task';
+import PreViewCv from '../components/CV/PreViewCv';
 
 
 class MainPage extends Component {
@@ -28,15 +28,10 @@ class MainPage extends Component {
   }
 
   static propTypes = {
-    deleteTask: React.PropTypes.func,
-    updateTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
     push: React.PropTypes.func,
     data: React.PropTypes.object,
   };
-  deleteTask(taskId) {
-    this.props.deleteTask(taskId);
-  }
   filterDataTitle() {
     const { data } = this.props.data;
     const { multiValue } = this.state;
@@ -107,12 +102,12 @@ class MainPage extends Component {
       return dataSel.map((item, i) => {
         return (
           <Link key={`task-${i}`} to={`/task/${item.id}`}>
-            <Task
+            <PreViewCv
               item={item}
               key={i}
               isAdminPanel={application}
               onClick={::this.goToMainFilter}
-              onDelete={(e) => { this.deleteTask(item.id, e); }}
+
               /* onDelete={this.deleteTask.bind(this, item.id)}*/
             />
           </Link>
@@ -284,7 +279,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, push, getUsers,
+    push, getUsers,
   }
 )(MainPage);
 

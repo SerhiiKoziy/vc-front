@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import CreateTask from '../components/Task/CreateTask';
+import CreateCV from '../components/CV/CreateCV';
 
-class EditTask extends PureComponent {
+class EditCV extends PureComponent {
   static propTypes = {
     params: React.PropTypes.object,
     data: React.PropTypes.object,
@@ -15,7 +15,7 @@ class EditTask extends PureComponent {
       });
       return (
         <div className="builder-task edit-builder-task">
-          <CreateTask
+          <CreateCV
             key={currentTask.updatedAt}
             currentTask={currentTask || {}}
             buttonText="Edit task"
@@ -29,5 +29,5 @@ class EditTask extends PureComponent {
 
 export default connect((state) => {
   return { data: state.data };
-})(EditTask);
+})(EditCV);
 

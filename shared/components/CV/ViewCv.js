@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default class TaskView extends React.PureComponent {
+export default class ViewCv extends React.PureComponent {
   static propTypes = {};
 
   renderMainSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
       const mainSkills = this.props.item.skills.filter((skill) => skill.main);
-
       return mainSkills.map(this.renderSkill);
     }
     return null;
@@ -16,7 +15,6 @@ export default class TaskView extends React.PureComponent {
   renderOtherSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
       const mainSkills = this.props.item.skills.filter((skill) => !skill.main);
-
       return mainSkills.map(this.renderSkill);
     }
     return null;
@@ -32,7 +30,6 @@ export default class TaskView extends React.PureComponent {
   renderWorkExperience() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
       const mainSkills = this.props.item.skills.filter((skill) => skill.main);
-
       return mainSkills.map(this.renderExperience);
     }
     return null;

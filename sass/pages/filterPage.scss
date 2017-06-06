@@ -81,7 +81,7 @@
       position: relative;
       .header-wr{
         //margin: 40px 0 0 0;
-        padding: 0 0 20px 0;
+        // padding: 0 0 20px 0;
         .goAdmin{
           color: #000;
         }
@@ -89,8 +89,13 @@
           position: relative;
           box-sizing: border-box;
           padding: 0 20px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .search-wr-inside{
             position: relative;
+            width: 100%;
             z-index: 100;
             .search-btn{
               position: absolute;
@@ -554,7 +559,7 @@
       .inside-wr{
         display: flex;
         padding: 0;
-        height: calc(100vh - 150px);
+        height: calc(100vh - 100px);
         border-top: 1px solid #ccc;
         .left-filter{
           position: relative;

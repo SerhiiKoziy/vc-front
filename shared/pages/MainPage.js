@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { deleteTask, updateTask, getUsers } from '../actions';
+import { getUsers } from '../actions';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import SearchFilter from '../components/SearchFilter/SearchFilter';
 
-import Task from '../components/Task/Task';
+import PreViewCv from '../components/CV/PreViewCv';
 
 
 class MainPage extends Component {
@@ -17,27 +17,21 @@ class MainPage extends Component {
   }
 
   static propTypes = {
-    deleteTask: React.PropTypes.func,
-    updateTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
     push: React.PropTypes.func,
     data: React.PropTypes.object,
   };
-  deleteTask(taskId) {
-    this.props.deleteTask(taskId);
-  }
+
   renderDustbins() {
     const data = this.props.data.data || [];
     const { application } = this.props.data;
     return data.map((item, i) => {
       return (
         <Link key={`task-${i}`} to={`/task/${item.id}`}>
-          <Task
+          <PreViewCv
             item={item}
             isAdminPanel={application}
             onClick={::this.goToMainFilter}
-            onDelete={(e) => { this.deleteTask(item.id, e); }
-            /* this.deleteTask.bind(this, item.id)*/}
           />
         </Link>
       );
@@ -58,7 +52,6 @@ class MainPage extends Component {
               <div className="header-title">
                 <h4>Header</h4>
               </div>
-              {/* <div className="goAdmin" onClick={::this.goToAdmin}>goToAdmin</div>*/}
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>
@@ -91,7 +84,7 @@ const ConnectedComponent = connect(
     return { data: state.data };
   },
   {
-    deleteTask, updateTask, push, getUsers,
+    push, getUsers,
   }
 )(MainPage);
 

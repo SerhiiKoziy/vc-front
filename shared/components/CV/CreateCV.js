@@ -4,16 +4,16 @@ import dateFormat from 'dateformat';
 
 import TextField from '../TextField/TextField';
 import CheckBox from '../CheckBox/CheckBox';
-import { createTask, updateUser, getUsers, createUser } from '../../actions';
+import { updateUser, getUsers, createUser } from '../../actions';
 
-class CreateTask extends React.Component {
+class createCV extends React.Component {
   static propTypes = {
     currentTask: React.PropTypes.object,
     buttonText: React.PropTypes.string,
     editTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
     updateUser: React.PropTypes.func,
-    createTask: React.PropTypes.func,
+    createCv: React.PropTypes.func,
     createUser: React.PropTypes.func,
   };
 
@@ -24,6 +24,7 @@ class CreateTask extends React.Component {
     const defaultValues = {
       address: 'Kiev, Kyiv city, Ukraine',
       title: '',
+      username: '',
       cost: '',
       inHouse: true,
       experience: '',
@@ -40,10 +41,12 @@ class CreateTask extends React.Component {
         title: false,
         cost: false,
         experience: false,
+        username: false,
         /*image: false,*/
       },
       errorMessages: {
         title: 'Title is required',
+        username: 'User name is required',
         cost: 'Cost is required',
         experience: 'Experience is required',
         image: 'Image is required',
@@ -51,6 +54,9 @@ class CreateTask extends React.Component {
       },
       validation: {
         title: (value) => {
+          return value.length > 0;
+        },
+        username: (value) => {
           return value.length > 0;
         },
         cost: (value) => {
@@ -70,7 +76,7 @@ class CreateTask extends React.Component {
     this.state = this.defaultState;
   }
 
-  createTask(values) {
+  createCv(values) {
     const dateObject = new Date();
     const date = dateFormat(dateObject, 'dddd, mmmm dS');
     const currentTime = new Date().getTime();
@@ -115,7 +121,7 @@ class CreateTask extends React.Component {
     formData.append('tax_file', document.getElementById('file-input').files);
     // console.log('formData', formData);
     const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
-    const task = this.createTask(this.state.values);
+    const task = this.createCv(this.state.values);
 
     if (this.props.currentTask) {
       task.id = this.props.currentTask.id;
@@ -208,6 +214,16 @@ class CreateTask extends React.Component {
     return (
       <div className="form-wr">
         <form id="upload_form" onSubmit={::this.handleFormSubmit} encType="multipart/form-data">
+          <TextField
+            classNameBox={'input-wr'}
+            placeholder={'Enter name'}
+            value={this.state.values.username}
+            fieldName="username"
+            maxLength="30"
+            onChange={::this.handleInputChange}
+            onBlur={::this.handleInputBlur}
+            errorText={this.showError('username')}
+          />
           <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter title'}
@@ -342,4 +358,4 @@ class CreateTask extends React.Component {
   }
 }
 
-export default connect(null, { createTask, updateUser, getUsers, createUser })(CreateTask);
+export default connect(null, { updateUser, getUsers, createUser })(createCV);

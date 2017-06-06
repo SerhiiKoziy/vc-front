@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import dateFormat from 'dateformat';
 
-const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
+const PreViewCv = ({ item, onDelete, children, isAdminPanel, onClick }) => {
  // const cloudImageUrl = `http://openweathermap.org/img/w/${item.weather.weather[0].icon}.png`;
   const base = (isAdminPanel === 'admin') ? 'admin' : '';
   return (
@@ -33,7 +33,7 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
         {
           item.skills && (item.skills.map((skill, i) => {
             return (
-              <li key={i}>
+              <li key={i} className={`${skill.main ? 'main-skill' : ''}`}>
                 {`${skill.skill} : ${skill.experience} year(s)`}
                 {
                   skill.isMain ? <span>main</span> : ''
@@ -75,7 +75,7 @@ const Task = ({ item, onDelete, children, isAdminPanel, onClick }) => {
 };
 
 
-Task.propTypes = {
+PreViewCv.propTypes = {
   item: React.PropTypes.object,
   children: React.PropTypes.any,
   map: React.PropTypes.any,
@@ -84,4 +84,4 @@ Task.propTypes = {
   isAdminPanel: React.PropTypes.string,
 };
 
-export default Task;
+export default PreViewCv;

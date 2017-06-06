@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Root from '../shared/pages/Root';
 import DashBoard from '../shared/pages/DashBoard';
-import TaskPage from '../shared/pages/TaskPage';
-import EditTask from '../shared/pages/EditTask';
+import PageCV from '../shared/pages/PageCV';
+import EditCV from '../shared/pages/EditCV';
 import MainPage from '../shared/pages/MainPage';
 import FilterPage from '../shared/pages/FilterPage';
 import { getUsers } from '../shared/actions';
@@ -29,8 +29,8 @@ export default function getRoutes(store) {
   let base = "/client";
   return (
     <Route name="Root" path="/" component={Root} onEnter={checkMainRoute}>
-      <Route name="task" path="task/:taskId" component={TaskPage}>
-        <Route name="EditTask" path="edit" component={EditTask} />
+      <Route name="task" path="task/:taskId" component={PageCV}>
+        <Route name="EditTask" path="edit" component={EditCV} />
       </Route>
       <Route name="DashBoard" path="DashBoard" component={DashBoard} />
       <Route name="MainPage" path="MainPage" component={MainPage} />

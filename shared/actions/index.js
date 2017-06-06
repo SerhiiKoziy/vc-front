@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI, getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
+import { getAllUsersAPI,
+         getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {
   return {
@@ -75,23 +76,9 @@ export function sendMail(userId, clientMail) {
   };
 }
 
-export function editTask(payload) {
-  return {
-    type: types.UPDATE_CV,
-    payload,
-  };
-}
-
-export function createTask(payload) {
-  return {
-    type: types.ADD_CV,
-    payload,
-  };
-}
-
-export function deleteTask(taskId) {
+/* export function deleteTask(taskId) {
   return {
     type: types.DELETE_CV,
     payload: taskId,
   };
-}
+}*/

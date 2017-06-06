@@ -49,6 +49,11 @@
   }
   .skills-list{
     width: 50%;
+    li{
+      &.main-skill{
+        color: #ffec00;
+      }
+    }
   }
   h4 {
 
