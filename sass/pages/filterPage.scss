@@ -569,6 +569,7 @@
           border-right: 1px solid #ccc;
           box-sizing: border-box;
           min-height: 60vh;
+          transition: 0.6s width, 0.6s padding;
 
           .range-filter{
             padding: 0 0 50px 0;
@@ -766,6 +767,16 @@
               }
             }
           }
+
+          &.hidden{
+            padding: 0;
+            width: 0;
+            border: 0;
+            overflow: hidden;
+            .range-filter{
+              //opacity: 0;
+            }
+          }
         }
         .lists-wr{
           display: block;
@@ -773,6 +784,7 @@
           padding: 20px;
           box-sizing: border-box;
           overflow: auto;
+          transition: 0.6s width;
           &>a{
             float: left;
             width: 30%;

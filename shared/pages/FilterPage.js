@@ -51,8 +51,10 @@ class MainPage extends Component {
                 found = true;
                 dataFilterTitleOrSkill.push(dataCV);
               }
+              return null;
             });
           }
+          return null;
         });
       } else if (!found) {
         multiValue.map(item => {
@@ -60,8 +62,10 @@ class MainPage extends Component {
             found = true;
             dataFilterTitleOrSkill.push(dataCV);
           }
+          return null;
         });
       }
+      return null;
     });
 
     this.setState({ isUseFiler: true });
@@ -91,7 +95,9 @@ class MainPage extends Component {
       filterData: [],
       isUseFiler: false,
       value: '',
+      multiValue: [],
       valueCost: { min: 1000, max: 3000 },
+      sideBar: true,
     });
   }
   renderDustbins() {
@@ -131,11 +137,6 @@ class MainPage extends Component {
       // this.setState({ valueSelect });
     }
   }
-  // onChange(value) {
-  //   this.setState({
-  //     value: value,
-  //   });
-  // }
   render() {
     const { options } = this.props.data;
 
@@ -149,7 +150,9 @@ class MainPage extends Component {
                 <span>? FIQ</span>
               </div>
               <div className="header-title">
-                <h4>Header</h4>
+                <h4
+                  onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
+                >Header</h4>
               </div>
               <div className="" onClick={::this.goToAdmin}>goToAdmin</div>
               <div className="header-contact">
@@ -174,7 +177,7 @@ class MainPage extends Component {
             </div>
           </div>
           <div className="inside-wr">
-            <div className="left-filter">
+            <div className={`left-filter ${this.state.sidebar ? '' : 'hidden'}`}>
               <div className="range-filter">
                 <h4>Monthly budget</h4>
                 <InputRange

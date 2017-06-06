@@ -35,7 +35,7 @@ export default function getRoutes(store) {
       <Route name="DashBoard" path="DashBoard" component={DashBoard} />
       <Route name="MainPage" path="MainPage" component={MainPage} />
       <Route name="FilterPage" path="FilterPage" component={FilterPage} />
-      <IndexRoute name="MainPage" component={MainPage} />
+      <IndexRoute name="MainPage" component={FilterPage} />
     </Route>
   );
 }
