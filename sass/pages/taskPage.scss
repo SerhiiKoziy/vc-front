@@ -159,6 +159,22 @@
             box-sizing: border-box;
             border-radius: 5px;
           }
+          .success{
+            input{
+              border: 1px solid #71af64;
+            }
+          }
+
+        }
+        .send-message{
+          .success-test{
+            text-align: center;
+            color: #71af64;
+          }
+          .unsuccess-test{
+            text-align: center;
+            color: #f10000;
+          }
         }
         .send-btn-wr {
           display: flex;
@@ -181,6 +197,14 @@
             }
             span {
 
+            }
+            &.disabled{
+              cursor: default;
+              background: rgb(130, 130, 130);
+              &:hover {
+                background: rgb(130, 130, 130);
+                //background: rgba(62, 62, 62, 0.89);
+              }
             }
           }
 

@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
-import { getUser, sendMail } from '../actions';
+import { getUser, sendMail, letterSent } from '../actions';
 // import MAIL_REG from '../constants/regExp';
 import ViewCv from '../components/CV/ViewCv';
 import TextField from '../components/TextField/TextField';
@@ -12,11 +12,13 @@ class PageCV extends Component {
     currentTask: React.PropTypes.object,
     user: React.PropTypes.object,
     push: React.PropTypes.func,
+    letterSent: React.PropTypes.func,
     getUser: React.PropTypes.func,
     sendMail: React.PropTypes.func,
     children: React.PropTypes.any,
     data: React.PropTypes.object,
     application: React.PropTypes.string,
+    sent: React.PropTypes.string,
   };
 
   constructor(props) {
@@ -43,10 +45,6 @@ class PageCV extends Component {
     const clientMail = this.state.mail;
     this.props.sendMail(userId, clientMail);
   }
-  /* deleteTask() {
-    this.props.push('/');
-    this.props.deleteTask(this.props.currentTask.id);
-  }*/
   handleInputChange(target, e) {
     this.updateValue(target, e.target.value.toString());
   }
@@ -55,6 +53,12 @@ class PageCV extends Component {
       ...this.state.values,
       [target]: value,
     });
+  }
+  isValidForm() {
+    const validations = Object.keys(this.state.validation).filter(field => {
+      return !this.state.validation[field](this.state[field]);
+    });
+    return (validations.length === 0);
   }
   handleInputBlur(target) {
     this.setState({
@@ -73,7 +77,8 @@ class PageCV extends Component {
     return null;
   }
   handlePopup() {
-    this.setState({ openPopup: !this.state.openPopup });
+    this.props.letterSent('');
+    this.setState({ openPopup: !this.state.openPopup, mail: '' });
   }
   renderHeader() {
     return (
@@ -92,13 +97,64 @@ class PageCV extends Component {
       </div>
     );
   }
+  renderPopup() {
+    const sent = this.props.sent;
+    return (
+      <div>
+        <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
+        <div className={`popup-send-mail ${this.state.openPopup ? '' : 'hidden'}`}>
+          <p className="header-send">
+            <span>Enter your email</span>
+          </p>
+          <div className="body-send">
+            <div
+              className={`input-wr ${sent === 'OK' ? 'success' : ''}`}
+            >
+              <TextField
+                classNameBox={'input-wr'}
+                placeholder={'Enter mail'}
+                value={this.state.mail}
+                fieldName="mail"
+                onChange={::this.handleInputChange}
+                onBlur={::this.handleInputBlur}
+                errorText={this.showError('mail')}
+              />
+            </div>
+            <div className="send-message">
+              {
+                (sent === 'OK') && (
+                  <p className="success-test">Лист відправлено!</p>
+                )
+              }
+              {
+                (sent && sent !== 'OK') && (
+                  <p className="unsuccess-test">Виникла помилка!</p>
+                )
+              }
+            </div>
+            <div className="send-btn-wr">
+              <div className="cancel-btn" onClick={::this.handlePopup}>
+                <span>Cancel</span>
+              </div>
+              <div
+                className={`send-btn ${!this.isValidForm() ? 'disabled' : ''}`}
+                onClick={!this.isValidForm() ? '' : ::this.sendMail}
+              >
+                <span>Send</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   renderFooter() {
     return (
       <div className="footer-task">
         <div className="footer-wr">
           <div
             className="send-btn"
-            onClick={::this.handlePopup}
+            onClick={this.props.user ? ::this.handlePopup : ''}
           >
             <span>Send me to email</span>
           </div>
@@ -155,36 +211,7 @@ class PageCV extends Component {
               </div>
             )
           }
-          <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
-          <div className={`popup-send-mail ${this.state.openPopup ? '' : 'hidden'}`}>
-            <p className="header-send">
-              <span>Enter your email</span>
-            </p>
-            <div className="body-send">
-              <div className={`input-wr ${this.props.sended === 'OK' ? 'sended' : 'error'}`}>
-                <TextField
-                  classNameBox={'input-wr'}
-                  placeholder={'Enter mail'}
-                  value={this.state.mail}
-                  fieldName="mail"
-                  onChange={::this.handleInputChange}
-                  onBlur={::this.handleInputBlur}
-                  errorText={this.showError('mail')}
-                />
-              </div>
-              <div className="send-btn-wr">
-                <div className="cancel-btn" onClick={::this.handlePopup}>
-                  <span>Cancel</span>
-                </div>
-                <div
-                  className="send-btn"
-                  onClick={::this.sendMail}
-                >
-                  <span>Send</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {this.renderPopup()}
           {this.props.children}
           {this.renderFooter()}
         </div>
@@ -202,11 +229,15 @@ export default connect(
         return {
           user,
           application: state.data.application,
+          sent: state.data.sent || '',
         };
       }
-      return {};
+      return {
+        application: state.data.application,
+        sent: state.data.sent || '',
+      };
     }
     return {};
   },
-  { getUser, sendMail, push }
+  { getUser, sendMail, letterSent, push }
 )(PageCV);

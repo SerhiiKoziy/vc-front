@@ -1,4 +1,4 @@
-# ToDo forecast manager 
+# Cv-manager
 
 # install:
 npm i

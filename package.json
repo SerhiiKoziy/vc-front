@@ -1,7 +1,7 @@
 {
-  "name": "ToDoManager",
+  "name": "CvManager",
   "version": "1.0.0",
-  "description": "ToDo manager with weather",
+  "description": "Cv-Manager",
   "main": "index.js",
   "scripts": {
     "dev": "node webpack-dev-server.js & PORT=3002 NODE_ENV=local nodemon server.js -e js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SerhiiKoziy"
+    "url": ""
   },
   "keywords": [
     "react",
@@ -28,9 +28,9 @@
   "author": "Serhii Koziy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SerhiiKoziy"
+    "url": ""
   },
-  "homepage": "https://github.com/SerhiiKoziy",
+  "homepage": "",
   "dependencies": {
     "autosuggest-highlight": "^3.1.0",
     "axios": "^0.15.3",

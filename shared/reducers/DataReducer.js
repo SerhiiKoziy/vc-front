@@ -25,11 +25,11 @@ export default function DataReducer(state = INITIAL_STATE, action) {
         options: selectOptions,
       };
 
-    case 'LETTER_SENDED':
-      console.log('1', payload)
+    case 'LETTER_SENT':
+      console.log('1', payload);
       return {
         ...state,
-        sended: payload,
+        sent: payload,
       };
     case 'SET_AREA':
       return {

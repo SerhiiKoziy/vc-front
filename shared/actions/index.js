@@ -58,9 +58,10 @@ export function deleteUser(userId) {
     });
   };
 }
-export function letterSended(payload) {
+
+export function letterSent(payload) {
   return {
-    type: types.LETTER_SENDED,
+    type: types.LETTER_SENT,
     payload,
   };
 }
@@ -70,15 +71,8 @@ export function sendMail(userId, clientMail) {
     sendMailAPI(userId, clientMail).then(res => {
       if (res) {
         console.log('res sendMail', res);
-        dispatch(letterSended(res.statusText));
+        dispatch(letterSent(res.statusText));
       }
     });
   };
 }
-
-/* export function deleteTask(taskId) {
-  return {
-    type: types.DELETE_CV,
-    payload: taskId,
-  };
-}*/
