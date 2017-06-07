@@ -102,7 +102,7 @@ class PageCV extends Component {
     return (
       <div>
         <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
-        <div className={`popup-send-mail ${this.state.openPopup ? '' : 'hidden'}`}>
+        <div className={`popup-send-mail ${this.state.openPopup ? 'anim-popup' : 'hidden'}`}>
           <p className="header-send">
             <span>Enter your email</span>
           </p>

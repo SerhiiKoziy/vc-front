@@ -67,6 +67,7 @@ class createCV extends React.Component {
         },
         image: (value) => {
           return value.length > 0;
+         // return true;
         },
       },
       skillName: '',
@@ -195,10 +196,8 @@ class createCV extends React.Component {
   onDropHandler(target, e) {
     const file = e.target.files[0];
     const reader = new FileReader();
-    let result;
     reader.onload = (event) => {
-      result = event.target.result;
-      this.setState({
+      /* this.setState({
         image: event.target.result,
         fileName: file.name,
         values: {
@@ -206,8 +205,17 @@ class createCV extends React.Component {
           image: event.target.result,
           fileName: file.name,
         },
-      });
+      });*/
     };
+    this.setState({
+      image: file,
+      fileName: file.name,
+      values: {
+        ...this.state.values,
+        image: file,
+        fileName: file.name,
+      },
+    });
     reader.readAsDataURL(file);
   }
   render() {

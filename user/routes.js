@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Root from '../shared/pages/Root';
-import DashBoard from '../shared/pages/DashBoard';
 import PageCV from '../shared/pages/PageCV';
 import EditCV from '../shared/pages/EditCV';
-import MainPage from '../shared/pages/MainPage';
 import FilterPage from '../shared/pages/FilterPage';
 import { getUsers } from '../shared/actions';
 
@@ -32,8 +30,6 @@ export default function getRoutes(store) {
       <Route name="task" path="task/:taskId" component={PageCV}>
         <Route name="EditTask" path="edit" component={EditCV} />
       </Route>
-      <Route name="DashBoard" path="DashBoard" component={DashBoard} />
-      <Route name="MainPage" path="MainPage" component={MainPage} />
       <Route name="FilterPage" path="FilterPage" component={FilterPage} />
       <IndexRoute name="MainPage" component={FilterPage} />
     </Route>

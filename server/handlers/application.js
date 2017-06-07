@@ -10,7 +10,7 @@ import getAdminRoutes from '../../admin/routes';
 
 export default function createHandler(AREA) {
   return (req, res) => {
-    console.log(req.originalUrl);
+    console.log('req.originalUrl', req, req.originalUrl);
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const { store, history } = configureStore(memoryHistory);
     const getRoutes = AREA === 'user' ? getUserRoutes : getAdminRoutes;

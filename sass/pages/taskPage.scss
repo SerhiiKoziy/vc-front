@@ -1,5 +1,6 @@
 .page.task-page {
   height: 100vh;
+  overflow: hidden;
   h3 {
     color: #006ec5;
     //font-size: 60px;
@@ -132,8 +133,22 @@
       width: 400px;
       background: #ccc;
       z-index: 30;
+      transition: 0.6s transform;
+
       &.hidden {
-        display: none;
+        //display: none;
+        transform: translate(500%, -50%);
+
+      }
+      &.anim-popup{
+        animation-name: example;
+        animation-duration: 0.4s;
+        animation-delay: 0.6s;
+        @keyframes example {
+          0% {transform: translate(-50%, -50%);}
+          30% {transform: translate(-55%, -50%);}
+          100% {transform: translate(-50%, -50%);}
+        }
       }
       p.header-send {
         margin: 0;
