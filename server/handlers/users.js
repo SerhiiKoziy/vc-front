@@ -69,28 +69,36 @@ router.put('/:user_id', function (req, res) {
     image: req.body.image,
     fileName: req.body.fileName,
   };
-  console.log('product', req);
-  models.User.update(updateProfile,
-    { where: { id: req.params.user_id }, include: [models.User.Skill] });
+  const updateUser = models.User.update(updateProfile,
+      { where: { id: req.params.user_id }});
+  const deleteUserSkill = models.Skill.destroy({ where: { UserId: req.params.user_id }});
+  // const createU = models.Skill.destroy({ where: { UserId: req.params.user_id }});
+  Promise.all([
+    deleteUserSkill,
+    updateUser,
+  ]).then((result) => {
+    res.send(result);
+  });
 
 
   var filter = {
     where: {
       id: req.params.user_id,
     },
-    include: [models.User.Skill],
+    include: [{
+      association: models.User.Skill,
+    }],
   };
 
-  /* models.User.findOne(filter).then(function (product) {
-    console.log('product', product);
-    if (product) {
-      return models.User.updateAttributes(updateProfile).then(function (result) {
-        res.send(result);
-      });
-    } else {
-      throw new Error('no such product type id exist to update');
-    }
-  });*/
+  //  models.User.findOne(filter).then(function (user) {
+  //    console.log(user, user.skills)
+  //    return Promise.all([
+  //      user.updateAttributes(updateProfile),
+  //      user.skills[0].updateAttributes(updateProfile.skills[0])
+  //    ]);
+  // }).then(([user, skills]) => {
+  //    res.send('Succcceees')
+  //  });
   /* models.User.update({
     username: req.body.username,
     title: req.body.title,

@@ -15,11 +15,11 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use('/assets', express.static(path.join(__dirname, '/../assets')));
 server.use('/user', usersHandler);
+server.use('/', createHandler('user'));
 server.use(basicAuth({
   users: { 'admin': 'admin' },
   challenge: true,
   realm: 'Imb4T3st4pp',
 }));
 server.use('/admin', createHandler('admin'));
-server.use('/', createHandler('user'));
 export default server;

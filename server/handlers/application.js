@@ -9,8 +9,11 @@ import getUserRoutes from '../../user/routes';
 import getAdminRoutes from '../../admin/routes';
 
 export default function createHandler(AREA) {
-  return (req, res) => {
-    console.log('req.originalUrl', req, req.originalUrl);
+  return (req, res, next) => {
+    if(AREA === 'user' && req.originalUrl.includes('admin')){
+      next();
+    }
+    console.log('req.originalUrl', req.originalUrl);
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const { store, history } = configureStore(memoryHistory);
     const getRoutes = AREA === 'user' ? getUserRoutes : getAdminRoutes;
@@ -30,7 +33,6 @@ export default function createHandler(AREA) {
       } else if (error) {
         res.send(error);
       } else if (renderProps) {
-        console.log(renderProps);
         const html = ReactDOM.renderToStaticMarkup(
           <Html area={AREA} store={store}>
           {getEntry(true, store, renderProps)}
