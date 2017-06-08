@@ -7,9 +7,10 @@ export default function DataReducer(state = INITIAL_STATE, action) {
   switch (type) {
     case types.ADD_DATA:
       const selectOptions = [];
+      const selectOptionsTitle = [];
       payload.map((cv) => {
         if (!!cv.title) {
-          selectOptions.push({ value: cv.title, label: cv.title });
+          selectOptionsTitle.push({ value: cv.title, label: cv.title });
         }
         if (cv.skills) {
           cv.skills.map((skill) => {
@@ -23,6 +24,7 @@ export default function DataReducer(state = INITIAL_STATE, action) {
         ...state,
         data: payload,
         options: selectOptions,
+        optionsTitle: selectOptionsTitle,
       };
 
     case 'LETTER_SENT':

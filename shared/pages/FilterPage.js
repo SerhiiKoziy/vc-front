@@ -19,11 +19,14 @@ class MainPage extends Component {
       valueCost: { min: 1000, max: 3000 },
       groupExperienceYear: 1,
       filterData: [],
+      filterDataTitle: [],
       isUseFiler: false,
       value: '',
       suggestions: [],
       multi: true,
+      sidebar: false,
       multiValue: [],
+      multiValueTitle: [],
     };
   }
 
@@ -100,11 +103,65 @@ class MainPage extends Component {
       sideBar: true,
     });
   }
+
+
+  goToAdmin() {
+    this.props.push('/DashBoard');
+  }
+  goToMainFilter() {
+    this.props.push('/FilterPage');
+  }
+  handleOnChange(valueSelect) {
+    const { multi } = this.state;
+    if (multi) {
+      this.setState({ multiValue: valueSelect });
+    } else {
+      // this.setState({ valueSelect });
+    }
+  }
+  handleOnChangeTitle(valueSelect) {
+    const { multi } = this.state;
+    if (multi) {
+      this.setState({ multiValueTitle: valueSelect });
+      this.filterDataJustTitle(valueSelect);
+    } else {
+      // this.setState({ valueSelect });
+    }
+  }
+  filterDataJustTitle(valueSelect) {
+    const { data } = this.props.data;
+    const dataFilterTitle = [];
+    data.map(dataCV => {
+      const title = dataCV.title;
+      let found = false;
+      if (!found) {
+        valueSelect.map(item => {
+          if (item.value === title) {
+            // found = true;
+            dataFilterTitle.push(dataCV);
+          }
+          return null;
+        });
+      }
+      return null;
+    });
+
+    this.setState({ filterDataTitle: dataFilterTitle });
+   // this.filterDataCost(dataFilterTitleOrSkill);
+  }
   renderDustbins() {
-    const { filterData, isUseFiler } = this.state;
+    const { filterData, multiValueTitle, filterDataTitle, isUseFiler, sidebar } = this.state;
     const { data, application } = this.props.data;
     if (this.props.data.data) {
-      const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? data : []);
+      // const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? data : []);
+      let dataSel;
+      if (filterData.length > 0 && sidebar) {
+        dataSel = filterData;
+      } else if (multiValueTitle.length > 0 && !sidebar) {
+        dataSel = filterDataTitle;
+      } else {
+        dataSel = !isUseFiler ? data : [];
+      }
       return dataSel.map((item, i) => {
         return (
           <Link key={`task-${i}`} to={`/task/${item.id}`}>
@@ -122,25 +179,10 @@ class MainPage extends Component {
     }
     return null;
   }
-
-  goToAdmin() {
-    this.props.push('/DashBoard');
-  }
-  goToMainFilter() {
-    this.props.push('/FilterPage');
-  }
-  handleOnChange(valueSelect) {
-    const { multi } = this.state;
-    if (multi) {
-      this.setState({ multiValue: valueSelect });
-    } else {
-      // this.setState({ valueSelect });
-    }
-  }
   render() {
-    const { options } = this.props.data;
+    const { options, optionsTitle } = this.props.data;
 
-    const { multi, multiValue, filterData, isUseFiler } = this.state;
+    const { multi, multiValue, multiValueTitle, filterData, isUseFiler } = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -154,26 +196,45 @@ class MainPage extends Component {
                   onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
                 >Header</h4>
               </div>
-              <div className="" onClick={::this.goToAdmin}>goToAdmin</div>
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
               </div>
             </div>
 
             <div className="search-wr">
-              <div className="search-wr-inside">
+              {
+                !this.state.sidebar && (
+                  <div className="search-wr-inside">
+                    <Select
+                      multi={multi}
+                      options={optionsTitle}
+                      onChange={::this.handleOnChangeTitle}
+                      value={multiValueTitle}
+                      placeholder={"Select Titles..."}
+                    />
+                    <div className="search-btn">
+                      <span><i className="fa fa-search" aria-hidden="true" /></span>
+                    </div>
+                  </div>
+                )
+              }
+              {
+                this.state.sidebar && (
+                  <div className="search-wr-inside">
+                    <Select
+                      multi={multi}
+                      options={options}
+                      onChange={::this.handleOnChange}
+                      value={multiValue}
+                      placeholder={"Select Skills..."}
+                    />
+                    <div className="search-btn">
+                      <span><i className="fa fa-search" aria-hidden="true" /></span>
+                    </div>
+                  </div>
+                )
+              }
 
-                <Select
-                  multi={multi}
-                  options={options}
-                  onChange={::this.handleOnChange}
-                  value={multiValue}
-                />
-
-                <div className="search-btn">
-                  <span><i className="fa fa-search" aria-hidden="true" /></span>
-                </div>
-              </div>
             </div>
           </div>
           <div className="inside-wr">
