@@ -10,12 +10,42 @@ export default function DataReducer(state = INITIAL_STATE, action) {
       const selectOptionsTitle = [];
       payload.map((cv) => {
         if (!!cv.title) {
-          selectOptionsTitle.push({ value: cv.title, label: cv.title });
+          //  selectOptionsTitle = [
+          // {
+          //   value: 'java',
+          //   label: 'java',
+          // },
+          // ]
+          if (selectOptionsTitle.length > 0) {
+            let check = 0;
+            selectOptionsTitle.map((opt, i, arr) => {
+              if (opt.value !== cv.title) {
+                check += 1;
+                if (arr.length === check) {
+                  selectOptionsTitle.push({ value: cv.title, label: cv.title });
+                }
+              }
+            });
+          } else {
+            selectOptionsTitle.push({ value: cv.title, label: cv.title });
+          }
         }
         if (cv.skills) {
           cv.skills.map((skill) => {
             if (skill.main === true) {
-              selectOptions.push({ value: skill.skill, label: skill.skill });
+              if (selectOptions.length > 0) {
+                let check = 0;
+                selectOptions.map((skl, i, arr) => {
+                  if (skl.value !== skill.skill) {
+                    check += 1;
+                    if (arr.length === check) {
+                      selectOptions.push({ value: skill.skill, label: skill.skill });
+                    }
+                  }
+                });
+              } else {
+                selectOptions.push({ value: skill.skill, label: skill.skill });
+              }
             }
           });
         }
