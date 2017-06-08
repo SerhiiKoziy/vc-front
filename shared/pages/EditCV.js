@@ -16,7 +16,6 @@ class EditCV extends PureComponent {
       return (
         <div className="builder-task edit-builder-task">
           <CreateCV
-            key={currentTask.updatedAt}
             currentTask={currentTask || {}}
             buttonText="Edit task"
           />

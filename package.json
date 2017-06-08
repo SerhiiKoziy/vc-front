@@ -45,7 +45,6 @@
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
     "react": "15.3.1",
-    "react-autosuggest": "^9.0.1",
     "react-dnd": "^2.2.4",
     "react-dnd-html5-backend": "^2.2.4",
     "react-dom": "15.3.1",

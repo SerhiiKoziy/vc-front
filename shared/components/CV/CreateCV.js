@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
+import { push } from 'react-router-redux';
 
 import TextField from '../TextField/TextField';
 import CheckBox from '../CheckBox/CheckBox';
@@ -121,7 +122,14 @@ class createCV extends React.Component {
     const formData = new FormData(document.getElementById('upload_form'));
     formData.append('tax_file', document.getElementById('file-input').files);
     // console.log('formData', formData);
-    const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
+    // const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
+    let submitHandler;
+    if (this.props.currentTask) {
+      this.props.push('/admin');
+      submitHandler = this.props.updateUser;
+    } else {
+      submitHandler = this.props.createUser;
+    }
     const task = this.createCv(this.state.values);
 
     if (this.props.currentTask) {
@@ -197,7 +205,7 @@ class createCV extends React.Component {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (event) => {
-      /* this.setState({
+      this.setState({
         image: event.target.result,
         fileName: file.name,
         values: {
@@ -205,9 +213,9 @@ class createCV extends React.Component {
           image: event.target.result,
           fileName: file.name,
         },
-      });*/
+      });
     };
-    this.setState({
+    /* this.setState({
       image: file,
       fileName: file.name,
       values: {
@@ -215,7 +223,7 @@ class createCV extends React.Component {
         image: file,
         fileName: file.name,
       },
-    });
+    });*/
     reader.readAsDataURL(file);
   }
   render() {
@@ -366,4 +374,4 @@ class createCV extends React.Component {
   }
 }
 
-export default connect(null, { updateUser, getUsers, createUser })(createCV);
+export default connect(null, { updateUser, getUsers, createUser, push })(createCV);

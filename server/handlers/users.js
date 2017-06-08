@@ -59,7 +59,7 @@ router.put('/:user_id', function (req, res) {
 
   // other
 
-  var updateProfile = {
+  const updateProfile = {
     username: req.body.username,
     title: req.body.title,
     experience: req.body.experience,
@@ -69,36 +69,21 @@ router.put('/:user_id', function (req, res) {
     image: req.body.image,
     fileName: req.body.fileName,
   };
-  const updateUser = models.User.update(updateProfile,
-      { where: { id: req.params.user_id }});
-  const deleteUserSkill = models.Skill.destroy({ where: { UserId: req.params.user_id }});
-  // const createU = models.Skill.destroy({ where: { UserId: req.params.user_id }});
+  /* const updateUser = models.User.update(updateProfile,
+      { where: { id: req.params.user_id },
+  });*/
+  const createUser = models.User.create(updateProfile, {
+    include: [models.User.Skill],
+  });
+  const deleteUser = models.User.destroy({ where: { id: req.params.user_id } });
+
   Promise.all([
-    deleteUserSkill,
-    updateUser,
+    deleteUser,
+    //createUser,
   ]).then((result) => {
     res.send(result);
   });
 
-
-  var filter = {
-    where: {
-      id: req.params.user_id,
-    },
-    include: [{
-      association: models.User.Skill,
-    }],
-  };
-
-  //  models.User.findOne(filter).then(function (user) {
-  //    console.log(user, user.skills)
-  //    return Promise.all([
-  //      user.updateAttributes(updateProfile),
-  //      user.skills[0].updateAttributes(updateProfile.skills[0])
-  //    ]);
-  // }).then(([user, skills]) => {
-  //    res.send('Succcceees')
-  //  });
   /* models.User.update({
     username: req.body.username,
     title: req.body.title,
