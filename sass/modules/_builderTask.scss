@@ -52,8 +52,13 @@
         }
       }
 
-      .have-skills{
-        .skill-form{
+      .have-skills, .have-work, .have-summary{
+        padding: 0 0 20px 0;
+        box-sizing: border-box;
+        h4{
+          color: #5d5b5b;
+        }
+        .skill-form, .work-form, .summary-form{
           position: relative;
           border-bottom: 1px solid #ccc;
           padding: 20px 0 0 0;
@@ -81,25 +86,36 @@
         height: 50px;
       }
     }
-    .add-skill{
+    .add-desc {
       width: 100%;
-      padding: 0 10px;
-      .input-wr{
-        padding: 15px 0 0;
-        input{
-          height: 50px;
+      .add-skill, .add-work-exp, .add-summary {
+        width: 100%;
+        padding: 0 10px 10px 10px;
+        box-sizing: border-box;
+        .input-wr {
+          padding: 15px 0 0;
+          input {
+            height: 50px;
+          }
+        }
+        .input-box {
+          .error {
+            opacity: 0;
+          }
+        }
+        .addSkillButton {
+          margin: 15px 0 0;
         }
       }
-      .input-box{
-        .error{
-          opacity: 0;
-        }
+      .add-work-exp{
+        padding: 0 10px;
+        box-sizing: border-box;
       }
-      .addSkillButton{
-        margin: 15px 0 0;
+      .add-summary{
+        padding: 0 10px;
+        box-sizing: border-box;
       }
     }
-
 
     .radio-wr {
       display: flex;

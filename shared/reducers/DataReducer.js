@@ -25,6 +25,7 @@ export default function DataReducer(state = INITIAL_STATE, action) {
                   selectOptionsTitle.push({ value: cv.title, label: cv.title });
                 }
               }
+              return null;
             });
           } else {
             selectOptionsTitle.push({ value: cv.title, label: cv.title });
@@ -42,13 +43,16 @@ export default function DataReducer(state = INITIAL_STATE, action) {
                       selectOptions.push({ value: skill.skill, label: skill.skill });
                     }
                   }
+                  return null;
                 });
               } else {
                 selectOptions.push({ value: skill.skill, label: skill.skill });
               }
             }
+            return null;
           });
         }
+        return null;
       });
       return {
         ...state,

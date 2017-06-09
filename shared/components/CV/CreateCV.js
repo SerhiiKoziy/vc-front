@@ -4,6 +4,7 @@ import dateFormat from 'dateformat';
 import { push } from 'react-router-redux';
 
 import TextField from '../TextField/TextField';
+import TextArea from '../TextArea/TextArea';
 import CheckBox from '../CheckBox/CheckBox';
 import { updateUser, getUsers, createUser } from '../../actions';
 
@@ -33,6 +34,8 @@ class createCV extends React.Component {
       originalDate: nextDay,
       skillsChange: false,
       skills: [],
+      works: [],
+      summary: [],
       image: '',
       fileName: '',
     };
@@ -74,6 +77,12 @@ class createCV extends React.Component {
       skillName: '',
       skillExp: '',
       isMain: false,
+
+      workName: '',
+      workDescription: '',
+
+      managerName: '',
+      cvSummary: '',
     };
     this.state = this.defaultState;
   }
@@ -95,6 +104,16 @@ class createCV extends React.Component {
   }
   updateValue(target, value) {
     if (target === 'skillName' || target === 'skillExp') {
+      this.setState({
+        ...this.state,
+        [target]: value,
+      });
+    } else if (target === 'workName' || target === 'workDescription') {
+      this.setState({
+        ...this.state,
+        [target]: value,
+      });
+    } else if (target === 'managerName' || target === 'cvSummary') {
       this.setState({
         ...this.state,
         [target]: value,
@@ -139,7 +158,11 @@ class createCV extends React.Component {
     // submitHandler(formData);
     submitHandler(task);
     const skills = this.props.currentTask;
+    const works = this.props.currentTask;
+    const summary = this.props.currentTask;
     this.defaultState.values.skills = skills ? skills.skills : [];
+    this.defaultState.values.works = works ? works.works : [];
+    this.defaultState.values.summary = summary ? summary.summary : [];
     this.setState(this.defaultState);
   }
   isValidForm() {
@@ -201,6 +224,66 @@ class createCV extends React.Component {
       },
     });
   }
+  addWork() {
+    const work = this.state.workName;
+    const workDescription = this.state.workDescription;
+    const newWorks = this.state.values.works;
+    newWorks.push({ work, workDescription });
+    this.setState({
+      workName: '',
+      workDescription: '',
+      values: {
+        ...this.state.values,
+        works: newWorks,
+        worksChange: true,
+      },
+    });
+  }
+  deleteWork(skillId) {
+    const works = this.state.values.works;
+    /* const newSkills = [];
+     skills.map((item, i) => {
+     i === skillId ? null : newSkills.push(item);
+     })*/
+    const newWorks = works.filter((item, i) => {
+      return i !== skillId;
+    });
+    this.setState({
+      values: {
+        ...this.state.values,
+        works: newWorks,
+        worksChange: true,
+      },
+    });
+  }
+  addSummary() {
+    const managerName = this.state.managerName;
+    const cvSummary = this.state.cvSummary;
+    const summaryArr = this.state.values.summary;
+    summaryArr.push({ managerName, cvSummary });
+    this.setState({
+      managerName: '',
+      cvSummary: '',
+      values: {
+        ...this.state.values,
+        summary: summaryArr,
+        summaryChange: true,
+      },
+    });
+  }
+  deleteSummary(skillId) {
+    const cvSummary = this.state.values.summary;
+    const summaryArr = cvSummary.filter((item, i) => {
+      return i !== skillId;
+    });
+    this.setState({
+      values: {
+        ...this.state.values,
+        summary: summaryArr,
+        summaryChange: true,
+      },
+    });
+  }
   onDropHandler(target, e) {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -225,6 +308,120 @@ class createCV extends React.Component {
       },
     });*/
     reader.readAsDataURL(file);
+  }
+  renderCreateSkill() {
+    return (
+      <div className="add-skill">
+        <TextField
+          classNameBox={'input-wr'}
+          placeholder={'Enter skill'}
+          value={this.state.skillName}
+          fieldName="skillName"
+          maxLength="25"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <TextField
+          classNameBox={'input-wr'}
+          placeholder={'Enter skill experience'}
+          value={this.state.skillExp}
+          fieldName="skillExp"
+          maxLength="25"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <CheckBox
+          classNameBox={'input-wr'}
+          fieldName={"isMain"}
+          value={this.state.isMain}
+          id={'isMain'}
+          label={'isMain'}
+          name={'checkbox'}
+          type={'checkbox'}
+          defaultChecked={this.state.isMain}
+          onChange={() => {
+            this.setState({
+              isMain: !this.state.isMain,
+            });
+          }}
+          onBlur={::this.handleInputBlur}
+          errorText={this.showError('isMain')}
+        />
+
+        <button
+          type=""
+          className="btn btn--fw addSkillButton"
+          onClick={::this.addSkill}
+          disabled={this.state.skillExp && this.state.skillName ? '' : 'disabled'}
+        >
+          {this.props.buttonText || 'Add skill'}
+        </button>
+      </div>
+    );
+  }
+  renderCreateWork() {
+    return (
+      <div className="add-work-exp">
+        <TextField
+          classNameBox={'input-wr'}
+          placeholder={'Enter work'}
+          value={this.state.workName}
+          fieldName="workName"
+          maxLength="50"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <TextArea
+          classNameBox={'input-wr'}
+          placeholder={'Enter work description'}
+          value={this.state.workDescription}
+          fieldName="workDescription"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <button
+          type=""
+          className="btn btn--fw addSkillButton"
+          onClick={::this.addWork}
+          disabled={this.state.workName && this.state.workDescription ? '' : 'disabled'}
+        >
+          {this.props.buttonText || 'Add work'}
+        </button>
+      </div>
+    );
+  }
+  renderCreateSummary() {
+    return (
+      <div className="add-summary">
+        <TextField
+          classNameBox={'input-wr'}
+          placeholder={'Enter manager name'}
+          value={this.state.managerName}
+          fieldName="managerName"
+          maxLength="50"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <TextArea
+          classNameBox={'input-wr'}
+          placeholder={'Enter summary'}
+          value={this.state.cvSummary}
+          fieldName="cvSummary"
+          onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <button
+          type=""
+          className="btn btn--fw addSkillButton"
+          onClick={::this.addSummary}
+          disabled={
+            this.state.values.summary.length < 2 && this.state.managerName && this.state.cvSummary
+            ? '' : 'disabled'}
+        >
+          {this.props.buttonText || 'Add summary'}
+        </button>
+      </div>
+    );
   }
   render() {
     return (
@@ -295,11 +492,12 @@ class createCV extends React.Component {
             errorText={this.showError('inHouse')}
           />
           <div className="have-skills">
+            {this.state.values.skills.length > 0 && (<h4>Skills description</h4>)}
             {
               this.state.values.skills && (this.state.values.skills.map((item, i) => {
                 // let skillId = {` ${item.skill} + ${i}`}
                 return (
-                  <ul className="skill-form" key={i}>
+                  <ul className="skill-form" key={`${i}-skill`}>
                     <li><span>skill: </span><span>{item.skill}</span></li>
                     <li><span>experience: </span><span>{item.experience}</span></li>
                     <li><span>isMain: </span><span>{item.main ? 'main' : ''}</span></li>
@@ -315,6 +513,46 @@ class createCV extends React.Component {
               )
             }
           </div>
+          <div className="have-work">
+            {this.state.values.works.length > 0 && (<h4>Works description</h4>)}
+            {
+              this.state.values.works && (this.state.values.works.map((item, i) => {
+                // let skillId = {` ${item.skill} + ${i}`}
+                return (
+                  <ul className="work-form" key={`${i}-work`}>
+                    <li><span>work: </span><span>{item.work}</span></li>
+                    <li><span>work description: </span><span>{item.workDescription}</span></li>
+                    <li
+                      className="del-skill"
+                      onClick={(e) => { this.deleteWork(i, e); }}
+                    >
+                      <i className="fa fa-trash" aria-hidden="true" />
+                    </li>
+                  </ul>
+                );
+              })
+              )
+            }
+          </div>
+          <div className="have-summary">
+            {this.state.values.summary.length > 0 && (<h4>Summary:</h4>)}
+            {
+              this.state.values.summary && (this.state.values.summary.map((item, i) => {
+                return (
+                  <ul className="summary-form" key={`${i}-summary`}>
+                    <li><span>Name manager: </span><span>{item.managerName}</span></li>
+                    <li><span>Summary: </span><span>{item.cvSummary}</span></li>
+                    <li
+                      className="del-skill"
+                      onClick={(e) => { this.deleteSummary(i, e); }}
+                    >
+                      <i className="fa fa-trash" aria-hidden="true" />
+                    </li>
+                  </ul>
+                );
+              }))
+            }
+          </div>
           <button
             type="submit"
             className="btn btn--fw"
@@ -323,51 +561,10 @@ class createCV extends React.Component {
             {this.props.buttonText || 'Add CV'}
           </button>
         </form>
-        <div className="add-skill">
-          <TextField
-            classNameBox={'input-wr'}
-            placeholder={'Enter skill'}
-            value={this.state.skillName}
-            fieldName="skillName"
-            maxLength="25"
-            onChange={::this.handleInputChange}
-            onBlur={::this.handleInputBlur}
-          />
-          <TextField
-            classNameBox={'input-wr'}
-            placeholder={'Enter skill experience'}
-            value={this.state.skillExp}
-            fieldName="skillExp"
-            maxLength="25"
-            onChange={::this.handleInputChange}
-            onBlur={::this.handleInputBlur}
-          />
-          <CheckBox
-            classNameBox={'input-wr'}
-            fieldName={"isMain"}
-            value={this.state.isMain}
-            id={'isMain'}
-            label={'isMain'}
-            name={'checkbox'}
-            type={'checkbox'}
-            defaultChecked={this.state.isMain}
-            onChange={() => {
-              this.setState({
-                isMain: !this.state.isMain,
-              });
-            }}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('isMain')}
-          />
-
-          <button
-            type=""
-            className="btn btn--fw addSkillButton"
-            onClick={::this.addSkill}
-            disabled={this.state.skillExp && this.state.skillName ? '' : 'disabled'}
-          >
-            {this.props.buttonText || 'Add skill'}
-          </button>
+        <div className="add-desc">
+          {this.renderCreateSkill()}
+          {this.renderCreateWork()}
+          {this.renderCreateSummary()}
         </div>
       </div>
     );
