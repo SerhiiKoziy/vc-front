@@ -20,6 +20,7 @@ class MainPage extends Component {
       groupExperienceYear: 1,
       filterData: [],
       filterDataTitle: [],
+      filterDataSkills: [],
       isUseFiler: false,
       value: '',
       suggestions: [],
@@ -27,6 +28,8 @@ class MainPage extends Component {
       sidebar: false,
       multiValue: [],
       multiValueTitle: [],
+      multiValueSkills: [],
+      isShowSkillsFilter: false,
     };
   }
 
@@ -37,7 +40,8 @@ class MainPage extends Component {
   };
   filterDataTitle() {
     const { data } = this.props.data;
-    const { multiValue } = this.state;
+    const { isShowSkillsFilter, multiValueSkills, multiValueTitle } = this.state;
+    const multiValue = isShowSkillsFilter ? multiValueSkills : multiValueTitle;
     /* const dataFilterTitle = data.filter((item) => {
       return value ? value === item.title : item;
     });*/
@@ -103,8 +107,6 @@ class MainPage extends Component {
       sideBar: true,
     });
   }
-
-
   goToAdmin() {
     this.props.push('/DashBoard');
   }
@@ -133,34 +135,84 @@ class MainPage extends Component {
     const dataFilterTitle = [];
     data.map(dataCV => {
       const title = dataCV.title;
+      valueSelect.map(item => {
+        if (item.value === title) {
+          // found = true;
+          dataFilterTitle.push(dataCV);
+        }
+        return null;
+      });
+      return null;
+    });
+    this.setState({ filterDataTitle: dataFilterTitle });
+   // this.filterDataCost(dataFilterTitleOrSkill);
+  }
+
+  handleOnChangeSkills(valueSelect) {
+    const { multi } = this.state;
+    if (multi) {
+      this.setState({ multiValueSkills: valueSelect });
+      this.filterDataJustSkills(valueSelect);
+    } else {
+      // this.setState({ valueSelect });
+    }
+  }
+  filterDataJustSkills(valueSelect) {
+    const { data } = this.props.data;
+    const dataFilterSkills = [];
+    data.map(dataCV => {
       let found = false;
-      if (!found) {
-        valueSelect.map(item => {
-          if (item.value === title) {
-            // found = true;
-            dataFilterTitle.push(dataCV);
+      if (dataCV.skills) {
+        dataCV.skills.map(skill => {
+          if (skill.main) {
+            // mainSkills.push(skill.skill)
+            valueSelect.map(item => {
+              if (item.value === skill.skill) {
+                found = true;
+                dataFilterSkills.push(dataCV);
+              }
+              return null;
+            });
           }
           return null;
         });
       }
       return null;
     });
-
-    this.setState({ filterDataTitle: dataFilterTitle });
-   // this.filterDataCost(dataFilterTitleOrSkill);
+    this.setState({ filterDataSkills: dataFilterSkills });
+    // this.filterDataCost(dataFilterTitleOrSkill);
   }
   renderDustbins() {
-    const { filterData, multiValueTitle, filterDataTitle, isUseFiler, sidebar } = this.state;
+    const { isShowSkillsFilter, filterDataSkills,
+      filterData, multiValueTitle, filterDataTitle, isUseFiler, sidebar } = this.state;
+
     const { data, application } = this.props.data;
     if (this.props.data.data) {
-      // const dataSel = filterData.length > 0 ? filterData : (!isUseFiler ? data : []);
       let dataSel;
-      if (filterData.length > 0 && sidebar) {
-        dataSel = filterData;
-      } else if (multiValueTitle.length > 0 && !sidebar) {
+      if (!sidebar && !isShowSkillsFilter) {
         dataSel = filterDataTitle;
-      } else {
-        dataSel = !isUseFiler ? data : [];
+      } else if (!sidebar && isShowSkillsFilter) {
+        dataSel = filterDataSkills;
+      } else if (sidebar) {
+        dataSel = filterDataSkills;
+      }
+    }
+    if (this.props.data.data) {
+      let dataSel;
+      if (!sidebar && !isShowSkillsFilter) {
+        dataSel = filterDataTitle.length === 0 ? data : filterDataTitle;
+      } else if (!sidebar && isShowSkillsFilter) {
+        dataSel = filterDataSkills.length === 0 ? data : filterDataSkills;
+      } else if (sidebar) {
+        if (filterData.length > 0) {
+          dataSel = filterData;
+        } else if (!isShowSkillsFilter) {
+          dataSel = filterDataTitle;
+        } else if (isShowSkillsFilter) {
+          dataSel = filterDataSkills;
+        } else {
+          dataSel = data;
+        }
       }
       return dataSel.map((item, i) => {
         return (
@@ -179,10 +231,57 @@ class MainPage extends Component {
     }
     return null;
   }
-  render() {
-    const { options, optionsTitle } = this.props.data;
+  renderSearchTitle() {
+    const { optionsTitle } = this.props.data;
 
-    const { multi, multiValue, multiValueTitle, filterData, isUseFiler } = this.state;
+    const { isShowSkillsFilter, multi, multiValueTitle } = this.state;
+    return (
+      <div className="search-wr-inside">
+        <Select
+          multi={multi}
+          options={optionsTitle}
+          onChange={::this.handleOnChangeTitle}
+          value={multiValueTitle}
+          disabled={isShowSkillsFilter}
+          placeholder={"Select Titles..."}
+        />
+        <div
+          className="filter-btn"
+          onClick={() => {
+            return this.setState({
+              isShowSkillsFilter: !this.state.isShowSkillsFilter,
+            });
+          }}
+        >
+          <span>Skills filter</span>
+        </div>
+        <div className="search-btn">
+          <span><i className="fa fa-search" aria-hidden="true" /></span>
+        </div>
+      </div>
+    );
+  }
+  renderSearchSkills() {
+    const { options } = this.props.data;
+    const { multiValueSkills, multi } = this.state;
+    return (
+      <div className="search-wr-inside">
+        <Select
+          multi={multi}
+          options={options}
+          // onChange={::this.handleOnChange}
+          onChange={::this.handleOnChangeSkills}
+          value={multiValueSkills}
+          placeholder={"Select Skills..."}
+        />
+        <div className="search-btn">
+          <span><i className="fa fa-search" aria-hidden="true" /></span>
+        </div>
+      </div>
+    );
+  }
+  render() {
+    const { filterData, isUseFiler } = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -203,38 +302,14 @@ class MainPage extends Component {
 
             <div className="search-wr">
               {
-                !this.state.sidebar && (
-                  <div className="search-wr-inside">
-                    <Select
-                      multi={multi}
-                      options={optionsTitle}
-                      onChange={::this.handleOnChangeTitle}
-                      value={multiValueTitle}
-                      placeholder={"Select Titles..."}
-                    />
-                    <div className="search-btn">
-                      <span><i className="fa fa-search" aria-hidden="true" /></span>
-                    </div>
-                  </div>
-                )
+                this.state.sidebar && this.state.isShowSkillsFilter ? null : this.renderSearchTitle()
               }
+              
               {
-                this.state.sidebar && (
-                  <div className="search-wr-inside">
-                    <Select
-                      multi={multi}
-                      options={options}
-                      onChange={::this.handleOnChange}
-                      value={multiValue}
-                      placeholder={"Select Skills..."}
-                    />
-                    <div className="search-btn">
-                      <span><i className="fa fa-search" aria-hidden="true" /></span>
-                    </div>
-                  </div>
+                this.state.isShowSkillsFilter && (
+                  this.renderSearchSkills()
                 )
               }
-
             </div>
           </div>
           <div className="inside-wr">
