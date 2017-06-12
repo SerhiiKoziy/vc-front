@@ -97,7 +97,10 @@
             position: relative;
             width: 100%;
             z-index: 100;
-            margin: 20px 0 0 0;
+            margin: 10px 0 10px 0;
+            &:nth-child(2){
+              margin: 5px 0 10px 0;
+            }
             .search-btn{
               position: absolute;
               right: 0;
@@ -105,7 +108,7 @@
               width: 100px;
               border-radius: 0 5px 5px 0;
               height: 100%;
-              background: #3e3e3e;
+              background: #14b3fb;
               z-index: 1;
               height: 100%;
               display: flex;
@@ -118,7 +121,10 @@
                 color: #fff;
               }
               &:hover{
-                background: rgba(62, 62, 62, 0.5);
+                background: #0078af;
+              }
+              &.hidden{
+                background: #0078af;
               }
 
             }
@@ -127,9 +133,8 @@
               right: 100px;
               top: 0;
               width: 100px;
-              border-radius: 0 5px 5px 0;
               height: 100%;
-              background: #3e3e3e;
+              background: #14b3fb;
               z-index: 1;
               height: 100%;
               display: flex;
@@ -137,12 +142,13 @@
               justify-content: center;
               cursor: pointer;
               transition: 0.4s background;
+              border-right: 1px solid #fff;
 
               span{
                 color: #fff;
               }
               &:hover{
-                background: rgba(62, 62, 62, 0.5);
+                background: #0078af;
               }
 
             }
@@ -159,6 +165,7 @@
             }
             .Select.is-disabled > .Select-control {
               background-color: #f9f9f9;
+              border-radius: 6px;
             }
             .Select.is-disabled > .Select-control:hover {
               box-shadow: none;
@@ -171,14 +178,14 @@
             .Select-control {
               background-color: #fff;
               border-color: #d9d9d9 #ccc #b3b3b3;
-              border-radius: 4px;
+              border-radius: 6px;
               border: 1px solid #ccc;
               color: #333;
               cursor: default;
               display: table;
               border-spacing: 0;
               border-collapse: separate;
-              height: 36px;
+              height: 35px;
               outline: none;
               overflow: hidden;
               position: relative;
@@ -583,9 +590,12 @@
       .inside-wr{
         display: flex;
         padding: 0;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 110px);
         border-top: 1px solid #ccc;
         overflow: hidden;
+        &.with-filter-skill{
+        height: calc(100vh - 160px);
+        }
         .left-filter{
           position: relative;
           width: 100%;
@@ -605,8 +615,8 @@
             }
             .input-range__slider {
               appearance: none;
-              background: #3f51b5;
-              border: 1px solid #3f51b5;
+              background: #14b3fb;
+              border: 1px solid #14b3fb;
               border-radius: 100%;
               cursor: pointer;
               display: block;
@@ -668,18 +678,18 @@
               position: relative;
               transition: left 0.3s ease-out, width 0.3s ease-out; }
             .input-range--disabled .input-range__track {
-              background: #eeeeee; }
-
+              background: #eeeeee;
+            }
             .input-range__track--background {
               left: 0;
               margin-top: -0.15rem;
               position: absolute;
               right: 0;
-              top: 50%; }
-
+              top: 50%;
+            }
             .input-range__track--active {
-              background: #3f51b5; }
-
+              background: #14b3fb;
+            }
             .input-range {
               height: 1rem;
               position: relative;

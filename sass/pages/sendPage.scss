@@ -26,13 +26,13 @@
     }
 
     .inside-wr {
-      max-width: 600px;
       height: calc(100vh - 110px);
       padding-top: 0;
       display: flex;
       flex-direction: column;
       width: 100%;
       margin: 0 auto;
+
 
       h4{
         margin: 0;
@@ -43,17 +43,49 @@
         margin: 0;
         padding: 0;
         height: 100%;
-
+        background: transparent;
         .form-wr{
-          max-width: 600px;
           padding: 0;
+          margin: 0 auto;
           form{
-           // padding: 0;
+            .form-body{
+              max-width: 600px;
+              margin: 0 auto;
+              width: 100%;
+            }
             .input-box{
               position: relative;
               overflow: hidden;
               input{
                 height: 35px;
+                border-radius: 5px;
+                border: 1px solid #2a3f50;
+                box-sizing: border-box;
+                background: #1f2e3b;
+                color: #84b6d4;
+                transition: 0.4s border;
+                &::placeholder {
+                  color: #4d6c7f;
+                }
+                &:focus {
+                  border-bottom: 1px solid #4d6c7f;
+                }
+              }
+              textarea{
+                border-radius: 5px;
+                padding: 5px 10px;
+                background: #1f2e3b;
+                border: 1px solid #2a3f50;
+                box-sizing: border-box;
+                color: #84b6d4;
+                &::placeholder {
+                  color: #4d6c7f;
+                }
+                &:focus {
+                 &:after{
+                   border-bottom: 1px solid #ccc;
+                 }
+                }
               }
               .error{
                 position: absolute;
@@ -61,9 +93,47 @@
                 right: -50px;
                 transition: 0.4s right;
                 &.show{
-                  right: 10px;
+                  right: 15px;
                 }
               }
+            }
+            .btn-wr{
+              position: absolute;
+              left: 50%;
+              transform: translate(-50%, 0);
+              bottom: 0;
+              display: flex;
+              width: 100%;
+              padding: 10px 0;
+              border-top: 1px solid #ccc;
+              .btn-body{
+                max-width: 300px;
+                display: flex;
+                margin: 0 auto;
+                .btn-cancel{
+                  height: 40px;
+                  width: 140px;
+                  background-color: #14b3fb;
+                  align-items: center;
+                  display: flex;
+                  justify-content: center;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  margin: 0 5px 0 0;
+                  span{
+                    text-align: center;
+                    font-family: "Roboto Condensed";
+                  }
+                }
+                button{
+                  height: 40px;
+                  border-radius: 5px;
+                  margin: 0 0 0 5px;
+                  width: 140px;
+                  background-color: #14b3fb;
+                }
+              }
+
             }
 
           }

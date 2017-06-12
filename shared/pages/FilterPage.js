@@ -255,14 +255,14 @@ class MainPage extends Component {
                 });
               }}
             >
-              <span>Skills filter</span>
+              <span>{!isShowSkillsFilter ? 'Skills filter' : 'Close skill filter'}</span>
             </div>
           )
         }
         <div
           // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
-          onClick={::this.showSidebarWithTitle}
-          className="search-btn"
+          onClick={this.state.isShowSkillsFilter ? null : ::this.showSidebarWithTitle}
+          className={`search-btn ${this.state.isShowSkillsFilter ? 'hidden' : ''}`}
         >
           {
             !this.state.sidebar
@@ -334,7 +334,9 @@ class MainPage extends Component {
               }
             </div>
           </div>
-          <div className="inside-wr">
+          <div
+            className={`inside-wr ${this.state.isShowSkillsFilter ? 'with-filter-skill' : ''}`}
+          >
             <div className={`left-filter ${this.state.sidebar ? '' : 'hidden'}`}>
               <div className="range-filter">
                 <h4>Monthly budget</h4>

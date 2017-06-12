@@ -38,7 +38,7 @@ export default class ViewCv extends React.PureComponent {
     return (
       <div key={i} className="skill">
         <span><span /></span>
-        <p>{skill.skill}</p>
+        <p className="title">{skill.skill}</p>
         <p>Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</p>
       </div>
     );

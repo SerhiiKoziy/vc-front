@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteUser, getUsers, sendMailInfo } from '../actions';
+import { deleteUser, getUsers, sendMail } from '../actions';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import TextField from '../components/TextField/TextField';
@@ -59,7 +59,7 @@ class SendPage extends Component {
     this.state = this.defaultState;
   }
   static propTypes = {
-    sendMailInfo: React.PropTypes.func,
+    sendMail: React.PropTypes.func,
     push: React.PropTypes.func,
     currentTask: React.PropTypes.object,
   };
@@ -74,7 +74,9 @@ class SendPage extends Component {
       cityClient: city,
       descriptionClient: description,
     };
-    this.props.sendMailInfo(clientInfo);
+    // const userId = this.props.user.id;
+    const userId = 48;
+    this.props.sendMail(userId, clientInfo);
     this.setState(this.defaultState);
   }
   handleInputChange(target, e) {
@@ -192,13 +194,20 @@ class SendPage extends Component {
                     errorText={this.showError('description')}
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn--fw"
-                  disabled={!this.isValidForm()}
-                >
-                  {'Send'}
-                </button>
+                <div className="btn-wr">
+                  <div className="btn-body">
+                    <div className="btn-cancel">
+                      <span>Cancel</span>
+                    </div>
+                    <button
+                      type="submit"
+                      className="btn btn--fw"
+                      disabled={!this.isValidForm()}
+                    >
+                      {'Continue'}
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -210,7 +219,10 @@ class SendPage extends Component {
     return (
       <div className="presentation-wr">
         <div className="presentation-header">
-          <div className="btn-back">back</div>
+          <div
+            className="btn-back"
+            onClick={() => { return (this.props.push('/FilterPage')); }}
+          >back</div>
           <div className="header-center">
             <p>Sinior</p>
             <p>3000$/month</p>
@@ -285,11 +297,27 @@ class SendPage extends Component {
 }
 
 const ConnectedComponent = connect(
-  (state) => {
-    return { data: state.data };
+  (state, ownProps) => {
+    if (state.data && state.data.data && state.data.data.length > 0) {
+      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId, 10));
+      if (user) {
+        return {
+          data: state.data,
+          user,
+          application: state.data.application,
+          sent: state.data.sent || '',
+        };
+      }
+      return {
+        data: state.data,
+        application: state.data.application,
+        sent: state.data.sent || '',
+      };
+    }
+    return {};
   },
   {
-    deleteUser, getUsers, push, sendMailInfo,
+    deleteUser, getUsers, push, sendMail,
   }
 )(SendPage);
 

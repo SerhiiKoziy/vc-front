@@ -17,30 +17,46 @@
     //height: 100vh;
 
     .task-header {
+      position: relative;
       line-height: 60px;
       height: 60px;
       display: flex;
       justify-content: space-between;
+      border-bottom: 1px solid #303b45;
+      padding: 0 20px;
+      box-sizing: border-box;
       a {
         i {
           margin-right: 15px;
         }
       }
       .left-part {
-
-      }
-      .right-part {
         display: flex;
-        p {
-          height: 30px;
-          margin: 0;
-          line-height: 30px;
+        align-items: center;
+
+        .icon-back{
+          position: relative;
+          border-radius: 50%;
+          border: 1px solid #fff;
+          height: 35px;
+          width: 35px;
+          margin: 0 15px 0 0;
+          i{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
+            margin: 0;
+          }
         }
-        span {
-          line-height: 30px;
-        }
+      }
+      .center-part{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
         .header-center-wr {
-          padding: 0 20px 0 0;
           display: flex;
           .image-wr{
             border-radius: 50%;
@@ -54,16 +70,41 @@
           }
 
           .center-info {
+
+            p{
+              margin: 0;
+              line-height: 30px;
+            }
             .name {
+              font-weight: 600;
 
             }
             .info-position {
               font-size: 13px;
+              color: #14b3fb;
             }
           }
         }
+      }
+      .right-part {
+        display: flex;
+        p {
+          height: 30px;
+          margin: 0;
+          line-height: 30px;
+        }
+        span {
+          line-height: 30px;
+        }
+
         .cost-info {
           padding: 0 20px 0 0;
+          .cost{
+            color: #fcd500;
+            span{
+              font-weight: 600;
+            }
+          }
           .cost-desc {
             font-size: 13px;
           }
@@ -72,10 +113,10 @@
           height: 40px;
           display: flex;
           align-items: center;
-          background: #3e3e3e;
+          background-color: rgb(20, 179, 251);
           border-radius: 4px;
           padding: 0 15px;
-          margin: 10px 10px 10px 0;
+          margin: 10px 0 10px 0;
           cursor: pointer;
           transition: 0.4s background;
         }
@@ -244,13 +285,13 @@
           height: 40px;
           display: flex;
           align-items: center;
-          background: #3e3e3e;
+          background-color: #14b3fb;
           border-radius: 4px;
           padding: 0 15px;
           cursor: pointer;
           transition: 0.4s background;
           &:hover {
-            background: rgba(62, 62, 62, 0.89);
+            background: #3eb7ef;
           }
           &.send-btn {
             margin: 0 20px 0 0;
@@ -265,6 +306,8 @@
       .task-wr {
         height: calc(100% - 110px);
         .taskView{
+          background: transparent;
+          box-shadow: none;
           margin: 0;
           height: calc(100% - 60px);
         }

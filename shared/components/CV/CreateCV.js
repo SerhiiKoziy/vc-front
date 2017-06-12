@@ -312,6 +312,7 @@ class createCV extends React.Component {
   renderCreateSkill() {
     return (
       <div className="add-skill">
+        <h4>Skill:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter skill'}
@@ -362,6 +363,7 @@ class createCV extends React.Component {
   renderCreateWork() {
     return (
       <div className="add-work-exp">
+        <h4>Description:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter work'}
@@ -393,6 +395,7 @@ class createCV extends React.Component {
   renderCreateSummary() {
     return (
       <div className="add-summary">
+        <h4>Summary:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter manager name'}
@@ -415,8 +418,9 @@ class createCV extends React.Component {
           className="btn btn--fw addSkillButton"
           onClick={::this.addSummary}
           disabled={
-            this.state.values.summary.length < 2 && this.state.managerName && this.state.cvSummary
-            ? '' : 'disabled'}
+            this.state.values.summary && this.state.values.summary.length < 2
+            && this.state.managerName && this.state.cvSummary
+              ? '' : 'disabled'}
         >
           {this.props.buttonText || 'Add summary'}
         </button>
@@ -426,7 +430,9 @@ class createCV extends React.Component {
   render() {
     return (
       <div className="form-wr">
+
         <form id="upload_form" onSubmit={::this.handleFormSubmit} encType="multipart/form-data">
+          <h4>User CV:</h4>
           <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter name'}
@@ -514,7 +520,10 @@ class createCV extends React.Component {
             }
           </div>
           <div className="have-work">
-            {this.state.values.works.length > 0 && (<h4>Works description</h4>)}
+            {
+              this.state.values.works && this.state.values.works.length > 0 && (
+                <h4>Works description</h4>)
+            }
             {
               this.state.values.works && (this.state.values.works.map((item, i) => {
                 // let skillId = {` ${item.skill} + ${i}`}
@@ -535,7 +544,10 @@ class createCV extends React.Component {
             }
           </div>
           <div className="have-summary">
-            {this.state.values.summary.length > 0 && (<h4>Summary:</h4>)}
+            {
+              this.state.values.summary && this.state.values.summary.length > 0 && (
+                <h4>Summary:</h4>
+            )}
             {
               this.state.values.summary && (this.state.values.summary.map((item, i) => {
                 return (

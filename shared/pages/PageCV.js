@@ -182,10 +182,12 @@ class PageCV extends Component {
               <div className="task-wr">
                 <div className="task-header">
                   <Link className="left-part" to={`/${base}`}>
-                    <i className="fa fa-angle-left" aria-hidden="true" />
+                    <div className="icon-back">
+                      <i className="fa fa-angle-left" aria-hidden="true" />
+                    </div>
                     <span>Back to board</span>
                   </Link>
-                  <div className="right-part">
+                  <div className="center-part">
                     <div className="header-center-wr">
                       <div className="image-wr">
                         <img src={this.props.user.image} alt="" />
@@ -195,8 +197,12 @@ class PageCV extends Component {
                         <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
                       </div>
                     </div>
+                  </div>
+                  <div className="right-part">
                     <div className="cost-info">
-                      <p className="cost">{`$${this.props.user.cost}/month`}</p>
+                      <p className="cost">
+                        <span>{`$${this.props.user.cost}`}</span>/month
+                      </p>
                       <p className="cost-desc">this cost is all</p>
                     </div>
                     <div className="proc-btn">
