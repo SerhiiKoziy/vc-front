@@ -15,6 +15,9 @@ module.exports = function (sequelize, DataTypes) {
         User.Skill = User.hasMany(models.Skill, {
           as: 'skills',
         });
+        User.Work = User.hasMany(models.Work, {
+          as: 'works',
+        });
       },
     },
   });

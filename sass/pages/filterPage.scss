@@ -715,7 +715,12 @@
             .radio-wr{
               $color1: #f4f4f4;
               $color2: #3197EE;
-              input[type="radio"] {
+
+              height: 40px;
+              padding: 5px 0;
+              margin: 0;
+              box-sizing: border-box;
+              input[type="checkbox"] {
                 position: absolute;
                 opacity: 0;
                 + .radio-label {

@@ -305,7 +305,7 @@ class MainPage extends Component {
     );
   }
   render() {
-    const { filterData, isUseFiler } = this.state;
+    const { filterData, isUseFiler, isShowSkillsFilter, sidebar} = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -324,20 +324,20 @@ class MainPage extends Component {
 
             <div className="search-wr">
               {
-                (this.state.sidebar && this.state.isShowSkillsFilter)
+                (sidebar && isShowSkillsFilter)
                 ? null : this.renderSearchTitle()
               }
               {
-                this.state.isShowSkillsFilter && (
+                isShowSkillsFilter && (
                   this.renderSearchSkills()
                 )
               }
             </div>
           </div>
           <div
-            className={`inside-wr ${this.state.isShowSkillsFilter ? 'with-filter-skill' : ''}`}
+            className={`inside-wr ${isShowSkillsFilter && !sidebar ? 'with-filter-skill' : ''}`}
           >
-            <div className={`left-filter ${this.state.sidebar ? '' : 'hidden'}`}>
+            <div className={`left-filter ${sidebar ? '' : 'hidden'}`}>
               <div className="range-filter">
                 <h4>Monthly budget</h4>
                 <InputRange
@@ -359,7 +359,7 @@ class MainPage extends Component {
                   id={'radio-1'}
                   label={'1-3'}
                   name={'radio-group'}
-                  type={'radio'}
+                  type={'checkbox'}
                   defaultChecked={'checked'}
                   onChange={() => {
                     this.setState({
@@ -374,7 +374,7 @@ class MainPage extends Component {
                   id={'radio-2'}
                   label={'4-6'}
                   name={'radio-group'}
-                  type={'radio'}
+                  type={'checkbox'}
                   onChange={() => {
                     this.setState({
                       groupExperienceYear: 2,
@@ -388,7 +388,7 @@ class MainPage extends Component {
                   id={'radio-3'}
                   label={'6-9'}
                   name={'radio-group'}
-                  type={'radio'}
+                  type={'checkbox'}
                   onChange={() => {
                     this.setState({
                       groupExperienceYear: 3,
@@ -401,7 +401,7 @@ class MainPage extends Component {
                   id={'radio-4'}
                   label={'больше 9'}
                   name={'radio-group'}
-                  type={'radio'}
+                  type={'checkbox'}
                   onChange={() => {
                     this.setState({
                       groupExperienceYear: 4,
