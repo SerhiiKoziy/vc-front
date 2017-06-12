@@ -125,17 +125,18 @@ class MainPage extends Component {
     const { multi } = this.state;
     if (multi) {
       this.setState({ multiValueTitle: valueSelect });
-      this.filterDataJustTitle(valueSelect);
+      // this.filterDataJustTitle(valueSelect);
     } else {
       // this.setState({ valueSelect });
     }
   }
-  filterDataJustTitle(valueSelect) {
+  filterDataJustTitle() {
     const { data } = this.props.data;
+    const { multiValueTitle } = this.state;
     const dataFilterTitle = [];
     data.map(dataCV => {
       const title = dataCV.title;
-      valueSelect.map(item => {
+      multiValueTitle.map(item => {
         if (item.value === title) {
           // found = true;
           dataFilterTitle.push(dataCV);
@@ -152,13 +153,14 @@ class MainPage extends Component {
     const { multi } = this.state;
     if (multi) {
       this.setState({ multiValueSkills: valueSelect });
-      this.filterDataJustSkills(valueSelect);
+      // this.filterDataJustSkills(valueSelect);
     } else {
       // this.setState({ valueSelect });
     }
   }
-  filterDataJustSkills(valueSelect) {
+  filterDataJustSkills() {
     const { data } = this.props.data;
+    const { multiValueSkills } = this.state;
     const dataFilterSkills = [];
     data.map(dataCV => {
       let found = false;
@@ -166,7 +168,7 @@ class MainPage extends Component {
         dataCV.skills.map(skill => {
           if (skill.main) {
             // mainSkills.push(skill.skill)
-            valueSelect.map(item => {
+            multiValueSkills.map(item => {
               if (item.value === skill.skill) {
                 found = true;
                 dataFilterSkills.push(dataCV);
@@ -184,19 +186,9 @@ class MainPage extends Component {
   }
   renderDustbins() {
     const { isShowSkillsFilter, filterDataSkills,
-      filterData, multiValueTitle, filterDataTitle, isUseFiler, sidebar } = this.state;
+      filterData, filterDataTitle, sidebar } = this.state;
 
     const { data, application } = this.props.data;
-    if (this.props.data.data) {
-      let dataSel;
-      if (!sidebar && !isShowSkillsFilter) {
-        dataSel = filterDataTitle;
-      } else if (!sidebar && isShowSkillsFilter) {
-        dataSel = filterDataSkills;
-      } else if (sidebar) {
-        dataSel = filterDataSkills;
-      }
-    }
     if (this.props.data.data) {
       let dataSel;
       if (!sidebar && !isShowSkillsFilter) {
@@ -231,10 +223,18 @@ class MainPage extends Component {
     }
     return null;
   }
+  showSidebar() {
+    this.setState({ sidebar: !this.state.sidebar });
+    this.filterDataJustSkills();
+  }
+  showSidebarWithTitle() {
+    this.setState({ sidebar: !this.state.sidebar });
+    this.filterDataJustTitle();
+  }
   renderSearchTitle() {
     const { optionsTitle } = this.props.data;
 
-    const { isShowSkillsFilter, multi, multiValueTitle } = this.state;
+    const { isShowSkillsFilter, multi, multiValueTitle, sidebar } = this.state;
     return (
       <div className="search-wr-inside">
         <Select
@@ -245,18 +245,32 @@ class MainPage extends Component {
           disabled={isShowSkillsFilter}
           placeholder={"Select Titles..."}
         />
+        {
+          !sidebar && (
+            <div
+              className="filter-btn"
+              onClick={() => {
+                return this.setState({
+                  isShowSkillsFilter: !this.state.isShowSkillsFilter,
+                });
+              }}
+            >
+              <span>Skills filter</span>
+            </div>
+          )
+        }
         <div
-          className="filter-btn"
-          onClick={() => {
-            return this.setState({
-              isShowSkillsFilter: !this.state.isShowSkillsFilter,
-            });
-          }}
+          // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
+          onClick={::this.showSidebarWithTitle}
+          className="search-btn"
         >
-          <span>Skills filter</span>
-        </div>
-        <div className="search-btn">
-          <span><i className="fa fa-search" aria-hidden="true" /></span>
+          {
+            !this.state.sidebar
+              ?
+              <span><i className="fa fa-search" aria-hidden="true" /></span>
+              :
+              <span><i className="fa fa-arrow" aria-hidden="true" />close</span>
+          }
         </div>
       </div>
     );
@@ -274,8 +288,18 @@ class MainPage extends Component {
           value={multiValueSkills}
           placeholder={"Select Skills..."}
         />
-        <div className="search-btn">
-          <span><i className="fa fa-search" aria-hidden="true" /></span>
+        <div
+          // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
+          onClick={::this.showSidebar}
+          className="search-btn"
+        >
+          {
+            !this.state.sidebar
+              ?
+              <span><i className="fa fa-search" aria-hidden="true" /></span>
+              :
+              <span><i className="fa fa-arrow" aria-hidden="true" />close</span>
+          }
         </div>
       </div>
     );
@@ -291,9 +315,7 @@ class MainPage extends Component {
                 <span>? FIQ</span>
               </div>
               <div className="header-title">
-                <h4
-                  onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
-                >Header</h4>
+                <h4>Header</h4>
               </div>
               <div className="header-contact">
                 <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
@@ -302,9 +324,9 @@ class MainPage extends Component {
 
             <div className="search-wr">
               {
-                this.state.sidebar && this.state.isShowSkillsFilter ? null : this.renderSearchTitle()
+                (this.state.sidebar && this.state.isShowSkillsFilter)
+                ? null : this.renderSearchTitle()
               }
-              
               {
                 this.state.isShowSkillsFilter && (
                   this.renderSearchSkills()

@@ -7,11 +7,11 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   proxy: {
-    '**':{
-      target: 'http://localhost:3002'
-    }
-  }
+    '**': {
+      target: 'http://localhost:3002',
+    },
+  },
 }).listen(9090, 'localhost', function (err, result) {
   if (err) { return console.log(err); }
-  console.log('Listening at http://localhost:9090/');
+  console.log(result, 'Listening at http://localhost:9090/');
 });

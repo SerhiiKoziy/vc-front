@@ -148,6 +148,9 @@ class PageCV extends Component {
       </div>
     );
   }
+  goToMainSendMail() {
+    this.props.push('/SendPage');
+  }
   renderFooter() {
     return (
       <div className="footer-task">
@@ -158,7 +161,10 @@ class PageCV extends Component {
           >
             <span>Send me to email</span>
           </div>
-          <div className="proc-btn">
+          <div
+            onClick={::this.goToMainSendMail}
+            className="proc-btn"
+          >
             <span>Proceed to Request</span>
           </div>
         </div>

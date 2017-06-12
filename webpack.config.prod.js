@@ -14,19 +14,19 @@ module.exports = {
     admin: basicEntry.concat(['./admin/client.js']),
   },
   output: {
-    path: path.join(__dirname, 'public/assets/js/'),
+    path: path.join(__dirname, 'public'),
     filename: '[name]-main.js',
     publicPath: '/public/js',
   },
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false }
+      compressor: { warnings: false },
     }),
     new webpack.DefinePlugin({
-      "process.env": {
-        "NODE_ENV": JSON.stringify("production")
-      }
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
     }),
   ],
 
@@ -53,7 +53,7 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style!css!sass',
       },
-    ]
+    ],
   },
   postcss: [autoprefixer({ browsers: ['last 50 versions'] })],
 };

@@ -20,7 +20,7 @@ const TextField = (props) => {
           value={props.value || ''}
         />)
       }
-      <label className="error visible">{props.errorText}</label>
+      <label className={`error visible ${props.errorText ? 'show' : ''}`}>{props.errorText}</label>
     </div>
   );
 };

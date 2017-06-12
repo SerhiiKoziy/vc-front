@@ -7,8 +7,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'serhiikoziy@gmail.com',
-    pass: '1478963258Zxc',
+    user: 's.koziy@mobilunity.com',
+    pass: '1478965Z',
   },
   logger: bunyan.createLogger({
     name: 'nodemailer',
@@ -18,15 +18,15 @@ const transporter = nodemailer.createTransport({
   // default message fields
 
   // sender info
-  from: 'Pangalink <serhiikoziy@gmail.com>',
+  from: 'Pangalink <s.koziy@mobilunity.com>',
   headers: {
     'X-Laziness-level': 1000, // just an example header, no need to use this
   },
 });
-
+// https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbtFoSoYzkzcoJ-hbYK6QfLB3yiWPXM49tOIgUCK59VP4ZXAccsclaUzCLhKQigFCa8IGRWitVdQSQB-6zL3eBxni5Q1wXHNj4tMS1yuKOkD4dVq39Pd1QK3Xq0kfTOPmKrIRfcie5sjlfAcNKnKTn7sqGVbBGY7j1NHVSBwyLXG6efBAMIWBb9c424Sy38un0CeoFfC61_lRVeOE1uA1tu0bKHQhkDBDvjVDKN1bj8SiMz04B0>
 console.log('SMTP Configured');
 
-const DEFAULT_EMAIL = 'serhiikoziy@gmail.com';
+const DEFAULT_EMAIL = 's.koziy@mobilunity.com';
 
 class Email extends React.PureComponent {
   render() {
@@ -70,11 +70,12 @@ function createMessage(from, user = {}) {
 }
 console.log('Sending Mail');
 export default function sendMessage(from, user) {
+  user = user || {};
   return new Promise((resolve, reject) => {
     transporter.sendMail(createMessage(from, user), (error, info) => {
       if (error) {
         console.log('Error occurred');
-        console.log(error.message, from, user);
+        // console.log(error.message, from, user);
         reject(error);
         return;
       }

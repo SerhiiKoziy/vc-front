@@ -1,0 +1,174 @@
+.page.send-page {
+  h3 {
+    //font-size: 60px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 60px;
+  }
+
+  .dashboard-wr {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    .back-wr{
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+      .back-btn{
+        span{
+
+        }
+      }
+    }
+
+    .inside-wr {
+      max-width: 600px;
+      height: calc(100vh - 110px);
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 0 auto;
+
+      h4{
+        margin: 0;
+        padding: 20px 0 20px 0;
+        text-align: center;
+      }
+      .builder-task{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+
+        .form-wr{
+          max-width: 600px;
+          padding: 0;
+          form{
+           // padding: 0;
+            .input-box{
+              position: relative;
+              overflow: hidden;
+              input{
+                height: 35px;
+              }
+              .error{
+                position: absolute;
+                top: 23px;
+                right: -50px;
+                transition: 0.4s right;
+                &.show{
+                  right: 10px;
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+    .presentation-wr{
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: 0 auto;
+      .presentation-header{
+        position: relative;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        .btn-back{
+          position: absolute;
+          left: 20px;
+
+        }
+        .header-center{
+          p{
+            margin: 0;
+            text-align: center;
+          }
+
+        }
+      }
+      .diagram-wr{
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 180px);
+        padding: 0 0 20px 0;
+        box-sizing: border-box;
+        .diagram-box{
+          height: 800px;
+          max-height: 100%;
+          background: #2764a0;
+          border-radius: 10px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .bg-view{
+          position: absolute;
+          display: flex;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          .left-part, .right-part{
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: -1;
+            .part-header{
+              text-align: center;
+            }
+            .part-image{
+
+            }
+          }
+          .left-part{
+            width: 100%;
+          }
+          .right-part{
+            width: 100%;
+          }
+        }
+      }
+      .presentation-footer{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        height: 70px;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        box-sizing: border-box;
+        .order-btn{
+          width: 140px;
+          border-radius: 5px;
+          height: 40px;
+          background: #3e3e3e;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: 0.4s background;
+
+          span{
+            color: #fff;
+          }
+          &:hover{
+            background: rgba(62, 62, 62, 0.5);
+          }
+        }
+      }
+    }
+
+  }
+
+}

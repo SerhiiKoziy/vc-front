@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import Root from '../shared/pages/Root';
 import PageCV from '../shared/pages/PageCV';
 import EditCV from '../shared/pages/EditCV';
+import SendPage from '../shared/pages/SendPage';
 import FilterPage from '../shared/pages/FilterPage';
 import { getUsers } from '../shared/actions';
 
@@ -24,12 +25,13 @@ export default function getRoutes(store) {
   }
 
 
-  let base = "/client";
+  // let base = "/client";
   return (
     <Route name="Root" path="/" component={Root} onEnter={checkMainRoute}>
       <Route name="task" path="task/:taskId" component={PageCV}>
         <Route name="EditTask" path="edit" component={EditCV} />
       </Route>
+      <Route name="SendPage" path="SendPage" component={SendPage} />
       <Route name="FilterPage" path="FilterPage" component={FilterPage} />
       <IndexRoute name="MainPage" component={FilterPage} />
     </Route>

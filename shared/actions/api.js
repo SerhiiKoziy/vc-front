@@ -89,3 +89,18 @@ export function sendMailAPI(userId, from) {
     console.error(error);
   });
 }
+export function sendMailInfoAPI(info) {
+  console.log('createUserAPI', info);
+  return axios.post(`${API.SEND_MAIL}/contact`, info).then((response) => {
+    if (response) {
+      return response;
+    }
+    if (response.error) {
+      console.log('response', response.error);
+      throw new Error(response.error);
+    }
+    return null;
+  }).catch(error => {
+    console.error(error);
+  });
+}
