@@ -6,16 +6,23 @@ const router = express.Router();
 
 router.get('/', function (req, res) {
   models.User.findAll({
-    include: [{
-      association: models.User.Skill,
-    }],
+    include: [
+      {
+        association: models.User.Skill,
+      },
+      {
+        association: models.User.Work,
+      },
+      {
+        association: models.User.Summary,
+      },
+    ],
   }).then(function (result) {
     res.send(result);
   });
 });
 
 router.post('/create', function (req, res) {
-
   models.User.create({
     username: req.body.username,
     title: req.body.title,
@@ -23,10 +30,12 @@ router.post('/create', function (req, res) {
     cost: req.body.cost,
     inHouse: req.body.inHouse,
     skills: req.body.skills,
+    works: req.body.works,
+    summary: req.body.summary,
     image: req.body.image,
     fileName: req.body.fileName,
   }, {
-    include: [models.User.Skill],
+    include: [models.User.Skill, models.User.Work, models.User.Summary],
   }).then(function (result) {
     res.send({
       success: true,
@@ -56,8 +65,6 @@ router.put('/:user_id', function (req, res) {
   }).then(function( result ) {
     return result;
   });*/
-
-  // other
 
   const updateProfile = {
     username: req.body.username,
@@ -152,10 +159,13 @@ router.post('/:id/contact', (req, res) => {
     if (result.length === 0) {
       res.status(404).send('error 404');
     }
-    sendMessage(req.body.from, result[0]).then((info) => {
+    console.log('111111111111', req.body);
+    // var obj = req.body.from ? req.body.from : req.body;
+    sendMessage(req.body, result[0]).then((info) => {
       res.send(info);
     });
   });
 });
+
 
 export default router;

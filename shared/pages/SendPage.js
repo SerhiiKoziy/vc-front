@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { deleteUser, getUsers, sendMail } from '../actions';
+import { getUsers, sendMail } from '../actions';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import TextField from '../components/TextField/TextField';
@@ -55,6 +55,7 @@ class SendPage extends Component {
         },
       },
       showForm: false,
+      sending: false,
     };
     this.state = this.defaultState;
   }
@@ -62,6 +63,8 @@ class SendPage extends Component {
     sendMail: React.PropTypes.func,
     push: React.PropTypes.func,
     currentTask: React.PropTypes.object,
+    sent: React.PropTypes.object,
+    sending: React.PropTypes.bool,
   };
   handleFormSubmit(event) {
     event.preventDefault();
@@ -75,9 +78,11 @@ class SendPage extends Component {
       descriptionClient: description,
     };
     // const userId = this.props.user.id;
-    const userId = 48;
+    const userId = 1;
+    console.log('sendMail front', clientInfo);
     this.props.sendMail(userId, clientInfo);
-    this.setState(this.defaultState);
+   // this.setState({ sending: true });
+    // this.setState(this.defaultState);
   }
   handleInputChange(target, e) {
     this.updateValue(target, e.target.value.toString());
@@ -116,6 +121,7 @@ class SendPage extends Component {
     });
   }
   renderSendForm() {
+    const { sent, sending } = this.props;
     return (
       <div>
         <div className="back-wr">
@@ -136,6 +142,13 @@ class SendPage extends Component {
                 onSubmit={::this.handleFormSubmit} encType="multipart/form-data"
               >
                 <div className="form-body">
+                  {
+                    sending && sending === true && (
+                      <div className="preload">
+                        <img src="./assets/images/preloader.GIF" alt="preload" />
+                      </div>
+                    )
+                  }
                   <TextField
                     classNameBox={'input-wr'}
                     placeholder={'Mail'}
@@ -193,6 +206,18 @@ class SendPage extends Component {
                     onBlur={::this.handleInputBlur}
                     errorText={this.showError('description')}
                   />
+                </div>
+                <div className="mes-wr">
+                  {
+                    sent.status && sent.status === 200 && (
+                      <p className="success">Your letter sent</p>
+                    )
+                  }
+                  {
+                    sent.status && sent.status !== 200 && (
+                      <p className="error">We have some problem</p>
+                    )
+                  }
                 </div>
                 <div className="btn-wr">
                   <div className="btn-body">
@@ -305,19 +330,21 @@ const ConnectedComponent = connect(
           data: state.data,
           user,
           application: state.data.application,
-          sent: state.data.sent || '',
+          sent: state.data.sent || {},
+          sending: state.data.sending || false,
         };
       }
       return {
         data: state.data,
         application: state.data.application,
-        sent: state.data.sent || '',
+        sent: state.data.sent || {},
+        sending: state.data.sending || false,
       };
     }
     return {};
   },
   {
-    deleteUser, getUsers, push, sendMail,
+    getUsers, push, sendMail,
   }
 )(SendPage);
 

@@ -40,22 +40,30 @@ class Email extends React.PureComponent {
     };
     return (
       <div>
-        <p>{from}</p>
-        <pre><code>{JSON.stringify(userObjectSend, null, 4)}</code></pre>
+        <p><span>mail Client:</span> {from.mailClient}</p>
+        <p><span>name Client:</span> {from.nameClient || ''}</p>
+        <p><span>company Client:</span> {from.companyClient || ''}</p>
+        <p><span>country Client:</span> {from.countryClient || ''}</p>
+        <p><span>city Client:</span> {from.cityClient || ''}</p>
+        <p><span>description Client:</span> {from.descriptionClient || ''}</p>
+        <pre>
+          <span>select User:</span>
+          <code>{JSON.stringify(userObjectSend, null, 4)}</code>
+        </pre>
       </div>
     );
   }
 }
 
-function createMessage(from, user = {}) {
-  console.log('Sending Mail', from, user);
+function createMessage(from, user) {
+  console.log('Sending Mail', from.mailClient, user);
   return {
 
     // Comma separated list of recipients
     to: `Name Surname ${DEFAULT_EMAIL}`,
 
     // Subject of the message
-    subject: `Contact meee!! ${from}`, //
+    subject: `Contact meee!! ${from.mailClient}`, //
 
     // plaintext body
     text: 'Hello to myself!',
@@ -70,12 +78,12 @@ function createMessage(from, user = {}) {
 }
 console.log('Sending Mail');
 export default function sendMessage(from, user) {
-  user = user || {};
+  const userInfo = user || {};
+  console.log('2222222222', from);
   return new Promise((resolve, reject) => {
-    transporter.sendMail(createMessage(from, user), (error, info) => {
+    transporter.sendMail(createMessage(from, userInfo), (error, info) => {
       if (error) {
         console.log('Error occurred');
-        // console.log(error.message, from, user);
         reject(error);
         return;
       }

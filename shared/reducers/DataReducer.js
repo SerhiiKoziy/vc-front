@@ -62,10 +62,17 @@ export default function DataReducer(state = INITIAL_STATE, action) {
       };
 
     case 'LETTER_SENT':
-      console.log('1', payload);
+      // console.log('1', payload);
       return {
         ...state,
         sent: payload,
+        sentText: payload.statusText,
+        sending: false,
+      };
+    case 'REQUEST_LETTER':
+      return {
+        ...state,
+        sending: true,
       };
     case 'SET_AREA':
       return {

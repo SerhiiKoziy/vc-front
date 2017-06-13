@@ -18,7 +18,9 @@ class PageCV extends Component {
     children: React.PropTypes.any,
     data: React.PropTypes.object,
     application: React.PropTypes.string,
-    sent: React.PropTypes.string,
+    sentText: React.PropTypes.string,
+    sent: React.PropTypes.object,
+    sending: React.PropTypes.bool,
   };
 
   constructor(props) {
@@ -38,12 +40,20 @@ class PageCV extends Component {
       errorMessages: {
         mail: 'Mail is required (need real email)',
       },
+      sending: false,
     };
   }
   sendMail() {
     const userId = this.props.user.id;
-    const clientMail = this.state.mail;
-    this.props.sendMail(userId, clientMail);
+    const clientInfo = {
+      mailClient: this.state.mail,
+      nameClient: null,
+      companyClient: null,
+      countryClient: null,
+      cityClient: null,
+      descriptionClient: null,
+    };
+    this.props.sendMail(userId, clientInfo);
   }
   handleInputChange(target, e) {
     this.updateValue(target, e.target.value.toString());
@@ -98,17 +108,24 @@ class PageCV extends Component {
     );
   }
   renderPopup() {
-    const sent = this.props.sent;
+    const { sending, sentText } = this.props;
     return (
       <div>
         <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
         <div className={`popup-send-mail ${this.state.openPopup ? 'anim-popup' : 'hidden'}`}>
+          {
+            sending && sending === true && (
+              <div className="preload">
+                <img src="../assets/images/preloader.GIF" alt="preload" />
+              </div>
+            )
+          }
           <p className="header-send">
             <span>Enter your email</span>
           </p>
           <div className="body-send">
             <div
-              className={`input-wr ${sent === 'OK' ? 'success' : ''}`}
+              className={`input-wr `}
             >
               <TextField
                 classNameBox={'input-wr'}
@@ -122,13 +139,13 @@ class PageCV extends Component {
             </div>
             <div className="send-message">
               {
-                (sent === 'OK') && (
-                  <p className="success-test">Лист відправлено!</p>
+                (sentText && sentText === 'OK') && (
+                  <p className="success-test">Your letter sent</p>
                 )
               }
               {
-                (sent && sent !== 'OK') && (
-                  <p className="unsuccess-test">Виникла помилка!</p>
+                (sentText && sentText !== 'OK') && (
+                  <p className="unsuccess-test">We have some problem</p>
                 )
               }
             </div>
@@ -241,12 +258,16 @@ export default connect(
         return {
           user,
           application: state.data.application,
-          sent: state.data.sent || '',
+          sent: state.data.sent || { status: '' },
+          sentText: state.data.sentText || '',
+          sending: state.data.sending || false,
         };
       }
       return {
         application: state.data.application,
-        sent: state.data.sent || '',
+        sent: state.data.sent || { status: '' },
+        sentText: state.data.sentText || '',
+        sending: state.data.sending || false,
       };
     }
     return {};

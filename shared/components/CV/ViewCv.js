@@ -28,18 +28,18 @@ export default class ViewCv extends React.PureComponent {
     );
   }
   renderWorkExperience() {
-    if (this.props.item.skills && this.props.item.skills.length > 0) {
-      const mainSkills = this.props.item.skills.filter((skill) => skill.main);
-      return mainSkills.map(this.renderExperience);
+    const { works } = this.props.item;
+    if (works && works.length > 0) {
+      return works.map(this.renderExperience);
     }
     return null;
   }
-  renderExperience(skill, i) {
+  renderExperience(work, i) {
     return (
       <div key={i} className="skill">
         <span><span /></span>
-        <p className="title">{skill.skill}</p>
-        <p>Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem</p>
+        <p className="title">{work.work}</p>
+        <p>{work.workDescription}</p>
       </div>
     );
   }
@@ -75,6 +75,7 @@ export default class ViewCv extends React.PureComponent {
 
   render() {
     if (this.props.item) {
+      const { summary } = this.props.item;
       return (
         <div
           className="taskView"
@@ -111,14 +112,12 @@ export default class ViewCv extends React.PureComponent {
                 <p>Summary from Mobilunity recruter</p>
               </div>
               <div className="recruter-header">
-                <p>Jane Doe</p>
+                <p>{summary[0].managerName}</p>
                 <img src="" alt="" />
               </div>
               <div className="conclusion-text">
                 <p>
-                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                  Lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                  {summary[0].cvSummary}
                 </p>
               </div>
             </div>

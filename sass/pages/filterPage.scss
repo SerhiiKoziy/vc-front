@@ -609,7 +609,10 @@
 
           .range-filter{
             padding: 0 0 50px 0;
-
+            h4{
+              color: #fcd500;
+              text-align: center;
+            }
             .input-range__label-container{
               opacity: 0;
             }
@@ -706,6 +709,10 @@
             }
           }
           .experience-year{
+            h4{
+              color: #fcd500;
+              text-align: center;
+            }
             .radio-wr{
               margin: 0 0 5px 0;
               input{
@@ -727,8 +734,9 @@
                   &:before {
                     content: '';
                     background: $color1;
-                    border-radius: 100%;
-                    border: 1px solid darken($color1, 25%);
+                    border-radius: 4px;
+                    border: 1px solid #fcd500;
+                    box-shadow: 0 0 1px 0px #fcd500;
                     display: inline-block;
                     width: 1.4em;
                     height: 1.4em;
@@ -744,7 +752,8 @@
                 &:checked {
                   + .radio-label {
                     &:before {
-                      background-color: $color2;
+                      // content: '1';
+                      background-color: #fcd500;
                       box-shadow: inset 0 0 0 4px $color1;
                     }
                   }
@@ -753,7 +762,7 @@
                   + .radio-label {
                     &:before {
                       outline: none;
-                      border-color: $color2;
+                      //border-color: $color2;
                     }
                   }
                 }

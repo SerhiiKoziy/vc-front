@@ -30,6 +30,7 @@ class MainPage extends Component {
       multiValueTitle: [],
       multiValueSkills: [],
       isShowSkillsFilter: false,
+      groupsExp: [],
     };
   }
 
@@ -89,11 +90,24 @@ class MainPage extends Component {
     this.filterDataExperience(dataFilterCost);
   }
   filterDataExperience(dataFilterCost) {
-    const group = this.state.groupExperienceYear;
-    const dataFilterExperience = dataFilterCost.filter((item) => {
-      const exp = parseInt(item.experience, 10);
-      return exp >= (group * 3 - 3) && exp <= group * 3;
+    console.log('dataFilterCost', dataFilterCost);
+    // const group = this.state.groupExperienceYear;
+    const groups = this.state.groupsExp;
+    const dataFilterExperience = [];
+    groups.map((group) => {
+      const filterGroup = dataFilterCost.filter((item) => {
+        const exp = parseInt(item.experience, 10);
+        return exp >= (group * 3 - 3) && exp <= group * 3;
+      });
+      console.log('filterGroup', filterGroup);
+      filterGroup.map((item) => {
+        dataFilterExperience.push(item);
+        return null;
+      });
+      return null;
     });
+    console.log('dataFilterExperience', dataFilterExperience);
+
     this.setState({ filterData: dataFilterExperience, clearFilter: false });
   }
   filterClear() {
@@ -106,6 +120,27 @@ class MainPage extends Component {
       valueCost: { min: 1000, max: 3000 },
       sideBar: true,
     });
+  }
+  selectGroup(group) {
+    // console.log('groupExp', group);
+    const groups = this.state.groupsExp;
+    let isSelect = false;
+    const newGroups = [];
+    groups.map(item => {
+      if (item === group) {
+        isSelect = true;
+      } else {
+        newGroups.push(item);
+      }
+      return null;
+    });
+    if (isSelect === false) {
+      newGroups.push(group);
+    }
+    /* const filterGroup = groups.filter((item) => {
+      return item !== group;
+    });*/
+    this.setState({ groupsExp: newGroups });
   }
   goToAdmin() {
     this.props.push('/DashBoard');
@@ -305,7 +340,7 @@ class MainPage extends Component {
     );
   }
   render() {
-    const { filterData, isUseFiler, isShowSkillsFilter, sidebar} = this.state;
+    const { filterData, isUseFiler, isShowSkillsFilter, sidebar } = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -360,13 +395,15 @@ class MainPage extends Component {
                   label={'1-3'}
                   name={'radio-group'}
                   type={'checkbox'}
-                  defaultChecked={'checked'}
+                  // defaultChecked={'checked'}
                   onChange={() => {
+                    this.selectGroup(1);
+                  }}
+                  /* onChange={() => {
                     this.setState({
                       groupExperienceYear: 1,
                     });
-                  }}
-                  /* errorText={this.showError('isMain')}*/
+                  }}*/
                 />
                 <RadioButton
                   fieldName={"experience"}
@@ -376,11 +413,8 @@ class MainPage extends Component {
                   name={'radio-group'}
                   type={'checkbox'}
                   onChange={() => {
-                    this.setState({
-                      groupExperienceYear: 2,
-                    });
+                    this.selectGroup(2);
                   }}
-                  /* errorText={this.showError('isMain')}*/
                 />
                 <RadioButton
                   fieldName={"experience"}
@@ -390,24 +424,19 @@ class MainPage extends Component {
                   name={'radio-group'}
                   type={'checkbox'}
                   onChange={() => {
-                    this.setState({
-                      groupExperienceYear: 3,
-                    });
+                    this.selectGroup(3);
                   }}
                 />
                 <RadioButton
                   fieldName={"experience"}
                   value={this.state.isMain}
                   id={'radio-4'}
-                  label={'больше 9'}
+                  label={'9-12'}
                   name={'radio-group'}
                   type={'checkbox'}
                   onChange={() => {
-                    this.setState({
-                      groupExperienceYear: 4,
-                    });
+                    this.selectGroup(4);
                   }}
-                  /* errorText={this.showError('isMain')}*/
                 />
               </div>
               <div className="bottom-control">

@@ -70,10 +70,13 @@
           }
 
           .center-info {
-
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
             p{
               margin: 0;
-              line-height: 30px;
+              line-height: 20px;
             }
             .name {
               font-weight: 600;
@@ -89,16 +92,19 @@
       .right-part {
         display: flex;
         p {
-          height: 30px;
+          //height: 30px;
           margin: 0;
-          line-height: 30px;
+          line-height: 20px;
         }
         span {
-          line-height: 30px;
+          line-height: 20px;
         }
 
         .cost-info {
           padding: 0 20px 0 0;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
           .cost{
             color: #fcd500;
             span{
@@ -107,6 +113,9 @@
           }
           .cost-desc {
             font-size: 13px;
+          }
+          p{
+            height: 20px;
           }
         }
         .proc-btn {
@@ -174,7 +183,7 @@
       transform: translate(-50%, -50%);
       height: 400px;
       width: 400px;
-      background: #ccc;
+      background: #1b2833;
       z-index: 30;
       transition: 0.6s transform;
 
@@ -193,9 +202,26 @@
           100% {transform: translate(-50%, -50%);}
         }
       }
+      .preload{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(20, 179, 251, 0.12);
+        border-radius: 5px;
+        z-index: 20;
+        img{
+          position: absolute;
+          width: 50px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
       p.header-send {
         margin: 0;
-        background: #848181;
+        background: #182027;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -216,6 +242,21 @@
             width: 100%;
             box-sizing: border-box;
             border-radius: 5px;
+          }
+          input{
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid #2a3f50;
+            box-sizing: border-box;
+            background: #1f2e3b;
+            color: #84b6d4;
+            transition: 0.4s border;
+            &::placeholder {
+              color: #4d6c7f;
+            }
+            &:focus {
+              border-bottom: 1px solid #4d6c7f;
+            }
           }
           .success{
             input{
@@ -245,23 +286,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #3e3e3e;
+            background: #14b3fb;
             border-radius: 4px;
             padding: 0 15px;
             cursor: pointer;
             transition: 0.4s background;
             &:hover {
-              background: rgba(62, 62, 62, 0.89);
+              background: #63c7f5;
             }
             span {
 
             }
             &.disabled{
               cursor: default;
-              background: rgb(130, 130, 130);
+              background: #1686b9;
               &:hover {
-                background: rgb(130, 130, 130);
-                //background: rgba(62, 62, 62, 0.89);
+                background: #1686b9;
               }
             }
           }
