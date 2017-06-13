@@ -104,7 +104,6 @@ class MainPage extends Component {
     this.filterDataExperience(dataFilterCost);
   }
   filterDataExperience(dataFilterCost) {
-    // console.log('dataFilterCost', dataFilterCost);
     // const group = this.state.groupExperienceYear;
     const groups = this.state.groupsExp;
     const dataFilterExperience = [];
@@ -113,15 +112,12 @@ class MainPage extends Component {
         const exp = parseInt(item.experience, 10);
         return exp >= (group * 3 - 3) && exp <= group * 3;
       });
-      // console.log('filterGroup', filterGroup);
       filterGroup.map((item) => {
         dataFilterExperience.push(item);
         return null;
       });
       return null;
     });
-    // console.log('dataFilterExperience', dataFilterExperience);
-
     this.setState({ filterData: dataFilterExperience, clearFilter: false });
   }
   filterClear() {
@@ -327,7 +323,6 @@ class MainPage extends Component {
           )
         }
         <div
-          // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
           onClick={this.state.isShowSkillsFilter ? null : ::this.showSidebarWithTitle}
           className={`search-btn ${this.state.isShowSkillsFilter ? 'hidden' : ''}`}
         >
@@ -371,6 +366,83 @@ class MainPage extends Component {
       </div>
     );
   }
+  renderRangeFilter() {
+    return (
+      <div className="range-filter">
+        <h4>Monthly budget</h4>
+        <InputRange
+          maxValue={5000}
+          minValue={500}
+          value={this.state.valueCost}
+          onChange={valueCost => { return this.setState({ valueCost }); }}
+        />
+        <div className="filter-cost">
+          <span>from: {`$${this.state.valueCost.min}`}</span>
+          <span>to: {`$${this.state.valueCost.max}`}</span>
+        </div>
+      </div>
+    );
+  }
+  renderRangeExperience() {
+    return (
+      <div className="experience-year">
+        <h4>Years experience</h4>
+        <RadioButton
+          fieldName={"experience"}
+          value={this.state.isMain}
+          id={'radio-1'}
+          label={'1-3'}
+          name={'radio-group'}
+          type={'checkbox'}
+          defaultChecked={this.state.groupsExpSelect[0].check ? 'checked' : ''}
+          onChange={() => {
+            this.selectGroup(1);
+          }}
+          /* onChange={() => {
+           this.setState({
+           groupExperienceYear: 1,
+           });
+           }}*/
+        />
+        <RadioButton
+          fieldName={"experience"}
+          value={this.state.isMain}
+          id={'radio-2'}
+          label={'4-6'}
+          name={'radio-group'}
+          type={'checkbox'}
+          defaultChecked={this.state.groupsExpSelect[1].check ? 'checked' : ''}
+          onChange={() => {
+            this.selectGroup(2);
+          }}
+        />
+        <RadioButton
+          fieldName={"experience"}
+          value={this.state.isMain}
+          id={'radio-3'}
+          label={'6-9'}
+          name={'radio-group'}
+          type={'checkbox'}
+          defaultChecked={this.state.groupsExpSelect[2].check ? 'checked' : ''}
+          onChange={() => {
+            this.selectGroup(3);
+          }}
+        />
+        <RadioButton
+          fieldName={"experience"}
+          value={this.state.isMain}
+          id={'radio-4'}
+          label={'9-12'}
+          name={'radio-group'}
+          type={'checkbox'}
+          defaultChecked={this.state.groupsExpSelect[3].check ? 'checked' : ''}
+          onChange={() => {
+            this.selectGroup(4);
+          }}
+        />
+      </div>
+    );
+  }
   render() {
     const { filterData, isUseFiler, isShowSkillsFilter, sidebar } = this.state;
     return (
@@ -405,75 +477,8 @@ class MainPage extends Component {
             className={`inside-wr ${isShowSkillsFilter && !sidebar ? 'with-filter-skill' : ''}`}
           >
             <div className={`left-filter ${sidebar ? '' : 'hidden'}`}>
-              <div className="range-filter">
-                <h4>Monthly budget</h4>
-                <InputRange
-                  maxValue={5000}
-                  minValue={500}
-                  value={this.state.valueCost}
-                  onChange={valueCost => { return this.setState({ valueCost }); }}
-                />
-                <div className="filter-cost">
-                  <span>from: {`$${this.state.valueCost.min}`}</span>
-                  <span>to: {`$${this.state.valueCost.max}`}</span>
-                </div>
-              </div>
-              <div className="experience-year">
-                <h4>Years experience</h4>
-                <RadioButton
-                  fieldName={"experience"}
-                  value={this.state.isMain}
-                  id={'radio-1'}
-                  label={'1-3'}
-                  name={'radio-group'}
-                  type={'checkbox'}
-                  defaultChecked={this.state.groupsExpSelect[0].check ? 'checked' : ''}
-                  onChange={() => {
-                    this.selectGroup(1);
-                  }}
-                  /* onChange={() => {
-                    this.setState({
-                      groupExperienceYear: 1,
-                    });
-                  }}*/
-                />
-                <RadioButton
-                  fieldName={"experience"}
-                  value={this.state.isMain}
-                  id={'radio-2'}
-                  label={'4-6'}
-                  name={'radio-group'}
-                  type={'checkbox'}
-                  defaultChecked={this.state.groupsExpSelect[1].check ? 'checked' : ''}
-                  onChange={() => {
-                    this.selectGroup(2);
-                  }}
-                />
-                <RadioButton
-                  fieldName={"experience"}
-                  value={this.state.isMain}
-                  id={'radio-3'}
-                  label={'6-9'}
-                  name={'radio-group'}
-                  type={'checkbox'}
-                  defaultChecked={this.state.groupsExpSelect[2].check ? 'checked' : ''}
-                  onChange={() => {
-                    this.selectGroup(3);
-                  }}
-                />
-                <RadioButton
-                  fieldName={"experience"}
-                  value={this.state.isMain}
-                  id={'radio-4'}
-                  label={'9-12'}
-                  name={'radio-group'}
-                  type={'checkbox'}
-                  defaultChecked={this.state.groupsExpSelect[3].check ? 'checked' : ''}
-                  onChange={() => {
-                    this.selectGroup(4);
-                  }}
-                />
-              </div>
+              {this.renderRangeFilter()}
+              {this.renderRangeExperience()}
               <div className="bottom-control">
                 <div className="clear" onClick={::this.filterClear}>
                   <span>
