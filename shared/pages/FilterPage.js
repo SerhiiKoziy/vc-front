@@ -31,6 +31,20 @@ class MainPage extends Component {
       multiValueSkills: [],
       isShowSkillsFilter: false,
       groupsExp: [],
+      groupsExpSelect: [
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+      ],
     };
   }
 
@@ -90,7 +104,7 @@ class MainPage extends Component {
     this.filterDataExperience(dataFilterCost);
   }
   filterDataExperience(dataFilterCost) {
-    console.log('dataFilterCost', dataFilterCost);
+    // console.log('dataFilterCost', dataFilterCost);
     // const group = this.state.groupExperienceYear;
     const groups = this.state.groupsExp;
     const dataFilterExperience = [];
@@ -99,14 +113,14 @@ class MainPage extends Component {
         const exp = parseInt(item.experience, 10);
         return exp >= (group * 3 - 3) && exp <= group * 3;
       });
-      console.log('filterGroup', filterGroup);
+      // console.log('filterGroup', filterGroup);
       filterGroup.map((item) => {
         dataFilterExperience.push(item);
         return null;
       });
       return null;
     });
-    console.log('dataFilterExperience', dataFilterExperience);
+    // console.log('dataFilterExperience', dataFilterExperience);
 
     this.setState({ filterData: dataFilterExperience, clearFilter: false });
   }
@@ -119,6 +133,21 @@ class MainPage extends Component {
       multiValue: [],
       valueCost: { min: 1000, max: 3000 },
       sideBar: true,
+      groupsExp: [],
+      groupsExpSelect: [
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+        {
+          check: false,
+        },
+      ],
     });
   }
   selectGroup(group) {
@@ -140,7 +169,10 @@ class MainPage extends Component {
     /* const filterGroup = groups.filter((item) => {
       return item !== group;
     });*/
-    this.setState({ groupsExp: newGroups });
+    const arrSelect = this.state.groupsExpSelect;
+    // const selectBox = this.state.groupsExpSelect[group];
+    arrSelect[group - 1].check = !arrSelect[group - 1].check;
+    this.setState({ groupsExp: newGroups, groupsExpSelect: arrSelect });
   }
   goToAdmin() {
     this.props.push('/DashBoard');
@@ -395,7 +427,7 @@ class MainPage extends Component {
                   label={'1-3'}
                   name={'radio-group'}
                   type={'checkbox'}
-                  // defaultChecked={'checked'}
+                  defaultChecked={this.state.groupsExpSelect[0].check ? 'checked' : ''}
                   onChange={() => {
                     this.selectGroup(1);
                   }}
@@ -412,6 +444,7 @@ class MainPage extends Component {
                   label={'4-6'}
                   name={'radio-group'}
                   type={'checkbox'}
+                  defaultChecked={this.state.groupsExpSelect[1].check ? 'checked' : ''}
                   onChange={() => {
                     this.selectGroup(2);
                   }}
@@ -423,6 +456,7 @@ class MainPage extends Component {
                   label={'6-9'}
                   name={'radio-group'}
                   type={'checkbox'}
+                  defaultChecked={this.state.groupsExpSelect[2].check ? 'checked' : ''}
                   onChange={() => {
                     this.selectGroup(3);
                   }}
@@ -434,6 +468,7 @@ class MainPage extends Component {
                   label={'9-12'}
                   name={'radio-group'}
                   type={'checkbox'}
+                  defaultChecked={this.state.groupsExpSelect[3].check ? 'checked' : ''}
                   onChange={() => {
                     this.selectGroup(4);
                   }}

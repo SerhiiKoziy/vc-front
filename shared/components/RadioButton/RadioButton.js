@@ -7,7 +7,7 @@ const RadioButton = ({ classType, type, onChange, label, id, defaultChecked, nam
       <input
         type={type}
         id={`${id}`}
-        defaultChecked={defaultChecked}
+        checked={defaultChecked}
         name={name}
         onChange={typeof onChange === 'function' ? onChange : false}
       />
