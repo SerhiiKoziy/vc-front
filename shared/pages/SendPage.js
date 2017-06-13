@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { getUsers, sendMail } from '../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import TextField from '../components/TextField/TextField';
 import TextArea from '../components/TextArea/TextArea';
@@ -88,14 +89,12 @@ class SendPage extends Component {
     this.updateValue(target, e.target.value.toString());
   }
   updateValue(target, value) {
-    if (value) {
-      this.setState({
-        values: {
-          ...this.state.values,
-          [target]: value,
-        },
-      });
-    }
+    this.setState({
+      values: {
+        ...this.state.values,
+        [target]: value,
+      },
+    });
   }
   isValidForm() {
     const validations = Object.keys(this.state.validation).filter(field => {
@@ -123,16 +122,18 @@ class SendPage extends Component {
   renderSendForm() {
     const { sent, sending } = this.props;
     return (
-      <div>
-        <div className="back-wr">
+      <div className="main-form-wr">
+        <div className="send-form-header">
           <div
-            className="back-btn"
+            className="btn-back"
             onClick={() => { return (this.setState({ showForm: false })); }}
           >
-            <span>back</span>
+            <div className="icon-back">
+              <i className="fa fa-arrow-left" aria-hidden="true" />
+            </div>
+            <span>Back to presentation</span>
           </div>
         </div>
-
         <div className="inside-wr">
           <h4>Tell us about yourself</h4>
           <div className="builder-task">
@@ -241,16 +242,29 @@ class SendPage extends Component {
     );
   }
   renderPresentation() {
+    const { user } = this.props;
+    let title;
+    let cost;
+    let id;
+    if (user) {
+      title = user.title;
+      cost = user.cost;
+      id = user.id;
+    }
     return (
       <div className="presentation-wr">
         <div className="presentation-header">
-          <div
-            className="btn-back"
-            onClick={() => { return (this.props.push('/FilterPage')); }}
-          >back</div>
+          <div className="btn-back">
+            <Link className="left-part" to={`/cv/${id}`}>
+              <div className="icon-back">
+                <i className="fa fa-arrow-left" aria-hidden="true" />
+              </div>
+              <span>Back to CV</span>
+            </Link>
+          </div>
           <div className="header-center">
-            <p>Sinior</p>
-            <p>3000$/month</p>
+            <p>{title}</p>
+            <p>{`$${cost}/month`}</p>
           </div>
         </div>
         <div className="diagram-wr">
@@ -324,7 +338,7 @@ class SendPage extends Component {
 const ConnectedComponent = connect(
   (state, ownProps) => {
     if (state.data && state.data.data && state.data.data.length > 0) {
-      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId, 10));
+      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.cvId, 10));
       if (user) {
         return {
           data: state.data,

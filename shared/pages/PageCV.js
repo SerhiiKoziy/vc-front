@@ -125,7 +125,7 @@ class PageCV extends Component {
           </p>
           <div className="body-send">
             <div
-              className={`input-wr `}
+              className={'input-wr '}
             >
               <TextField
                 classNameBox={'input-wr'}
@@ -165,10 +165,14 @@ class PageCV extends Component {
       </div>
     );
   }
-  goToMainSendMail() {
-    this.props.push('/SendPage');
-  }
+
   renderFooter() {
+    const { user } = this.props;
+    let cvId;
+    if (user) {
+      cvId = user.id;
+    }
+
     return (
       <div className="footer-task">
         <div className="footer-wr">
@@ -179,10 +183,13 @@ class PageCV extends Component {
             <span>Send me to email</span>
           </div>
           <div
-            onClick={::this.goToMainSendMail}
+            // onClick={::this.goToMainSendMail}
             className="proc-btn"
           >
-            <span>Proceed to Request</span>
+            <Link className="" to={`/send/${cvId || ''}`}>
+              <span>Proceed to Request</span>
+            </Link>
+
           </div>
         </div>
       </div>
@@ -200,7 +207,7 @@ class PageCV extends Component {
                 <div className="task-header">
                   <Link className="left-part" to={`/${base}`}>
                     <div className="icon-back">
-                      <i className="fa fa-angle-left" aria-hidden="true" />
+                      <i className="fa fa-arrow-left" aria-hidden="true" />
                     </div>
                     <span>Back to board</span>
                   </Link>
@@ -253,7 +260,7 @@ class PageCV extends Component {
 export default connect(
   (state, ownProps) => {
     if (state.data && state.data.data && state.data.data.length > 0) {
-      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.taskId, 10));
+      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.cvId, 10));
       if (user) {
         return {
           user,

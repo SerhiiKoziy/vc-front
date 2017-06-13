@@ -79,7 +79,6 @@ function createMessage(from, user) {
 console.log('Sending Mail');
 export default function sendMessage(from, user) {
   const userInfo = user || {};
-  console.log('2222222222', from);
   return new Promise((resolve, reject) => {
     transporter.sendMail(createMessage(from, userInfo), (error, info) => {
       if (error) {
@@ -88,7 +87,6 @@ export default function sendMessage(from, user) {
         return;
       }
       console.log('Message sent successfully!');
-      console.log('Server responded with "%s"', info.response);
       transporter.close();
       resolve(info);
     });

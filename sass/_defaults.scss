@@ -62,4 +62,35 @@ input {
 .header{
   background: #182027;;
   color: #fff;
+  &>div{
+    width: 33%;
+    &.header-title{
+      display: flex;
+      justify-content: center;
+    }
+    &.header-contact{
+      display: flex;
+      justify-content: flex-end;
+      span{
+      }
+    }
+  }
+}
+.icon-back{
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  height: 35px;
+  width: 35px;
+  margin: 0 15px 0 0;
+  i{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    margin: 0;
+    height: 19px;
+    width: 15px;
+  }
 }

@@ -271,7 +271,7 @@ class MainPage extends Component {
       }
       return dataSel.map((item, i) => {
         return (
-          <Link key={`task-${i}`} to={`/task/${item.id}`}>
+          <Link key={`cv-${i}`} to={`/cv/${item.id}`}>
             <PreViewCv
               item={item}
               key={i}

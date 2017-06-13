@@ -46,8 +46,10 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            font-size: 25px;
+            font-size: 16px;
             margin: 0;
+            height: 19px;
+            width: 15px;
           }
         }
       }
@@ -316,7 +318,7 @@
       display: flex;
       justify-content: space-around;
       padding: 10px 0;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid #303b45;
       .footer-wr {
         max-width: 500px;
         display: flex;

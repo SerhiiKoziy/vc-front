@@ -28,10 +28,10 @@ export default function getRoutes(store) {
   // let base = "/client";
   return (
     <Route name="Root" path="/" component={Root} onEnter={checkMainRoute}>
-      <Route name="task" path="task/:taskId" component={PageCV}>
+      <Route name="cv" path="cv/:cvId" component={PageCV}>
         <Route name="EditTask" path="edit" component={EditCV} />
       </Route>
-      <Route name="SendPage" path="SendPage" component={SendPage} />
+      <Route name="SendPage" path="send/:cvId" component={SendPage} />
       <Route name="FilterPage" path="FilterPage" component={FilterPage} />
       <IndexRoute name="MainPage" component={FilterPage} />
     </Route>
