@@ -130,6 +130,9 @@
           margin: 10px 0 10px 0;
           cursor: pointer;
           transition: 0.4s background;
+          &:hover{
+            background: #57cbff;
+          }
         }
       }
     }
@@ -293,8 +296,8 @@
             padding: 0 15px;
             cursor: pointer;
             transition: 0.4s background;
-            &:hover {
-              background: #63c7f5;
+            &:hover{
+              background: #57cbff;
             }
             span {
 

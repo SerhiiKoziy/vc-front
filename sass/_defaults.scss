@@ -37,7 +37,7 @@ p {
 h3, h4 {
   font-size: 1.5rem;
   font-family: $bold;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
@@ -72,6 +72,7 @@ input {
       display: flex;
       justify-content: flex-end;
       span{
+        text-transform: uppercase;
       }
     }
   }

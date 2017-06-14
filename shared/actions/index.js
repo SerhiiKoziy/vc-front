@@ -55,6 +55,9 @@ export function deleteUser(userId) {
         // console.log('res delete', res);
         dispatch(getUsers());
       }
+    })
+    .catch((error) => {
+      console.log( error);
     });
   };
 }
@@ -79,6 +82,9 @@ export function sendMail(userId, clientMail) {
         console.log('res sendMail', res);
         dispatch(letterSent(res));
       }
-    });
+    })
+      .catch((error) => {
+        console.log('catch send error', error);
+      });
   };
 }

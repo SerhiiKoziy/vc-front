@@ -9,6 +9,7 @@ import Select from 'react-select';
 
 import RadioButton from '../components/RadioButton/RadioButton';
 import PreViewCv from '../components/CV/PreViewCv';
+import Header from '../components/Header/Header';
 
 
 class MainPage extends Component {
@@ -449,17 +450,7 @@ class MainPage extends Component {
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
           <div className="header-wr">
-            <div className="header">
-              <div className="header-fiq">
-                <span>? FIQ</span>
-              </div>
-              <div className="header-title">
-                <h4>Header</h4>
-              </div>
-              <div className="header-contact">
-                <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
-              </div>
-            </div>
+            <Header />
 
             <div className="search-wr">
               {
@@ -491,7 +482,9 @@ class MainPage extends Component {
                 </div>
               </div>
             </div>
-            <div className="lists-wr">
+            <div
+              className={`lists-wr ${sidebar ? 'with-sidebar' : ''}`}
+            >
               {this.renderDustbins()}
               {
                 !(filterData.length > 0) && isUseFiler && (

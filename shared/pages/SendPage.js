@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import TextField from '../components/TextField/TextField';
 import TextArea from '../components/TextArea/TextArea';
+import Header from '../components/Header/Header';
+
 class SendPage extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +57,7 @@ class SendPage extends Component {
           return value.length > 0;
         },
       },
-      showForm: false,
+      showPage: 'presentationPage',
       sending: false,
     };
     this.state = this.defaultState;
@@ -119,6 +121,71 @@ class SendPage extends Component {
       },
     });
   }
+  renderPresentation() {
+    const { user } = this.props;
+    let title;
+    let cost;
+    let id;
+    if (user) {
+      title = user.title;
+      cost = user.cost;
+      id = user.id;
+    }
+    return (
+      <div className="presentation-wr">
+        <div className="presentation-header">
+          <div className="btn-back">
+            <Link className="left-part" to={`/cv/${id}`}>
+              <div className="icon-back">
+                <i className="fa fa-arrow-left" aria-hidden="true" />
+              </div>
+              <span>Back to CV</span>
+            </Link>
+          </div>
+          <div className="header-center">
+            <h4>{title}</h4>
+            <p><span>${cost}</span>/month</p>
+          </div>
+        </div>
+        <div className="diagram-wr">
+          <div className="diagram-box">
+            <img src="../assets/images/pres-graph.png" alt="graph" />
+            <div className="part-header left-work">
+              <h4>Alfonsine Williams</h4>
+              <p>Director of Business Development</p>
+            </div>
+            <div className="part-header right-work">
+              <h4>Olga Zhuk</h4>
+              <p>Account Manager</p>
+            </div>
+          </div>
+          <div className="bg-view">
+            <div className="left-part">
+
+              <div className="part-image">
+                <img src="../assets/images/pres-work-3.png" alt="work-1" />
+              </div>
+            </div>
+
+            <div className="right-part">
+
+              <div className="part-image">
+                <img src="../assets/images/pres-work-2.png" alt="work-2" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="presentation-footer">
+          <div
+            className="order-btn"
+            onClick={() => { return (this.setState({ showPage: 'pageForm' })); }}
+          >
+            <span>order</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
   renderSendForm() {
     const { sent, sending } = this.props;
     return (
@@ -126,7 +193,7 @@ class SendPage extends Component {
         <div className="send-form-header">
           <div
             className="btn-back"
-            onClick={() => { return (this.setState({ showForm: false })); }}
+            onClick={() => { return (this.setState({ showPage: 'presentationPage' })); }}
           >
             <div className="icon-back">
               <i className="fa fa-arrow-left" aria-hidden="true" />
@@ -135,18 +202,33 @@ class SendPage extends Component {
           </div>
         </div>
         <div className="inside-wr">
-          <h4>Tell us about yourself</h4>
           <div className="builder-task">
             <div className="form-wr">
+              <div className="bg-view">
+                <div className="left-part">
+
+                  <div className="part-image">
+                    <img src="../assets/images/pres-work-3.png" alt="work-1" />
+                  </div>
+                </div>
+
+                <div className="right-part">
+
+                  <div className="part-image">
+                    <img src="../assets/images/pres-work-2.png" alt="work-2" />
+                  </div>
+                </div>
+              </div>
               <form
                 id="upload_form"
                 onSubmit={::this.handleFormSubmit} encType="multipart/form-data"
               >
                 <div className="form-body">
+                  <h4>Tell us about yourself</h4>
                   {
                     sending && sending === true && (
                       <div className="preload">
-                        <img src="./assets/images/preloader.GIF" alt="preload" />
+                        <img src="../assets/images/preloader.GIF" alt="preload" />
                       </div>
                     )
                   }
@@ -241,92 +323,57 @@ class SendPage extends Component {
       </div>
     );
   }
-  renderPresentation() {
-    const { user } = this.props;
-    let title;
-    let cost;
-    let id;
-    if (user) {
-      title = user.title;
-      cost = user.cost;
-      id = user.id;
-    }
+  renderThankYouPage() {
     return (
-      <div className="presentation-wr">
-        <div className="presentation-header">
-          <div className="btn-back">
-            <Link className="left-part" to={`/cv/${id}`}>
-              <div className="icon-back">
-                <i className="fa fa-arrow-left" aria-hidden="true" />
-              </div>
-              <span>Back to CV</span>
-            </Link>
+      <div className="thank-wr">
+        <div
+          className="btn-back"
+          onClick={() => { return (this.setState({ showPage: 'presentationPage' })); }}
+        >
+          <div className="icon-back">
+            <i className="fa fa-arrow-left" aria-hidden="true" />
           </div>
-          <div className="header-center">
-            <p>{title}</p>
-            <p>{`$${cost}/month`}</p>
-          </div>
+          <span>Back to presentation</span>
         </div>
-        <div className="diagram-wr">
-          <div className="diagram-box"></div>
-          <div className="bg-view">
-            <div className="left-part">
-              <div className="part-header">
-                <h4>Alfonsine Williams</h4>
-                <p>Director of Business Development</p>
-              </div>
-              <div className="part-image">
-                <img src="" alt="" />
-              </div>
-            </div>
+        <div className="thank-body">
+          <div className="thank-text">
+            <h4>Thank you!</h4>
+            <p>for filling out your information</p>
+            <p><span>We have received your enquiry and will respond to you soon</span></p>
 
-            <div className="right-part">
-              <div className="part-header">
-                <h4>Olga Zhuk</h4>
-                <p>Account Manager</p>
-              </div>
-              <div className="part-image">
-                <img src="" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="presentation-footer">
-          <div
-            className="order-btn"
-            onClick={() => { return (this.setState({ showForm: true })); }}
-          >
-            <span>order</span>
+            <Link className="exit-btn" to={'/FilterPage'}>
+              <span>exit</span>
+            </Link>
           </div>
         </div>
       </div>
     );
   }
   render() {
+    const { sent } = this.props;
+    let status;
+    if (sent) {
+      status = sent.status;
+    }
     return (
       <div className={'page send-page'}>
         <div className="dashboard-wr">
           <div className="header-wr">
-            <div className="header">
-              <div className="header-fiq">
-                <span>? FIQ</span>
-              </div>
-              <div className="header-title">
-                <h4>Header</h4>
-              </div>
-              <div className="header-contact">
-                <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
-              </div>
-            </div>
+            <Header />
           </div>
           {
-            this.state.showForm && (
+            this.state.showPage === 'presentationPage' && status !== 200 && (
+              this.renderPresentation()
+            )
+          }
+          {
+            this.state.showPage === 'pageForm' && status !== 200 && (
               this.renderSendForm()
             )
           }
           {
-            !this.state.showForm && (
-              this.renderPresentation()
+            status === 200 && (
+              this.renderThankYouPage()
             )
           }
         </div>

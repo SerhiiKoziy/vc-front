@@ -40,8 +40,9 @@
 @include fontFace('BebasNeueBook','BebasNeueBook');
 
 
-$book: 'BebasNeueBook';
+// $book: 'BebasNeueBook';
 $bold: 'Roboto Condensed';
+$book: 'Roboto Condensed';
 /* USAGE
 @include fontFace('MyriadProSemibold','MyriadProSemibold');
 @include fontFace('MyriadProRegular','MyriadProRegular');

@@ -6,6 +6,7 @@ import { getUser, sendMail, letterSent } from '../actions';
 // import MAIL_REG from '../constants/regExp';
 import ViewCv from '../components/CV/ViewCv';
 import TextField from '../components/TextField/TextField';
+import Header from '../components/Header/Header';
 
 class PageCV extends Component {
   static propTypes = {
@@ -93,17 +94,7 @@ class PageCV extends Component {
   renderHeader() {
     return (
       <div className="header-wr">
-        <div className="header">
-          <div className="header-fiq">
-            <span>? FIQ</span>
-          </div>
-          <div className="header-title">
-            <h4>Header</h4>
-          </div>
-          <div className="header-contact">
-            <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
-          </div>
-        </div>
+        <Header />
       </div>
     );
   }
