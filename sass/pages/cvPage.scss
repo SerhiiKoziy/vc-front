@@ -19,7 +19,7 @@
     .task-header {
       position: relative;
       line-height: 60px;
-      height: 60px;
+      height: 75px;
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #303b45;
@@ -58,8 +58,11 @@
         top: 0;
         left: 50%;
         transform: translate(-50%, 0);
+        height: 100%;
         .header-center-wr {
           display: flex;
+          height: 100%;
+          align-items: center;
           .image-wr{
             border-radius: 50%;
             margin: 0 20px 0 0;
@@ -68,6 +71,7 @@
             overflow: hidden;
             img {
               width: 100%;
+            }
             }
           }
 
@@ -93,15 +97,14 @@
       }
       .right-part {
         display: flex;
+        align-items: center;
         p {
-          //height: 30px;
           margin: 0;
           line-height: 20px;
         }
         span {
           line-height: 20px;
         }
-
         .cost-info {
           padding: 0 20px 0 0;
           display: flex;
@@ -127,7 +130,6 @@
           background-color: rgb(20, 179, 251);
           border-radius: 4px;
           padding: 0 15px;
-          margin: 10px 0 10px 0;
           cursor: pointer;
           transition: 0.4s background;
           &:hover{
@@ -187,7 +189,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       height: 400px;
-      width: 400px;
+      width: 100%;
+      max-width: 600px;
       background: #1b2833;
       z-index: 30;
       transition: 0.6s transform;
@@ -231,29 +234,26 @@
         align-items: center;
         justify-content: center;
         height: 60px;
+        text-transform: uppercase;
         span {
 
         }
       }
       .body-send {
+        padding: 0 30px 0 30px;
         .input-wr {
           width: 100%;
-          padding: 40px 20px 0 20px;
+          margin: 50px 0 0 0;
           box-sizing: border-box;
-          input {
-            border: none;
-            padding: 0 10px;
-            height: 40px;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 5px;
-          }
+          position: relative;
+
           input{
-            height: 35px;
+            height: 45px;
             border-radius: 5px;
             border: 1px solid #2a3f50;
             box-sizing: border-box;
             background: #1f2e3b;
+            padding: 0 10px;
             color: #84b6d4;
             transition: 0.4s border;
             &::placeholder {
@@ -263,12 +263,31 @@
               border-bottom: 1px solid #4d6c7f;
             }
           }
-          .success{
+          .error{
+            position: absolute;
+            top: 13px;
+            right: -50px;
+            transition: 0.4s right;
+            &.show{
+              right: 15px;
+            }
+          }
+          &.success{
             input{
               border: 1px solid #71af64;
             }
           }
 
+        }
+        .info-text{
+          margin: 15px 0 0 0;
+          span{
+            font-size: 10px;
+            a{
+              color: #14b3fb;
+              cursor: pointer;
+            }
+          }
         }
         .send-message{
           .success-test{
@@ -354,7 +373,8 @@
           background: transparent;
           box-shadow: none;
           margin: 0;
-          height: calc(100% - 60px);
+          height: calc(100% - 85px);
+          padding: 60px 20px 10px 60px;
         }
       }
     }
@@ -365,4 +385,3 @@
       display: none;
     }
   }
-}

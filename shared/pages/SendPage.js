@@ -67,6 +67,7 @@ class SendPage extends Component {
     push: React.PropTypes.func,
     currentTask: React.PropTypes.object,
     sent: React.PropTypes.object,
+    user: React.PropTypes.object,
     sending: React.PropTypes.bool,
   };
   handleFormSubmit(event) {
@@ -148,15 +149,23 @@ class SendPage extends Component {
           </div>
         </div>
         <div className="diagram-wr">
-          <div className="diagram-box">
-            <img src="../assets/images/pres-graph.png" alt="graph" />
-            <div className="part-header left-work">
-              <h4>Alfonsine Williams</h4>
-              <p>Director of Business Development</p>
+          <div className="ins-diagram">
+            <div className="left-name">
+
+              <div className="part-header left-work">
+                <h4>Alfonsine Williams</h4>
+                <p>Director of Business Development</p>
+              </div>
             </div>
-            <div className="part-header right-work">
-              <h4>Olga Zhuk</h4>
-              <p>Account Manager</p>
+
+            <div className="diagram-box">
+              <img src="../assets/images/pres-graph.png" alt="graph" />
+            </div>
+            <div className="right-name">
+              <div className="part-header right-work">
+                <h4>Olga Zhuk</h4>
+                <p>Account Manager</p>
+              </div>
             </div>
           </div>
           <div className="bg-view">
@@ -180,7 +189,7 @@ class SendPage extends Component {
             className="order-btn"
             onClick={() => { return (this.setState({ showPage: 'pageForm' })); }}
           >
-            <span>order</span>
+            <span>Order</span>
           </div>
         </div>
       </div>

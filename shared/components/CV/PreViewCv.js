@@ -80,11 +80,25 @@ const PreViewCv = ({ item, onDelete, children, isAdminPanel, onClick }) => {
             onClick={onClick}
           >
             <div className="main-cv">
-              <div className="line-cv title">
-                <h4>{item.title}</h4>
-              </div>
-              <div className="line-cv cost">
-                <p>{`$${item.cost}`}</p>
+              {
+                item.inHouse && (
+                  <div className="cv-row in-house">
+                    <div className="line-cv title">
+                      <h4>in house</h4>
+                    </div>
+                    <div className="line-cv cost">
+                      <p>{`$${item.cost - 500}`}</p>
+                    </div>
+                  </div>
+                )
+              }
+              <div className="cv-row">
+                <div className="line-cv title">
+                  <h4>{item.title}</h4>
+                </div>
+                <div className="line-cv cost">
+                  <p>{`$${item.cost}`}</p>
+                </div>
               </div>
             </div>
             {children}

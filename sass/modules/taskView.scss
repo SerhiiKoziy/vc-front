@@ -26,6 +26,9 @@
     display: flex;
     width: 50%;
     flex-direction: column;
+    overflow: auto;
+    @include scrollbar;
+
     /*.line-cv{
       display: flex;
       margin: 0 0 5px 0;
@@ -48,6 +51,7 @@
     }*/
 
     .main-skills, .addition-skills, .desc-work, .conclusion{
+      @include scrollbar;
       .skill-title, .desc-title{
         position: relative;
         padding: 0 0 30px 0;
@@ -78,7 +82,7 @@
           }
         }
         p{
-          height: 40px;
+         // height: 40px;
           padding: 0 0 0 50px;
           box-sizing: border-box;
           margin: 0;
@@ -120,7 +124,7 @@
           }
         }
         p{
-          height: 40px;
+          //height: 40px;
           padding: 0 0 0 50px;
           box-sizing: border-box;
           margin: 0;
@@ -180,6 +184,7 @@
         p{
           padding: 0 0 0 80px;
           box-sizing: border-box;
+          text-align: justify;
         }
       }
     }

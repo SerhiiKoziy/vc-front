@@ -128,6 +128,12 @@ class PageCV extends Component {
                 errorText={this.showError('mail')}
               />
             </div>
+            <p className="info-text">
+              <span className="">Your email will be neither shared,
+                sold nor rented to any third party for commercial reasons
+                <a href="" target="_blank"> read more</a>
+              </span>
+            </p>
             <div className="send-message">
               {
                 (sentText && sentText === 'OK') && (

@@ -70,17 +70,15 @@
 
     &::-webkit-scrollbar-thumb {
         border-radius: 0;
-        background: #fff;
+        background: #368ee0;
         -webkit-box-shadow: 0;
-        transition: background 0.3s;
+        cursor: pointer;
     }
-
     &::-webkit-scrollbar-thumb:hover {
-        background: lighten(#fff,5);
+        background: #2b74ba;
     }
-
     &::-webkit-scrollbar-thumb:active {
-        background: darken(#fff,5);
+        background: #2764a0;
     }
 }
 

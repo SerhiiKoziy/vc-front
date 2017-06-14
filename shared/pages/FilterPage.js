@@ -300,7 +300,9 @@ class MainPage extends Component {
 
     const { isShowSkillsFilter, multi, multiValueTitle, sidebar } = this.state;
     return (
-      <div className="search-wr-inside">
+      <div
+        className={`search-wr-inside titles-search ${sidebar ? 'sidebar' : ''}`}
+      >
         <Select
           multi={multi}
           options={optionsTitle}
@@ -342,7 +344,7 @@ class MainPage extends Component {
     const { options } = this.props.data;
     const { multiValueSkills, multi } = this.state;
     return (
-      <div className="search-wr-inside">
+      <div className="search-wr-inside skills-search">
         <Select
           multi={multi}
           options={options}
