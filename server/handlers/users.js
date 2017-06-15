@@ -27,6 +27,8 @@ router.post('/create', function (req, res) {
     username: req.body.username,
     title: req.body.title,
     experience: req.body.experience,
+    interviewDate: req.body.interviewDate,
+    whereInterviewed: req.body.whereInterviewed,
     cost: req.body.cost,
     inHouse: req.body.inHouse,
     skills: req.body.skills,

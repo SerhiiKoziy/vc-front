@@ -35,16 +35,15 @@ const PreViewCv = ({ item, onDelete, children, isAdminPanel, onClick }) => {
               <ul>
                 {
                   item.skills && (item.skills.map((skill, i) => {
-                      return (
-                        <li key={i} className={`${skill.main ? 'main-skill' : ''}`}>
-                          {`${skill.skill} : ${skill.experience} year(s)`}
-                          {
-                            skill.isMain ? <span>main</span> : ''
-                          }
-                        </li>
-                      );
-                    })
-                  )
+                    return (
+                      <li key={i} className={`${skill.main ? 'main-skill' : ''}`}>
+                        {`${skill.skill} : ${skill.experience} year(s)`}
+                        {
+                          skill.isMain ? <span>main</span> : ''
+                        }
+                      </li>
+                    );
+                  }))
                 }
               </ul>
             </div>

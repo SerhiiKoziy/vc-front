@@ -23,6 +23,22 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      .react-datepicker__input-container{
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        height: 50px;
+        margin: 15px 0;
+        .interviewDate{
+          width: 100%;
+          border: none;
+          padding: 0 10px;
+          box-sizing: border-box;
+          font-size: 18px;
+          line-height: 21px;
+          color: #006ec5;
+        }
+      }
       .input-wr {
         padding: 15px 0 0;
         & > div {

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import dateFormat from 'dateformat';
 import { push } from 'react-router-redux';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 import TextField from '../TextField/TextField';
 import TextArea from '../TextArea/TextArea';
@@ -17,6 +18,7 @@ class createCV extends React.Component {
     updateUser: React.PropTypes.func,
     createCv: React.PropTypes.func,
     createUser: React.PropTypes.func,
+    push: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -24,13 +26,13 @@ class createCV extends React.Component {
     const nextDay = new Date();
     nextDay.setDate(nextDay.getDate() + 1);
     const defaultValues = {
-      address: 'Kiev, Kyiv city, Ukraine',
       title: '',
       username: '',
       cost: '',
       inHouse: true,
       experience: '',
-      daysToDate: 1,
+      whereInterviewed: '',
+      interviewDate: moment(),
       originalDate: nextDay,
       skillsChange: false,
       skills: [],
@@ -43,14 +45,15 @@ class createCV extends React.Component {
       values: this.props.currentTask || defaultValues,
       touched: {
         title: false,
+        username: false,
         cost: false,
         experience: false,
-        username: false,
-        /*image: false,*/
+        whereInterviewed: false,
       },
       errorMessages: {
         title: 'Title is required',
         username: 'User name is required',
+        whereInterviewed: 'User name is required',
         cost: 'Cost is required',
         experience: 'Experience is required',
         image: 'Image is required',
@@ -61,6 +64,9 @@ class createCV extends React.Component {
           return value.length > 0;
         },
         username: (value) => {
+          return value.length > 0;
+        },
+        whereInterviewed: (value) => {
           return value.length > 0;
         },
         cost: (value) => {
@@ -88,19 +94,24 @@ class createCV extends React.Component {
   }
 
   createCv(values) {
-    const dateObject = new Date();
-    const date = dateFormat(dateObject, 'dddd, mmmm dS');
     const currentTime = new Date().getTime();
-
+    const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
     return {
       inHouse: this.state.inHouse,
       ...values,
-      date,
+      interviewDate,
       id: currentTime,
     };
   }
   handleInputChange(target, e) {
-    this.updateValue(target, e.target.value.toString());
+    if (target === 'interviewDate') {
+      this.updateValue(target, moment(e));
+    } else {
+      this.updateValue(target, e.target.value.toString());
+    }
+  }
+  handleInterviewDateChange(data) {
+    this.handleInputChange('interviewDate', data);
   }
   updateValue(target, value) {
     if (target === 'skillName' || target === 'skillExp') {
@@ -137,7 +148,6 @@ class createCV extends React.Component {
   }
   handleFormSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(document.getElementById('upload_form'));
     formData.append('tax_file', document.getElementById('file-input').files);
     // console.log('formData', formData);
@@ -452,6 +462,22 @@ class createCV extends React.Component {
             onChange={::this.handleInputChange}
             onBlur={::this.handleInputBlur}
             errorText={this.showError('title')}
+          />
+          <TextField
+            classNameBox={'input-wr'}
+            placeholder={'Enter where interviewed'}
+            value={this.state.values.whereInterviewed}
+            fieldName="whereInterviewed"
+            maxLength="25"
+            onChange={::this.handleInputChange}
+            onBlur={::this.handleInputBlur}
+            errorText={this.showError('whereInterviewed')}
+          />
+          <DatePicker
+            fieldName="interviewDate"
+            selected={this.state.values.interviewDate}
+            onChange={::this.handleInterviewDateChange}
+            className="interviewDate"
           />
           <TextField
             classNameBox={'input-wr'}
