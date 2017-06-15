@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
+import ReactSVG from 'react-svg';
 import { getUser, sendMail, letterSent } from '../actions';
 // import MAIL_REG from '../constants/regExp';
 import ViewCv from '../components/CV/ViewCv';
@@ -128,12 +129,20 @@ class PageCV extends Component {
                 errorText={this.showError('mail')}
               />
             </div>
-            <p className="info-text">
+            <div className="info-text">
+              <div className="svg-wr">
+                <ReactSVG
+                  path="../assets/images/svg/info.svg"
+                  className="example"
+                  evalScript="always"
+                  style={{ width: 15, height: 15, fill: '#177baa' }}
+                />
+              </div>
               <span className="">Your email will be neither shared,
                 sold nor rented to any third party for commercial reasons
                 <a href="" target="_blank"> read more</a>
               </span>
-            </p>
+            </div>
             <div className="send-message">
               {
                 (sentText && sentText === 'OK') && (
@@ -194,6 +203,11 @@ class PageCV extends Component {
   }
   render() {
     const base = (this.props.application === 'admin') ? 'admin' : '';
+    const { user } = this.props;
+    let cvId;
+    if (user) {
+      cvId = user.id;
+    }
     return (
       <div className={`page task-page ${this.props.application}-task`}>
         <div className="inside-wr">
@@ -204,7 +218,12 @@ class PageCV extends Component {
                 <div className="task-header">
                   <Link className="left-part" to={`/${base}`}>
                     <div className="icon-back">
-                      <i className="fa fa-arrow-left" aria-hidden="true" />
+                      <ReactSVG
+                        path="../assets/images/svg/back.svg"
+                        className="example"
+                        evalScript="always"
+                        style={{ width: 35, fill: '#fff' }}
+                      />
                     </div>
                     <span>Back to board</span>
                   </Link>
@@ -227,7 +246,9 @@ class PageCV extends Component {
                       <p className="cost-desc">this cost is all</p>
                     </div>
                     <div className="proc-btn">
-                      <span>Proceed to Request</span>
+                      <Link className="" to={`/send/${cvId || ''}`}>
+                        <span>Proceed to Request</span>
+                      </Link>
                     </div>
                   </div>
                 </div>

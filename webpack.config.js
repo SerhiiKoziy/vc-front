@@ -43,6 +43,13 @@ module.exports = {
       { test: /\.svg$/, loader: 'file-loader' },
       { test: /\.png$/, loader: 'url-loader' },
       {
+        test: /\.svg$/,
+        loaders: [
+          'babel-loader', // v5
+          'svg-to-jsx-loader',
+        ],
+      },
+      {
         test: /\.css$/,
         use: [
           'style-loader',

@@ -3,6 +3,7 @@ import { getUsers, sendMail } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
+import ReactSVG from 'react-svg';
 import TextField from '../components/TextField/TextField';
 import TextArea from '../components/TextArea/TextArea';
 import Header from '../components/Header/Header';
@@ -138,7 +139,12 @@ class SendPage extends Component {
           <div className="btn-back">
             <Link className="left-part" to={`/cv/${id}`}>
               <div className="icon-back">
-                <i className="fa fa-arrow-left" aria-hidden="true" />
+                <ReactSVG
+                  path="../assets/images/svg/back.svg"
+                  className="example"
+                  evalScript="always"
+                  style={{ width: 35, fill: '#fff' }}
+                />
               </div>
               <span>Back to CV</span>
             </Link>
@@ -203,7 +209,12 @@ class SendPage extends Component {
             onClick={() => { return (this.setState({ showPage: 'presentationPage' })); }}
           >
             <div className="icon-back">
-              <i className="fa fa-arrow-left" aria-hidden="true" />
+              <ReactSVG
+                path="../assets/images/svg/back.svg"
+                className="example"
+                evalScript="always"
+                style={{ width: 35, fill: '#fff' }}
+              />
             </div>
             <span>Back to presentation</span>
           </div>
@@ -333,15 +344,20 @@ class SendPage extends Component {
   renderThankYouPage() {
     return (
       <div className="thank-wr">
-        <div
-          className="btn-back"
-          onClick={() => { return (this.setState({ showPage: 'presentationPage' })); }}
-        >
-          <div className="icon-back">
-            <i className="fa fa-arrow-left" aria-hidden="true" />
+        <Link className="btn-back " to={'/FilterPage'}>
+          <div
+            className="icon-back"
+          >
+            <ReactSVG
+              path="../assets/images/svg/back.svg"
+              className="example"
+              evalScript="always"
+              style={{ width: 35, fill: '#fff' }}
+            />
+
           </div>
-          <span>Back to presentation</span>
-        </div>
+          <span>Back to filter</span>
+        </Link>
         <div className="thank-body">
           <div className="thank-text">
             <h4>Thank you!</h4>

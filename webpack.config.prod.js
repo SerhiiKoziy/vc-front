@@ -7,7 +7,6 @@ var autoprefixer = require('autoprefixer');
 const basicEntry = [
   'babel-polyfill',
 ];
-
 module.exports = {
   entry: {
     user: basicEntry.concat(['./user/client.js']),

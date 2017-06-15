@@ -3,7 +3,7 @@
     "dialect": "sqlite",
     "storage": "./db.development.sqlite"
   },
-  "development": {
+  "production": {
     "dialect": "sqlite",
     "storage": "./db.development.sqlite"
   },
@@ -11,7 +11,7 @@
     "dialect": "sqlite",
     "storage": ":memory:"
   },
-  "production": {
+  "production1": {
     "username": "root",
     "password": null,
     "database": "database_production",

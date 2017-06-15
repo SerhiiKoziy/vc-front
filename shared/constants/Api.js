@@ -12,5 +12,5 @@ const config = {
 
 export function resolveUrl(path) {
   const conf = config[getEnvironment()];
-  return `http://localhost:9000/${path}`;
+  return `${conf.url}/${path}`;
 }

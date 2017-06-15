@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import ReactSVG from 'react-svg';
+import QuoteIcon from '../svg/QuoteIcon';
 
 export default class ViewCv extends React.PureComponent {
   static propTypes = {};
@@ -91,15 +93,29 @@ export default class ViewCv extends React.PureComponent {
           <div className="main-cv">
             <div className="main-skills">
               <div className="skill-title">
-                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
+                <span>
+                  <ReactSVG
+                    path="../assets/images/svg/primary-skills.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 20, fill: '#fcd500' }}
+                  />
+                </span>
                 <p>Primary skills</p>
               </div>
               {this.renderMainSkills()}
             </div>
             <div className="addition-skills">
               <div className="skill-title">
-                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
-                <p>addition skill</p>
+                <span>
+                  <ReactSVG
+                    path="../assets/images/svg/additional-skills.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 20, fill: '#fcd500' }}
+                  />
+                </span>
+                <p>Additional skills</p>
               </div>
               {this.renderOtherSkills()}
             </div>
@@ -107,21 +123,45 @@ export default class ViewCv extends React.PureComponent {
           <div className="description-cv">
             <div className="desc-work">
               <div className="desc-title">
-                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
+                <span>
+                  <ReactSVG
+                    path="../assets/images/svg/experience.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 20, fill: '#fcd500' }}
+                  />
+                </span>
                 <p>Work experience</p>
               </div>
               {this.renderWorkExperience()}
             </div>
             <div className="conclusion">
               <div className="desc-title">
-                <span><i className="fa fa-cogs" aria-hidden="true" /></span>
+                <span>
+                  <ReactSVG
+                    path="../assets/images/svg/summary.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 20, fill: '#fcd500' }}
+                  />
+                </span>
                 <p>Summary from Mobilunity recruter</p>
               </div>
               <div className="recruter-header">
                 <p>{managerName || ''}</p>
-                <img src="" alt="" />
+                <div className="image-wr">
+                  <img src="" alt="mg" />
+                </div>
               </div>
               <div className="conclusion-text">
+                <div className="quote">
+                  <ReactSVG
+                    path="../assets/images/svg/quote.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 60, fill: '#16222b' }}
+                  />
+                </div>
                 <p>
                   {cvSummary || ''}
                 </p>

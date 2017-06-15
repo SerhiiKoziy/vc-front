@@ -3,6 +3,7 @@ import { getUsers } from '../actions';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import ReactSVG from 'react-svg';
 import SearchFilter from '../components/SearchFilter/SearchFilter';
 
 import PreViewCv from '../components/CV/PreViewCv';
@@ -53,7 +54,15 @@ class MainPage extends Component {
                 <h4>Header</h4>
               </div>
               <div className="header-contact">
-                <span>contact us <i className="fa fa-envelope-o" aria-hidden="true" /></span>
+                <span>contact us</span>
+                <span>
+                  <ReactSVG
+                    path="../assets/images/svg/mail.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{ width: 15, height: 15, fill: '#fff' }}
+                  />
+                </span>
               </div>
             </div>
 

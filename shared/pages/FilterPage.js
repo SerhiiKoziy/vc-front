@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import InputRange from 'react-input-range';
 import Select from 'react-select';
+import ReactSVG from 'react-svg';
 
 import RadioButton from '../components/RadioButton/RadioButton';
 import PreViewCv from '../components/CV/PreViewCv';
@@ -475,7 +476,14 @@ class MainPage extends Component {
               <div className="bottom-control">
                 <div className="clear" onClick={::this.filterClear}>
                   <span>
-                    <i className="fa fa-times-circle-o" aria-hidden="true" />
+                    <span className="svg-wr">
+                      <ReactSVG
+                        path="../assets/images/svg/clear.svg"
+                        className="example"
+                        evalScript="always"
+                        style={{ width: 18, height: 18, fill: '#a5e3ff' }}
+                      />
+                    </span>
                     clear filter
                   </span>
                 </div>
@@ -487,12 +495,19 @@ class MainPage extends Component {
             <div
               className={`lists-wr ${sidebar ? 'with-sidebar' : ''}`}
             >
-              {this.renderDustbins()}
               {
-                !(filterData.length > 0) && isUseFiler && (
-                  <p>change filter, please</p>
+                sidebar && (
+                  <h4>Filtered by {`${isShowSkillsFilter ? 'skills' : 'titles'}`}:</h4>
                 )
               }
+              <div className="ins-lists-wr">
+                {this.renderDustbins()}
+                {
+                  !(filterData.length > 0) && isUseFiler && (
+                    <p>change filter, please</p>
+                  )
+                }
+              </div>
             </div>
           </div>
         </div>
