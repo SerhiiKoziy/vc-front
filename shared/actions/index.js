@@ -14,7 +14,10 @@ export function getUsers() {
     getAllUsersAPI().then(res => {
       // console.log('res', res);
       dispatch(addDataBase(res.data));
-    });
+    })
+      .catch((error) => {
+        console.log('addDataBase error', error);
+      });
   };
 }
 // POST to API
@@ -23,7 +26,10 @@ export function createUser(dataCV) {
     createUserAPI(dataCV).then(res => {
       console.log('createUser res', res.data);
       dispatch(getUsers());
-    });
+    })
+      .catch((error) => {
+        console.log('createUser error', error);
+      });
   };
 }
 // PUT to API
@@ -32,7 +38,10 @@ export function updateUser(dataCV) {
     updateUserAPI(dataCV).then(res => {
       console.log('updateUser res', res);
       dispatch(getUsers());
-    });
+    })
+      .catch((error) => {
+        console.log('updateUser error', error);
+      });
   };
 }
 
@@ -44,7 +53,10 @@ export function getUser(userId) {
         // console.log('res getUser', res);
         // dispatch(getUsers());
       }
-    });
+    })
+      .catch((error) => {
+        console.log('getUser error', error);
+      });
   };
 }
 // DELETE to API
@@ -57,7 +69,7 @@ export function deleteUser(userId) {
       }
     })
     .catch((error) => {
-      console.log( error);
+      console.log(error);
     });
   };
 }

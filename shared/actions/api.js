@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import * as API from '../constants/Api';
+import { resolveUrl } from '../constants/Api';
 import axios from 'axios';
 
 
 export function getAllUsersAPI() {
-  return axios.get(API.GET_USERS).then((response) => {
+  return axios.get(resolveUrl('user')).then((response) => {
     if (response) {
       return response;
     }
@@ -17,7 +17,7 @@ export function getAllUsersAPI() {
   });
 }
 export function getUserAPI(userId) {
-  return axios.get(`${API.GET_USER}/${userId}`).then((response) => {
+  return axios.get(resolveUrl(`user/${userId}`)).then((response) => {
     if (response) {
       return response;
     }
@@ -31,7 +31,7 @@ export function getUserAPI(userId) {
 }
 export function createUserAPI(dataCV) {
   console.log('createUserAPI', dataCV);
-  return axios.post(API.POST_USER, dataCV).then((response) => {
+  return axios.post(resolveUrl('user/create'), dataCV).then((response) => {
     if (response) {
       return response;
     }
@@ -46,7 +46,7 @@ export function createUserAPI(dataCV) {
 }
 export function updateUserAPI(dataCV) {
   console.log('updateUserAPI', dataCV);
-  return axios.put(`${API.GET_USER}/${dataCV.id}`, dataCV).then((response) => {
+  return axios.put(resolveUrl('user'), dataCV).then((response) => {
     if (response) {
       return response;
     }
@@ -60,7 +60,7 @@ export function updateUserAPI(dataCV) {
   });
 }
 export function deleteUserAPI(userId) {
-  return axios.delete(`${API.DELETE_USER}/${userId}`).then((response) => {
+  return axios.delete(resolveUrl(`user/${userId}`)).then((response) => {
     if (response) {
       return response;
     }
@@ -77,7 +77,7 @@ export function deleteUserAPI(userId) {
 export function sendMailAPI(userId, data) {
   const from = typeof data !== 'object' ? { data } : data;
   console.log('sendMailAPI serv', userId, from);
-  return axios.post(`${API.SEND_MAIL}/${userId}/contact`, from).then((response) => {
+  return axios.post((resolveUrl('user/contact')), { userId, from }).then((response) => {
     if (response) {
       return response;
     }

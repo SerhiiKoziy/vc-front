@@ -175,9 +175,7 @@ class SendPage extends Component {
                 <img src="../assets/images/pres-work-3.png" alt="work-1" />
               </div>
             </div>
-
             <div className="right-part">
-
               <div className="part-image">
                 <img src="../assets/images/pres-work-2.png" alt="work-2" />
               </div>

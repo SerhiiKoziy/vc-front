@@ -14,6 +14,7 @@ server.use(bodyParser.json({ limit: '5000mb', uploadDir: './uploads' }));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use('/assets', express.static(path.join(__dirname, '/../assets')));
+server.use('/public', express.static(path.join(__dirname, '../public')));
 server.use('/user', usersHandler);
 server.use('/', createHandler('user'));
 server.use(basicAuth({

@@ -17,14 +17,11 @@ export default function getRoutes(store) {
 
     return false;
   }
-
   function checkMainRoute(nextState, replace) {
     if (!isDataStored()) {
       store.dispatch(getUsers());
     }
   }
-
-
   // let base = "/client";
   return (
     <Route name="Root" path="/" component={Root} onEnter={checkMainRoute}>

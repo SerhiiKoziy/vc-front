@@ -58,7 +58,7 @@ router.post('/create', function (req, res) {
   });
 });*/
 
-router.put('/:user_id', function (req, res) {
+router.put('/:user_id', (req, res) => {
   /* models.User.Skill.find({
     where: { id: req.params.user_id },
     include: [{ model: models.User.Skill, as: 'Skill' }],
@@ -66,7 +66,7 @@ router.put('/:user_id', function (req, res) {
     return result;
   });*/
 
-  const updateProfile = {
+  /* const updateProfile = {
     username: req.body.username,
     title: req.body.title,
     experience: req.body.experience,
@@ -75,13 +75,13 @@ router.put('/:user_id', function (req, res) {
     skills: req.body.skills,
     image: req.body.image,
     fileName: req.body.fileName,
-  };
+  };*/
   /* const updateUser = models.User.update(updateProfile,
       { where: { id: req.params.user_id },
   });*/
-  const createUser = models.User.create(updateProfile, {
+  /* const createUser = models.User.create(updateProfile, {
     include: [models.User.Skill],
-  });
+  });*/
   const deleteUser = models.User.destroy({ where: { id: req.params.user_id } });
 
   Promise.all([
@@ -150,10 +150,10 @@ router.get('/:user_id', function (req, res) {
   });
 });*/
 
-router.post('/:id/contact', (req, res) => {
+router.post('/contact', (req, res) => {
   models.User.findAll({
     where: {
-      id: req.params.id,
+      id: req.body.userId,
     },
   }).then(function (result) {
     if (result.length === 0) {
@@ -161,7 +161,7 @@ router.post('/:id/contact', (req, res) => {
     }
     console.log('111111111111', req.body);
     // var obj = req.body.from ? req.body.from : req.body;
-    sendMessage(req.body, result[0]).then((info) => {
+    sendMessage(req.body.from, result[0]).then((info) => {
       res.send(info);
     });
   });
