@@ -89,6 +89,7 @@ class createCV extends React.Component {
 
       managerName: '',
       cvSummary: '',
+      imageManager: '',
     };
     this.state = this.defaultState;
   }
@@ -269,11 +270,14 @@ class createCV extends React.Component {
   addSummary() {
     const managerName = this.state.managerName;
     const cvSummary = this.state.cvSummary;
+    const imageManager = this.state.imageManager;
     const summaryArr = this.state.values.summary;
-    summaryArr.push({ managerName, cvSummary });
+    summaryArr.push({ managerName, cvSummary, imageManager });
     this.setState({
       managerName: '',
       cvSummary: '',
+      imageManager: '',
+      fileNameManager: '',
       values: {
         ...this.state.values,
         summary: summaryArr,
@@ -319,10 +323,21 @@ class createCV extends React.Component {
     });*/
     reader.readAsDataURL(file);
   }
+  onDropHandlerManager(target, e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      this.setState({
+        imageManager: event.target.result,
+        fileNameManager: file.name,
+      });
+    };
+    reader.readAsDataURL(file);
+  }
   renderCreateSkill() {
     return (
       <div className="add-skill">
-        <h4>Skill:</h4>
+        <h4>Add skill:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter skill'}
@@ -373,7 +388,7 @@ class createCV extends React.Component {
   renderCreateWork() {
     return (
       <div className="add-work-exp">
-        <h4>Description:</h4>
+        <h4>Add works description:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter work'}
@@ -405,7 +420,7 @@ class createCV extends React.Component {
   renderCreateSummary() {
     return (
       <div className="add-summary">
-        <h4>Summary:</h4>
+        <h4>Add summary:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter manager name'}
@@ -421,6 +436,17 @@ class createCV extends React.Component {
           value={this.state.cvSummary}
           fieldName="cvSummary"
           onChange={::this.handleInputChange}
+          onBlur={::this.handleInputBlur}
+        />
+        <TextField
+          id={'file-input-imageManager'}
+          classNameBox={'input-wr'}
+          placeholder={'Enter image manager'}
+          fileName={this.state.fileNameManager}
+          preVision={this.state.imageManager}
+          type={'file'}
+          fieldName="imageManager"
+          onChange={::this.onDropHandlerManager}
           onBlur={::this.handleInputBlur}
         />
         <button
@@ -578,8 +604,11 @@ class createCV extends React.Component {
               this.state.values.summary && (this.state.values.summary.map((item, i) => {
                 return (
                   <ul className="summary-form" key={`${i}-summary`}>
-                    <li><span>Name manager: </span><span>{item.managerName}</span></li>
+                    <li><span>Name manager: </span><span> {item.managerName}</span></li>
                     <li><span>Summary: </span><span>{item.cvSummary}</span></li>
+                    <li className="image-manager">
+                      <img src={item.imageManager} alt="" />
+                    </li>
                     <li
                       className="del-skill"
                       onClick={(e) => { this.deleteSummary(i, e); }}

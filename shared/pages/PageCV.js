@@ -205,8 +205,12 @@ class PageCV extends Component {
     const base = (this.props.application === 'admin') ? 'admin' : '';
     const { user } = this.props;
     let cvId;
+    let whereInterviewed = 'Company Name';
+    let interviewDate = 'yesterday';
     if (user) {
       cvId = user.id;
+      whereInterviewed = user.whereInterviewed;
+      interviewDate = user.interviewDate;
     }
     return (
       <div className={`page task-page ${this.props.application}-task`}>
@@ -230,11 +234,13 @@ class PageCV extends Component {
                   <div className="center-part">
                     <div className="header-center-wr">
                       <div className="image-wr">
-                        <img src={this.props.user.image} alt="" />
+                        <img src={user.image} alt="" />
                       </div>
                       <div className="center-info">
-                        <p className="name">{this.props.user.username}</p>
-                        <p className="info-position">interviewed by Mobilunity on 04.05.16</p>
+                        <p className="name">{user.username}</p>
+                        <p className="info-position">
+                          interviewed by {whereInterviewed} on {interviewDate}
+                        </p>
                       </div>
                     </div>
                   </div>

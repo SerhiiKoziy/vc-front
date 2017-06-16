@@ -78,11 +78,13 @@ export default class ViewCv extends React.PureComponent {
   render() {
     if (this.props.item) {
       const { summary } = this.props.item;
-      let managerName;
-      let cvSummary;
+      let managerName = 'manager Name';
+      let cvSummary = 'Summary';
+      let imageManager = '';
       if (summary[0]) {
         managerName = summary[0].managerName;
         cvSummary = summary[0].cvSummary;
+        imageManager = summary[0].imageManager;
       }
       return (
         <div
@@ -148,9 +150,9 @@ export default class ViewCv extends React.PureComponent {
                 <p>Summary from Mobilunity recruter</p>
               </div>
               <div className="recruter-header">
-                <p>{managerName || ''}</p>
+                <p>{managerName}</p>
                 <div className="image-wr">
-                  <img src="" alt="mg" />
+                  <img src={imageManager} alt="mg" />
                 </div>
               </div>
               <div className="conclusion-text">
@@ -163,7 +165,7 @@ export default class ViewCv extends React.PureComponent {
                   />
                 </div>
                 <p>
-                  {cvSummary || ''}
+                  {cvSummary}
                 </p>
               </div>
             </div>

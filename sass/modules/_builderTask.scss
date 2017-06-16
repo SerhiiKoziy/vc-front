@@ -19,7 +19,7 @@
     padding: 0 0 40px 0;
 
     form {
-      padding: 0 10px;
+      padding: 10px;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -94,6 +94,15 @@
               color: #f10000;
               cursor: pointer;
             }
+            &.image-manager{
+              margin: 10px 0 10px 0;
+              img{
+                max-width: 50%;
+                max-height: 100px;
+                margin: 0 auto;
+              }
+
+            }
           }
         }
       }
@@ -106,8 +115,11 @@
       width: 100%;
       .add-skill, .add-work-exp, .add-summary {
         width: 100%;
-        padding: 0 10px 10px 10px;
+        padding: 10px;
         box-sizing: border-box;
+        border: 1px solid #177fd2;
+        margin: 0 0 18px 0px;
+        background: rgba(106, 189, 255, 0.19);
         .input-wr {
           padding: 15px 0 0;
           input {
@@ -127,7 +139,7 @@
         box-sizing: border-box;
       }
       .add-summary{
-        padding: 0 10px;
+        padding: 10px;
         box-sizing: border-box;
       }
     }

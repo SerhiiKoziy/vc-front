@@ -9,6 +9,8 @@ module.exports = function (sequelize, DataTypes) {
     inHouse: DataTypes.BOOLEAN,
     image: DataTypes.STRING,
     fileName: DataTypes.STRING,
+    interviewDate: DataTypes.STRING,
+    whereInterviewed: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function (models) {

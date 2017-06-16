@@ -4,6 +4,7 @@ module.exports = function (sequelize, DataTypes) {
   var Summary = sequelize.define('Summary', {
     managerName: DataTypes.STRING,
     cvSummary: DataTypes.STRING,
+    imageManager: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function (models) {

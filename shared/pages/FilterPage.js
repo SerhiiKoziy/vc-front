@@ -195,7 +195,8 @@ class MainPage extends Component {
       // this.setState({ valueSelect });
     }
   }
-  filterDataJustTitle() {
+  filterDataJustTitle(value) {
+    // console.log('value', value);
     const { data } = this.props.data;
     const { multiValueTitle } = this.state;
     const dataFilterTitle = [];
@@ -211,7 +212,9 @@ class MainPage extends Component {
       return null;
     });
     this.setState({ filterDataTitle: dataFilterTitle });
-   // this.filterDataCost(dataFilterTitleOrSkill);
+    if (value === 'filterMain') {
+      this.filterDataCost(dataFilterTitle);
+    }
   }
 
   handleOnChangeSkills(valueSelect) {
@@ -223,7 +226,8 @@ class MainPage extends Component {
       // this.setState({ valueSelect });
     }
   }
-  filterDataJustSkills() {
+  filterDataJustSkills(value) {
+    console.log('value', value);
     const { data } = this.props.data;
     const { multiValueSkills } = this.state;
     const dataFilterSkills = [];
@@ -247,11 +251,13 @@ class MainPage extends Component {
       return null;
     });
     this.setState({ filterDataSkills: dataFilterSkills });
-    // this.filterDataCost(dataFilterTitleOrSkill);
+    if (value === 'filterMain') {
+      this.filterDataCost(dataFilterSkills);
+    }
   }
   renderDustbins() {
     const { isShowSkillsFilter, filterDataSkills,
-      filterData, filterDataTitle, sidebar } = this.state;
+      filterData, filterDataTitle, sidebar, isUseFiler } = this.state;
 
     const { data, application } = this.props.data;
     if (this.props.data.data) {
@@ -264,9 +270,9 @@ class MainPage extends Component {
         if (filterData.length > 0) {
           dataSel = filterData;
         } else if (!isShowSkillsFilter) {
-          dataSel = filterDataTitle;
+          dataSel = isUseFiler ? filterData : filterDataTitle;
         } else if (isShowSkillsFilter) {
-          dataSel = filterDataSkills;
+          dataSel = isUseFiler ? filterData : filterDataSkills;
         } else {
           dataSel = data;
         }
@@ -387,6 +393,7 @@ class MainPage extends Component {
       </div>
     );
   }
+
   renderRangeExperience() {
     return (
       <div className="experience-year">
@@ -487,9 +494,26 @@ class MainPage extends Component {
                     clear filter
                   </span>
                 </div>
-                <div className="total-filter" onClick={::this.filterDataTitle}>
-                  <span>show-result</span>
-                </div>
+                {
+                  !isShowSkillsFilter && (
+                    <div
+                      className="total-filter"
+                      onClick={this.filterDataJustTitle.bind(this, 'filterMain')}
+                    >
+                      <span>show-result</span>
+                    </div>
+                  )
+                }
+                {
+                  isShowSkillsFilter && (
+                    <div
+                      className="total-filter"
+                      onClick={this.filterDataJustSkills.bind(this, 'filterMain')}
+                    >
+                      <span>show-result</span>
+                    </div>
+                  )
+                }
               </div>
             </div>
             <div
@@ -503,7 +527,7 @@ class MainPage extends Component {
               <div className="ins-lists-wr">
                 {this.renderDustbins()}
                 {
-                  !(filterData.length > 0) && isUseFiler && (
+                  !(filterData.length > 0) && isUseFiler && sidebar && (
                     <p>change filter, please</p>
                   )
                 }
