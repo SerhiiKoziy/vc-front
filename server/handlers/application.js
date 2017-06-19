@@ -24,7 +24,7 @@ export default function createHandler(AREA) {
       });
 
       match({
-        history: history,
+        history,
         routes: getRoutes(store),
         location: req.originalUrl,
       }, (error, redirectLocation, renderProps) => {

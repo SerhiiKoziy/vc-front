@@ -3355,11 +3355,11 @@ main {
         overflow: auto;
         -webkit-transition: 0.6s width;
         transition: 0.6s width; }
-        .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > a {
+        .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > a, .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > div {
           float: left;
           width: 18%;
           margin: 0 2.5% 20px 0; }
-          .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > a:nth-child(5n) {
+          .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > a:nth-child(5n), .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr > div:nth-child(5n) {
             margin: 0 0 20px 0; }
         .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr.with-sidebar .ins-lists-wr > a {
           float: left;

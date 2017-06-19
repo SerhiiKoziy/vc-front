@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI, REQUEST_LETTER,
+import { getAllUsersAPI,
          getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {

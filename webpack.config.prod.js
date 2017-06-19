@@ -1,9 +1,7 @@
-'use strict';
-
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const basicEntry = [
   'babel-polyfill',
 ];
@@ -25,11 +23,11 @@ module.exports = {
     new ExtractTextPlugin({ filename: 'style.css',
       allChunks: true,
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-      },
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'NODE_ENV': JSON.stringify('production'),
+    //   },
+    // }),
   ],
 
   module: {

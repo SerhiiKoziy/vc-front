@@ -916,7 +916,7 @@
           overflow: auto;
           transition: 0.6s width;
           .ins-lists-wr {
-            &>a{
+            &>a, &>div{
               float: left;
               width: 18%;
               margin: 0 2.5% 20px 0;

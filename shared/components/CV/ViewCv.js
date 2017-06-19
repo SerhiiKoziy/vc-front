@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ReactSVG from 'react-svg';
-import QuoteIcon from '../svg/QuoteIcon';
 
 export default class ViewCv extends React.PureComponent {
   static propTypes = {};
 
   renderMainSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
-      const mainSkills = this.props.item.skills.filter((skill) => skill.main);
+      const mainSkills = this.props.item.skills.filter((skill) => { return skill.main; });
       return mainSkills.map(this.renderSkill);
     }
     return null;
@@ -16,7 +15,7 @@ export default class ViewCv extends React.PureComponent {
 
   renderOtherSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
-      const mainSkills = this.props.item.skills.filter((skill) => !skill.main);
+      const mainSkills = this.props.item.skills.filter((skill) => { return !skill.main; });
       return mainSkills.map(this.renderSkill);
     }
     return null;
@@ -80,11 +79,16 @@ export default class ViewCv extends React.PureComponent {
       const { summary } = this.props.item;
       let managerName = 'manager Name';
       let cvSummary = 'Summary';
-      let imageManager = '';
+      // let imageManager = '';
+      let divStyle = {};
       if (summary[0]) {
         managerName = summary[0].managerName;
         cvSummary = summary[0].cvSummary;
-        imageManager = summary[0].imageManager;
+        // imageManager = summary[0].imageManager;
+        divStyle = {
+          backgroundImage: 'url(' + summary[0].imageManager + ')',
+          //backgroundImage: {`url(${user.image})`},
+        };
       }
       return (
         <div
@@ -152,7 +156,12 @@ export default class ViewCv extends React.PureComponent {
               <div className="recruter-header">
                 <p>{managerName}</p>
                 <div className="image-wr">
-                  <img src={imageManager} alt="mg" />
+                  <div
+                    className="image-style"
+                    style={divStyle}
+                  >
+                  </div>
+                  {/* <img src={imageManager} alt="mg" />*/}
                 </div>
               </div>
               <div className="conclusion-text">

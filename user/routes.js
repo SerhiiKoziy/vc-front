@@ -17,7 +17,7 @@ export default function getRoutes(store) {
 
     return false;
   }
-  function checkMainRoute(nextState, replace) {
+  function checkMainRoute() {
     if (!isDataStored()) {
       store.dispatch(getUsers());
     }
@@ -29,8 +29,7 @@ export default function getRoutes(store) {
         <Route name="EditTask" path="edit" component={EditCV} />
       </Route>
       <Route name="SendPage" path="send/:cvId" component={SendPage} />
-      <Route name="FilterPage" path="FilterPage" component={FilterPage} />
-      <IndexRoute name="MainPage" component={FilterPage} />
+      <IndexRoute name="FilterPage" component={FilterPage} />
     </Route>
   );
 }

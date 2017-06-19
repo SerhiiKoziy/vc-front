@@ -48,6 +48,11 @@ class MainPage extends Component {
         },
       ],
     };
+
+    // const handleDataJustSkills = (value, method) => e => method(e, value)
+    // this.handleDataJustSkills = this.filterDataJustSkills.bind(this);
+    // this.filterDataJustSkills = (this, 'filterMain') =>
+    // this.filterDataJustSkills.bind(this, 'filterMain');
   }
 
   static propTypes = {
@@ -176,7 +181,7 @@ class MainPage extends Component {
     this.props.push('/DashBoard');
   }
   goToMainFilter() {
-    this.props.push('/FilterPage');
+    this.props.push('/');
   }
   handleOnChange(valueSelect) {
     const { multi } = this.state;
@@ -255,6 +260,19 @@ class MainPage extends Component {
       this.filterDataCost(dataFilterSkills);
     }
   }
+  renderVideo() {
+    // console.log('renderVideo');
+    return (
+      <div className="video-link">
+        <a
+          href="https://www.youtube.com/watch?v=aswObDTfDYM"
+          target="_blank"
+        >
+          <div className="video">video</div>
+        </a>
+      </div>
+    );
+  }
   renderDustbins() {
     const { isShowSkillsFilter, filterDataSkills,
       filterData, filterDataTitle, sidebar, isUseFiler } = this.state;
@@ -278,6 +296,26 @@ class MainPage extends Component {
         }
       }
       return dataSel.map((item, i) => {
+        if (i === 1) {
+          return (
+            <div key={`video-${i}`} className="video-link">
+              <a
+                key={`video-${i}`}
+                href="https://www.youtube.com/watch?v=aswObDTfDYM"
+                target="_blank"
+              >
+                <div className="video">video</div>
+              </a>
+              {/* <iframe
+                width="180"
+                height="130"
+                src="https://www.youtube.com/embed/aswObDTfDYM"
+                frameBorder="0"
+                allowFullScreen
+              />*/}
+            </div>
+          );
+        }
         return (
           <Link key={`cv-${i}`} to={`/cv/${item.id}`}>
             <PreViewCv
@@ -285,7 +323,6 @@ class MainPage extends Component {
               key={i}
               isAdminPanel={application}
               onClick={::this.goToMainFilter}
-
               /* onDelete={this.deleteTask.bind(this, item.id)}*/
             />
           </Link>
@@ -509,6 +546,7 @@ class MainPage extends Component {
                     <div
                       className="total-filter"
                       onClick={this.filterDataJustSkills.bind(this, 'filterMain')}
+                      // onClick={this.filterDataJustSkills}
                     >
                       <span>show-result</span>
                     </div>

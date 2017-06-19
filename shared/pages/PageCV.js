@@ -32,7 +32,7 @@ class PageCV extends Component {
       openPopup: false,
       validation: {
         mail: (value) => {
-          const mail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          const mail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
           return mail.test(value);
         },
       },
@@ -207,10 +207,15 @@ class PageCV extends Component {
     let cvId;
     let whereInterviewed = 'Company Name';
     let interviewDate = 'yesterday';
+    let divStyle = {};
     if (user) {
       cvId = user.id;
       whereInterviewed = user.whereInterviewed;
       interviewDate = user.interviewDate;
+      divStyle = {
+        backgroundImage: 'url(' + user.image + ')',
+        //backgroundImage: {`url(${user.image})`},
+      };
     }
     return (
       <div className={`page task-page ${this.props.application}-task`}>
@@ -234,7 +239,12 @@ class PageCV extends Component {
                   <div className="center-part">
                     <div className="header-center-wr">
                       <div className="image-wr">
-                        <img src={user.image} alt="" />
+                        <div
+                          className="image-style"
+                          style={divStyle}
+                        >
+                        </div>
+                        {/* <img src={user.image} alt="" />*/}
                       </div>
                       <div className="center-info">
                         <p className="name">{user.username}</p>
@@ -284,7 +294,11 @@ class PageCV extends Component {
 export default connect(
   (state, ownProps) => {
     if (state.data && state.data.data && state.data.data.length > 0) {
-      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.cvId, 10));
+      const user = state.data.data.find(
+        u => {
+          return u.id === parseInt(ownProps.params.cvId, 10);
+        }
+      );
       if (user) {
         return {
           user,

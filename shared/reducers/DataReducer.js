@@ -5,7 +5,7 @@ export default function DataReducer(state = INITIAL_STATE, action) {
   const { type, payload } = action;
   // const data = state;
   switch (type) {
-    case types.ADD_DATA:
+    case types.ADD_DATA: {
       const selectOptions = [];
       const selectOptionsTitle = [];
       payload.map((cv) => {
@@ -60,7 +60,7 @@ export default function DataReducer(state = INITIAL_STATE, action) {
         options: selectOptions,
         optionsTitle: selectOptionsTitle,
       };
-
+    }
     case 'LETTER_SENT':
       // console.log('1', payload);
       return {

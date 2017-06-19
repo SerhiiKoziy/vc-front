@@ -1,4 +1,4 @@
-import * as types from '../constants/ActionTypes';
+// import * as types from '../constants/ActionTypes';
 import { INITIAL_STATE } from '../constants/InitialState';
 
 export default function ApplicationReducer(state = INITIAL_STATE, action) {

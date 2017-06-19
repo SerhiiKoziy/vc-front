@@ -40,7 +40,8 @@ class SendPage extends Component {
       },
       validation: {
         mail: (value) => {
-          return value.length > 0;
+          const mail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+          return mail.test(value);
         },
         name: (value) => {
           return value.length > 0;
@@ -84,9 +85,9 @@ class SendPage extends Component {
     };
     // const userId = this.props.user.id;
     const userId = 1;
-    console.log('sendMail front', clientInfo);
+    // console.log('sendMail front', clientInfo);
     this.props.sendMail(userId, clientInfo);
-   // this.setState({ sending: true });
+    // this.setState({ sending: true });
     // this.setState(this.defaultState);
   }
   handleInputChange(target, e) {
@@ -344,7 +345,7 @@ class SendPage extends Component {
   renderThankYouPage() {
     return (
       <div className="thank-wr">
-        <Link className="btn-back " to={'/FilterPage'}>
+        <Link className="btn-back " to={'/'}>
           <div
             className="icon-back"
           >
@@ -364,7 +365,7 @@ class SendPage extends Component {
             <p>for filling out your information</p>
             <p><span>We have received your enquiry and will respond to you soon</span></p>
 
-            <Link className="exit-btn" to={'/FilterPage'}>
+            <Link className="exit-btn" to={'/'}>
               <span>exit</span>
             </Link>
           </div>
@@ -408,7 +409,11 @@ class SendPage extends Component {
 const ConnectedComponent = connect(
   (state, ownProps) => {
     if (state.data && state.data.data && state.data.data.length > 0) {
-      const user = state.data.data.find(u => u.id === parseInt(ownProps.params.cvId, 10));
+      const user = state.data.data.find(
+          u => {
+            return u.id === parseInt(ownProps.params.cvId, 10);
+          }
+      );
       if (user) {
         return {
           data: state.data,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from 'react-dom';
 import { browserHistory, match } from 'react-router';
 import getEntry from '../shared/EntryComponent';
@@ -25,5 +24,4 @@ match({
     getEntry(false, store, renderProps)
     , document.getElementById('app'));
 });
-
 

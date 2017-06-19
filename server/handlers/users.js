@@ -1,10 +1,9 @@
 import express from 'express';
 import models from '../../models';
 import sendMessage from '../mailSender';
-import fs from 'fs';
 const router = express.Router();
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   models.User.findAll({
     include: [
       {
@@ -17,12 +16,12 @@ router.get('/', function (req, res) {
         association: models.User.Summary,
       },
     ],
-  }).then(function (result) {
+  }).then((result) => {
     res.send(result);
   });
 });
 
-router.post('/create', function (req, res) {
+router.post('/create', (req, res) => {
   models.User.create({
     username: req.body.username,
     title: req.body.title,
@@ -38,10 +37,10 @@ router.post('/create', function (req, res) {
     fileName: req.body.fileName,
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
-  }).then(function (result) {
+  }).then((result) => {
     res.send({
       success: true,
-      result: result,
+      result,
     });
   });
 });
@@ -112,21 +111,21 @@ router.put('/:user_id', (req, res) => {
       request.server.log(['error'], err.stack);
     });*/
 });
-router.delete('/:user_id', function (req, res) {
+router.delete('/:user_id', (req, res) => {
   models.User.destroy({
     where: {
       id: req.params.user_id,
     },
-  }).then(function (result) {
+  }).then(() => {
     res.send({ success: true });
   });
 });
-router.get('/:user_id', function (req, res) {
+router.get('/:user_id', (req, res) => {
   models.User.findAll({
     where: {
       id: req.params.user_id,
     },
-  }).then(function (result) {
+  }).then((result) => {
     if (result.length === 0) {
       res.status(404).send('error 404');
     }
@@ -157,11 +156,11 @@ router.post('/contact', (req, res) => {
     where: {
       id: req.body.userId,
     },
-  }).then(function (result) {
+  }).then((result) => {
     if (result.length === 0) {
       res.status(404).send('error 404');
     }
-    console.log('111111111111', req.body);
+    // console.log('111111111111', req.body);
     // var obj = req.body.from ? req.body.from : req.body;
     sendMessage(req.body.from, result[0]).then((info) => {
       res.send(info);

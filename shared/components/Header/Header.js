@@ -5,7 +5,7 @@ import ReactSVG from 'react-svg';
 const Header = ({ isAdminPanel }) => {
   const base = (isAdminPanel === 'admin') ? 'admin' : '';
   return (
-    <div className="header">
+    <div className={`header ${base}`}>
       <div className="header-fiq">
         <span>? FIQ</span>
       </div>

@@ -16,7 +16,7 @@ export default function getRoutes(store) {
 
     return false;
   }
-  function checkMainRoute(nextState, replace) {
+  function checkMainRoute(nextState) {
     if (!isDataStored()) {
       store.dispatch(getUsers());
     }

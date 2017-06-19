@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import ReactSVG from 'react-svg';
-import SearchFilter from '../components/SearchFilter/SearchFilter';
+// import SearchFilter from '../components/SearchFilter/SearchFilter';
 
 import PreViewCv from '../components/CV/PreViewCv';
 
@@ -68,7 +68,7 @@ class MainPage extends Component {
 
             <div className="search-wr">
               <div className="search-wr-inside">
-                <SearchFilter data={this.props.data.data} />
+                {/*<SearchFilter data={this.props.data.data} />*/}
                 <div className="search-btn">
                   <Link to={'/FilterPage'}>
                     <span><i className="fa fa-search" aria-hidden="true" /></span>

@@ -64,6 +64,7 @@ TextField.propTypes = {
   value: React.PropTypes.any,
   id: React.PropTypes.any,
   maxLength: React.PropTypes.any,
+  fileName: React.PropTypes.string,
 
 };
 TextField.defaultProps = {

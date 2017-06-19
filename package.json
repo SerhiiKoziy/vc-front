@@ -9,8 +9,8 @@
     "dev-webpack-windows": "node webpack-dev-server.js",
     "dev-nodemon-windows": "set PORT=3002&& set NODE_ENV=local&&nodemon server.js -e js",
     "build": "webpack --config webpack.config.prod.js",
-    "lint": "eslint ./src/js --ext .js",
-    "lint-fix": "eslint ./src/js --ext .js --fix",
+    "lint": "eslint ./ --ext .js",
+    "lint-fix": "eslint ./ --ext .js --fix",
     "deploy": "gh-pages -d public",
     "start": "NODE_ENV=production node server.js"
   },

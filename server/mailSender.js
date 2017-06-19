@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 // https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbtFoSoYzkzcoJ-hbYK6QfLB3yiWPXM49tOIgUCK59VP4ZXAccsclaUzCLhKQigFCa8IGRWitVdQSQB-6zL3eBxni5Q1wXHNj4tMS1yuKOkD4dVq39Pd1QK3Xq0kfTOPmKrIRfcie5sjlfAcNKnKTn7sqGVbBGY7j1NHVSBwyLXG6efBAMIWBb9c424Sy38un0CeoFfC61_lRVeOE1uA1tu0bKHQhkDBDvjVDKN1bj8SiMz04B0>
-console.log('SMTP Configured');
+// console.log('SMTP Configured');
 
 const DEFAULT_EMAIL = 's.koziy@mobilunity.com';
 
@@ -56,7 +56,7 @@ class Email extends React.PureComponent {
 }
 
 function createMessage(from, user) {
-  console.log('Sending Mail', from.mailClient, user);
+  // console.log('Sending Mail', from.mailClient, user);
   return {
 
     // Comma separated list of recipients
@@ -76,17 +76,17 @@ function createMessage(from, user) {
     watchHtml: '<b>Hello</b> to myself',
   };
 }
-console.log('Sending Mail');
+// console.log('Sending Mail');
 export default function sendMessage(from, user) {
   const userInfo = user || {};
   return new Promise((resolve, reject) => {
     transporter.sendMail(createMessage(from, userInfo), (error, info) => {
       if (error) {
-        console.log('Error occurred');
+        // console.log('Error occurred');
         reject(error);
         return;
       }
-      console.log('Message sent successfully!');
+      // console.log('Message sent successfully!');
       transporter.close();
       resolve(info);
     });

@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 
 const basicEntry = [
   'webpack-dev-server/client?http://localhost:9090',
@@ -10,7 +10,7 @@ const basicEntry = [
 ];
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: {
     user: basicEntry.concat(['./user/client.js']),
     admin: basicEntry.concat(['./admin/client.js']),

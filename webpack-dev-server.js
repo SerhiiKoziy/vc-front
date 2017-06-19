@@ -11,7 +11,8 @@ new WebpackDevServer(webpack(config), {
       target: 'http://localhost:3002',
     },
   },
-}).listen(9090, 'localhost', function (err, result) {
+}).listen(9090, 'localhost', (err) => {
   if (err) { return console.log(err); }
-  console.log(result, 'Listening at http://localhost:9090/');
+  return null;
+  // console.log(result, 'Listening at http://localhost:9090/');
 });

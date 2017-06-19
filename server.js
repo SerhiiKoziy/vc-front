@@ -9,11 +9,11 @@ var app = require('./server/main').default;
 var port = process.env.PORT || 9000;
 var server = http.createServer(app);
 
-models.sequelize.sync().then(function() {
+models.sequelize.sync().then(function () {
   /**
    * Listen on provided port, on all network interfaces.
    */
-  server.listen(port, function() {
+  server.listen(port, function () {
     debug('Express server listening on port ' + server.address().port);
   });
   server.on('error', onError);
