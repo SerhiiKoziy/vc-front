@@ -48,11 +48,6 @@ class MainPage extends Component {
         },
       ],
     };
-
-    // const handleDataJustSkills = (value, method) => e => method(e, value)
-    // this.handleDataJustSkills = this.filterDataJustSkills.bind(this);
-    // this.filterDataJustSkills = (this, 'filterMain') =>
-    // this.filterDataJustSkills.bind(this, 'filterMain');
   }
 
   static propTypes = {
@@ -191,6 +186,9 @@ class MainPage extends Component {
       // this.setState({ valueSelect });
     }
   }
+  handleDataJustTitle() {
+    this.filterDataJustTitle('filterMain');
+  }
   handleOnChangeTitle(valueSelect) {
     const { multi } = this.state;
     if (multi) {
@@ -201,7 +199,6 @@ class MainPage extends Component {
     }
   }
   filterDataJustTitle(value) {
-    // console.log('value', value);
     const { data } = this.props.data;
     const { multiValueTitle } = this.state;
     const dataFilterTitle = [];
@@ -221,7 +218,9 @@ class MainPage extends Component {
       this.filterDataCost(dataFilterTitle);
     }
   }
-
+  handleDataJustSkills() {
+    this.filterDataJustSkills('filterMain');
+  }
   handleOnChangeSkills(valueSelect) {
     const { multi } = this.state;
     if (multi) {
@@ -232,7 +231,7 @@ class MainPage extends Component {
     }
   }
   filterDataJustSkills(value) {
-    console.log('value', value);
+    // console.log('value', value);
     const { data } = this.props.data;
     const { multiValueSkills } = this.state;
     const dataFilterSkills = [];
@@ -261,14 +260,20 @@ class MainPage extends Component {
     }
   }
   renderVideo() {
-    // console.log('renderVideo');
     return (
       <div className="video-link">
         <a
           href="https://www.youtube.com/watch?v=aswObDTfDYM"
           target="_blank"
         >
-          <div className="video">video</div>
+          <div className="video">
+            <ReactSVG
+              path="../assets/images/svg/play.svg"
+              className="play"
+              evalScript="always"
+              style={{ width: 30, fill: '#fcd500' }}
+            />
+          </div>
         </a>
       </div>
     );
@@ -295,25 +300,40 @@ class MainPage extends Component {
           dataSel = data;
         }
       }
-      return dataSel.map((item, i) => {
+      const dataSelVideo = [];
+      dataSel.map((item, i) => {
         if (i === 1) {
+          dataSelVideo.push({
+            id: 'video',
+          });
+        }
+        dataSelVideo.push(item);
+        return null;
+      });
+      return dataSelVideo.map((item, i) => {
+        if (item.id === 'video') {
           return (
-            <div key={`video-${i}`} className="video-link">
-              <a
-                key={`video-${i}`}
-                href="https://www.youtube.com/watch?v=aswObDTfDYM"
-                target="_blank"
-              >
-                <div className="video">video</div>
-              </a>
+            <a
+              key={`video-${i}`}
+              href="https://www.youtube.com/watch?v=aswObDTfDYM"
+              target="_blank"
+            >
+              <div className="video">
+                <ReactSVG
+                  path="../assets/images/svg/play.svg"
+                  className="play"
+                  evalScript="always"
+                  style={{ width: 30, fill: '#fcd500' }}
+                />
+              </div>
               {/* <iframe
-                width="180"
-                height="130"
-                src="https://www.youtube.com/embed/aswObDTfDYM"
-                frameBorder="0"
-                allowFullScreen
-              />*/}
-            </div>
+               width="180"
+               height="130"
+               src="https://www.youtube.com/embed/aswObDTfDYM"
+               frameBorder="0"
+               allowFullScreen
+               />*/}
+            </a>
           );
         }
         return (
@@ -384,19 +404,50 @@ class MainPage extends Component {
       </div>
     );
   }
-  renderSearchSkills() {
-    const { options } = this.props.data;
-    const { multiValueSkills, multi } = this.state;
+  renderSearch() {
+    const { options, optionsTitle } = this.props.data;
+    const { multiValueTitle, multiValueSkills, multi, sidebar, isShowSkillsFilter } = this.state;
     return (
       <div className="search-wr-inside skills-search">
-        <Select
-          multi={multi}
-          options={options}
-          // onChange={::this.handleOnChange}
-          onChange={::this.handleOnChangeSkills}
-          value={multiValueSkills}
-          placeholder={"Select Skills..."}
-        />
+        {
+          isShowSkillsFilter ? (
+            <Select
+              multi={multi}
+              options={options}
+              // onChange={::this.handleOnChange}
+              onChange={::this.handleOnChangeSkills}
+              value={multiValueSkills}
+              placeholder={"Select Skills..."}
+            />
+          ) : (
+            <Select
+              multi={multi}
+              options={optionsTitle}
+              onChange={::this.handleOnChangeTitle}
+              value={multiValueTitle}
+              disabled={isShowSkillsFilter}
+              placeholder={"Select Titles..."}
+            />
+          )
+        }
+        {
+          !sidebar && (
+            <div
+              className="filter-btn"
+              onClick={() => {
+                return this.setState({
+                  isShowSkillsFilter: !this.state.isShowSkillsFilter,
+                });
+              }}
+            >
+              <div className={`tab ${isShowSkillsFilter ? 'titles-filter' : 'skills-filter'}`}>
+                <span className="title">{'Titles filter'}</span>
+                <span className="skill">{'Skills filter'}</span>
+              </div>
+              {/* <span>{isShowSkillsFilter ? 'Titles filter' : 'Skills filter'}</span>*/}
+            </div>
+          )
+        }
         <div
           // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
           onClick={::this.showSidebar}
@@ -501,13 +552,7 @@ class MainPage extends Component {
 
             <div className="search-wr">
               {
-                (sidebar && isShowSkillsFilter)
-                ? null : this.renderSearchTitle()
-              }
-              {
-                isShowSkillsFilter && (
-                  this.renderSearchSkills()
-                )
+                this.renderSearch()
               }
             </div>
           </div>
@@ -535,7 +580,8 @@ class MainPage extends Component {
                   !isShowSkillsFilter && (
                     <div
                       className="total-filter"
-                      onClick={this.filterDataJustTitle.bind(this, 'filterMain')}
+                      // onClick={this.filterDataJustTitle.bind(this, 'filterMain')}
+                      onClick={::this.handleDataJustTitle}
                     >
                       <span>show-result</span>
                     </div>
@@ -545,8 +591,8 @@ class MainPage extends Component {
                   isShowSkillsFilter && (
                     <div
                       className="total-filter"
-                      onClick={this.filterDataJustSkills.bind(this, 'filterMain')}
-                      // onClick={this.filterDataJustSkills}
+                      // onClick={this.filterDataJustSkills.bind(this, 'filterMain')}
+                      onClick={::this.handleDataJustSkills}
                     >
                       <span>show-result</span>
                     </div>
