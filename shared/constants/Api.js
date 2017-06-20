@@ -1,12 +1,12 @@
 import getEnvironment from '../../utils/environment';
-export const SEND_MAIL = 'http://localhost:9090/user';
+export const SEND_MAIL = 'http://localhost:7070/user';
 
 const config = {
   local: {
-    url: 'http://localhost:9090',
+    url: 'http://localhost:7070',
   },
   production: {
-    url: 'http://localhost:9000',
+    url: 'http://localhost:9100',
   },
 };
 

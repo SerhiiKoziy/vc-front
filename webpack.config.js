@@ -4,7 +4,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 // const autoprefixer = require('autoprefixer');
 
 const basicEntry = [
-  'webpack-dev-server/client?http://localhost:9090',
+  'webpack-dev-server/client?http://localhost:7070',
   'webpack/hot/only-dev-server',
   'babel-polyfill',
 ];
@@ -23,7 +23,7 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:9090' }),
+    new OpenBrowserPlugin({ url: 'http://localhost:7070' }),
   ],
 
   module: {

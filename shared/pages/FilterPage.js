@@ -18,6 +18,7 @@ class MainPage extends Component {
     super(props);
     this.state = {
       dustbins: [],
+      clearFilter: true,
       valueCost: { min: 1000, max: 3000 },
       groupExperienceYear: 1,
       filterData: [],
@@ -351,62 +352,28 @@ class MainPage extends Component {
     }
     return null;
   }
-  showSidebar() {
-    this.setState({ sidebar: !this.state.sidebar });
-    this.filterDataJustSkills();
+  showSidebarWithSkills() {
+    if (this.state.sidebar) {
+      this.filterClear();
+      this.setState({ sidebar: !this.state.sidebar });
+    } else if (this.state.multiValueSkills.length > 0) {
+      this.setState({ sidebar: !this.state.sidebar });
+      this.filterDataJustSkills();
+    }
   }
   showSidebarWithTitle() {
-    this.setState({ sidebar: !this.state.sidebar });
-    this.filterDataJustTitle();
-  }
-  renderSearchTitle() {
-    const { optionsTitle } = this.props.data;
-
-    const { isShowSkillsFilter, multi, multiValueTitle, sidebar } = this.state;
-    return (
-      <div
-        className={`search-wr-inside titles-search ${sidebar ? 'sidebar' : ''}`}
-      >
-        <Select
-          multi={multi}
-          options={optionsTitle}
-          onChange={::this.handleOnChangeTitle}
-          value={multiValueTitle}
-          disabled={isShowSkillsFilter}
-          placeholder={"Select Titles..."}
-        />
-        {
-          !sidebar && (
-            <div
-              className="filter-btn"
-              onClick={() => {
-                return this.setState({
-                  isShowSkillsFilter: !this.state.isShowSkillsFilter,
-                });
-              }}
-            >
-              <span>{!isShowSkillsFilter ? 'Skills filter' : 'Close skill filter'}</span>
-            </div>
-          )
-        }
-        <div
-          onClick={this.state.isShowSkillsFilter ? null : ::this.showSidebarWithTitle}
-          className={`search-btn ${this.state.isShowSkillsFilter ? 'hidden' : ''}`}
-        >
-          {
-            !this.state.sidebar
-              ?
-              <span><i className="fa fa-search" aria-hidden="true" /></span>
-              :
-              <span><i className="fa fa-arrow" aria-hidden="true" />close</span>
-          }
-        </div>
-      </div>
-    );
+    if (this.state.sidebar) {
+      this.filterClear();
+      this.setState({ sidebar: !this.state.sidebar });
+    } else if (this.state.multiValueTitle.length > 0) {
+      this.setState({ sidebar: !this.state.sidebar });
+      this.filterDataJustTitle();
+    }
   }
   renderSearch() {
     const { options, optionsTitle } = this.props.data;
-    const { multiValueTitle, multiValueSkills, multi, sidebar, isShowSkillsFilter } = this.state;
+    const { multiValueTitle, multiValueSkills, multi, sidebar,
+      isShowSkillsFilter, } = this.state;
     return (
       <div className="search-wr-inside skills-search">
         {
@@ -449,16 +416,38 @@ class MainPage extends Component {
           )
         }
         <div
-          // onClick={() => { return this.setState({ sidebar: !this.state.sidebar }); }}
-          onClick={::this.showSidebar}
+          onClick={this.state.isShowSkillsFilter ?
+            ::this.showSidebarWithSkills :
+            ::this.showSidebarWithTitle
+          }
           className="search-btn"
         >
           {
-            !this.state.sidebar
-              ?
-              <span><i className="fa fa-search" aria-hidden="true" /></span>
-              :
-              <span><i className="fa fa-arrow" aria-hidden="true" />close</span>
+            this.state.sidebar && (
+              <div>
+                <span><i className="fa fa-arrow" aria-hidden="true" />close</span>
+              </div>
+            )
+          }
+          {
+            !this.state.sidebar && (
+              <div>
+                {
+                  isShowSkillsFilter && (
+                    <span className={`${multiValueSkills.length > 0 ? '' : 'disabled'}`}>
+                      <i className="fa fa-search" aria-hidden="true" />
+                    </span>
+                  )
+                }
+                {
+                  !isShowSkillsFilter && (
+                    <span className={`${multiValueTitle.length > 0 ? '' : 'disabled'}`}>
+                      <i className="fa fa-search" aria-hidden="true" />
+                    </span>
+                  )
+                }
+              </div>
+            )
           }
         </div>
       </div>
@@ -543,7 +532,8 @@ class MainPage extends Component {
     );
   }
   render() {
-    const { filterData, isUseFiler, isShowSkillsFilter, sidebar } = this.state;
+    const { filterData, isUseFiler, isShowSkillsFilter, sidebar,
+      filterDataSkills, filterDataTitle, clearFilter } = this.state;
     return (
       <div className={'page filter-page columns'}>
         <div className="dashboard-wr filter-page">
@@ -604,8 +594,47 @@ class MainPage extends Component {
               className={`lists-wr ${sidebar ? 'with-sidebar' : ''}`}
             >
               {
+                !sidebar && (
+                  <div>
+                    {
+                      isShowSkillsFilter && (
+                        filterDataSkills.length > 0 ? (
+                          <h4>Filtered by Skills:</h4>
+                        ) : (
+                          <h4>All CV:</h4>
+                        )
+                      )
+                    }
+                    {
+                      !isShowSkillsFilter && (
+                        filterDataTitle.length > 0 ? (
+                          <h4>Filtered by Titles:</h4>
+                        ) : (
+                          <h4>All CV:</h4>
+                        )
+                      )
+                    }
+                  </div>
+                )
+              }
+              {
                 sidebar && (
-                  <h4>Filtered by {`${isShowSkillsFilter ? 'skills' : 'titles'}`}:</h4>
+                  <div>
+                    {
+                      clearFilter && (
+                        <h4>Filtered by {`${isShowSkillsFilter ? 'skills' : 'titles'}`}:</h4>
+                      )
+                    }
+                    {
+                      !clearFilter && filterData.length > 0 && (
+                        <h4>
+                          Filtered by {`${isShowSkillsFilter ? 'skills ' : 'titles '}`}
+                          with additional filters:
+                        </h4>
+                      )
+                    }
+                  </div>
+
                 )
               }
               <div className="ins-lists-wr">
