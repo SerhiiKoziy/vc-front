@@ -68,7 +68,7 @@ class MainPage extends Component {
 
             <div className="search-wr">
               <div className="search-wr-inside">
-                {/*<SearchFilter data={this.props.data.data} />*/}
+                {/* <SearchFilter data={this.props.data.data} />*/}
                 <div className="search-btn">
                   <Link to={'/FilterPage'}>
                     <span><i className="fa fa-search" aria-hidden="true" /></span>
