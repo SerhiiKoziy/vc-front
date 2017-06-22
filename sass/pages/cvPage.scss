@@ -393,6 +393,8 @@
     }
   }
   &.admin-task {
+    padding: 0 40px;
+    box-sizing: border-box;
     height: 100%;
     .footer-task {
       display: none;

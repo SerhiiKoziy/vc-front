@@ -16,7 +16,7 @@ export default function getRoutes(store) {
 
     return false;
   }
-  function checkMainRoute(nextState) {
+  function checkMainRoute() {
     if (!isDataStored()) {
       store.dispatch(getUsers());
     }
@@ -24,8 +24,8 @@ export default function getRoutes(store) {
   let base = '/admin';
   return (
     <Route name="Root" path={base} component={Root} onEnter={checkMainRoute}>
-      <Route name="task" path={`${base}/task/:taskId`} component={PageCV}>
-        <Route name="EditTask" path={`${base}/task/:taskId/edit`} component={EditCV} />
+      <Route name="cv" path={`${base}/cv/:cvId`} component={PageCV}>
+        <Route name="EditCV" path={`${base}/cv/:cvId/edit`} component={EditCV} />
       </Route>
       <IndexRoute name="DashBoard" component={DashBoard} />
     </Route>

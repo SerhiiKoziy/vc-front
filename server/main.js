@@ -8,7 +8,7 @@ import usersHandler from './handlers/users';
 
 const server = express();
 
-console.log(path.join(__dirname, '/../assets'));
+// console.log(path.join(__dirname, '/../assets'));
 // TODO : add middleware
 server.use(bodyParser.json({ limit: '5000mb', uploadDir: './uploads' }));
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -18,7 +18,7 @@ server.use('/public', express.static(path.join(__dirname, '../public')));
 server.use('/user', usersHandler);
 server.use('/', createHandler('user'));
 server.use(basicAuth({
-  users: { 'admin': 'admin' },
+  users: { admin: 'admin' },
   challenge: true,
   realm: 'Imb4T3st4pp',
 }));

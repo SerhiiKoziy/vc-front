@@ -45,8 +45,9 @@ export function createUserAPI(dataCV) {
   });
 }
 export function updateUserAPI(dataCV) {
-  console.log('updateUserAPI', dataCV);
-  return axios.put(resolveUrl('user'), dataCV).then((response) => {
+  const path = resolveUrl('user');
+  const url = `${path}/${dataCV.id}`;
+  return axios.put(url, dataCV).then((response) => {
     if (response) {
       return response;
     }

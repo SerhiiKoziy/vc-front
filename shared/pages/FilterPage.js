@@ -238,6 +238,7 @@ class MainPage extends Component {
     const dataFilterSkills = [];
     data.map(dataCV => {
       let found = false;
+      console.log(found);
       if (dataCV.skills) {
         dataCV.skills.map(skill => {
           if (skill.main) {
@@ -373,7 +374,7 @@ class MainPage extends Component {
   renderSearch() {
     const { options, optionsTitle } = this.props.data;
     const { multiValueTitle, multiValueSkills, multi, sidebar,
-      isShowSkillsFilter, } = this.state;
+      isShowSkillsFilter } = this.state;
     return (
       <div className="search-wr-inside skills-search">
         {

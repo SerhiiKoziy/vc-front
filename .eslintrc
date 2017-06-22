@@ -24,6 +24,7 @@
     "react/jsx-boolean-value": [0],
     "react/jsx-no-bind": [2, {
       "allowArrowFunctions": true
-    }]
+    }],
+    "new-cap": [1]
   }
 }

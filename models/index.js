@@ -3,24 +3,25 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
+let sequelize;
 if (process.env.DATABASE_URL) {
-  var sequelize = new Sequelize(process.env.DATABASE_URL, config);
+  sequelize = new Sequelize(process.env.DATABASE_URL, config);
 } else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 const db = {};
 
 fs
   .readdirSync(__dirname)
-  .filter(function (file) {
+  .filter((file) => {
     return (file.indexOf('.') !== 0) && (file !== 'index.js');
   })
-  .forEach(function (file) {
+  .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(function (modelName) {
+Object.keys(db).forEach((modelName) => {
   if ('associate' in db[modelName]) {
     console.log(modelName);
     db[modelName].associate(db);

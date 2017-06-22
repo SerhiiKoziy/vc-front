@@ -11,13 +11,14 @@ class EditCV extends PureComponent {
   render() {
     if (this.props.data.data) {
       const currentTask = this.props.data.data.find(item => {
-        return item.id === parseFloat(this.props.params.taskId);
+        return item.id === parseFloat(this.props.params.cvId);
       });
       return (
         <div className="builder-task edit-builder-task">
           <CreateCV
             currentTask={currentTask || {}}
             buttonText="Edit task"
+            paramsEdit="Edit"
           />
         </div>
       );

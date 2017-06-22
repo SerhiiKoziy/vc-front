@@ -49,13 +49,13 @@ const PreViewCv = ({ item, onDelete, children, isAdminPanel, onClick }) => {
             </div>
             {children}
             <div className="controls">
-              <div className="control control-view">
-                <Link to={`${base}/task/${item.id}`}>
+              {/* <div className="control control-view">
+                <Link to={`${base}/cv/${item.id}`}>
                   <i className="fa fa-eye" aria-hidden="true" />
                 </Link>
-              </div>
+              </div>*/}
               <div className="control control-edit">
-                <Link to={`${base}/task/${item.id}/edit`}>
+                <Link to={`${base}/cv/${item.id}/edit`}>
                   <i className="fa fa-pencil-square-o" aria-hidden="true" />
                 </Link>
               </div>

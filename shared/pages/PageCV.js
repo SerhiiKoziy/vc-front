@@ -213,16 +213,20 @@ class PageCV extends Component {
       whereInterviewed = user.whereInterviewed;
       interviewDate = user.interviewDate;
       divStyle = {
-        backgroundImage: 'url(' + user.image + ')',
-        //backgroundImage: {`url(${user.image})`},
+        // backgroundImage: 'url(' + user.image + ')',
+        backgroundImage: `url(${user.image})`,
       };
     }
     return (
       <div className={`page task-page ${this.props.application}-task`}>
         <div className="inside-wr">
-          {this.renderHeader()}
           {
-            this.props.user && (
+            this.props.application === 'user' && (
+              this.renderHeader()
+            )
+          }
+          {
+            this.props.user && this.props.application === 'user' && (
               <div className="task-wr">
                 <div className="task-header">
                   <Link className="left-part" to={`/${base}`}>
@@ -270,6 +274,7 @@ class PageCV extends Component {
                 </div>
                 <ViewCv
                   item={this.props.user}
+                  application={this.props.application}
                 />
               </div>
             )
@@ -281,7 +286,11 @@ class PageCV extends Component {
               </div>
             )
           }
-          {this.renderPopup()}
+          {
+            this.props.application === 'user' && (
+              this.renderPopup()
+            )
+          }
           {this.props.children}
           {this.renderFooter()}
         </div>

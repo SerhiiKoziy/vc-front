@@ -84,10 +84,25 @@ router.put('/:user_id', (req, res) => {
     include: [models.User.Skill],
   });*/
   const deleteUser = models.User.destroy({ where: { id: req.params.user_id } });
-
+  const createUser = models.User.create({
+    username: req.body.username,
+    title: req.body.title,
+    experience: req.body.experience,
+    interviewDate: req.body.interviewDate,
+    whereInterviewed: req.body.whereInterviewed,
+    cost: req.body.cost,
+    inHouse: req.body.inHouse,
+    skills: req.body.skills,
+    works: req.body.works,
+    summary: req.body.summary,
+    image: req.body.image,
+    fileName: req.body.fileName,
+  }, {
+    include: [models.User.Skill, models.User.Work, models.User.Summary],
+  });
   Promise.all([
     deleteUser,
-    //createUser,
+    createUser,
   ]).then((result) => {
     res.send(result);
   });

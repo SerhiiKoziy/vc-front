@@ -19,6 +19,7 @@ class createCV extends React.Component {
     createCv: React.PropTypes.func,
     createUser: React.PropTypes.func,
     push: React.PropTypes.func,
+    paramsEdit: React.PropTypes.string,
   };
 
   constructor(props) {
@@ -91,12 +92,25 @@ class createCV extends React.Component {
       cvSummary: '',
       imageManager: '',
     };
-    this.state = this.defaultState;
+    if (this.props.paramsEdit) {
+      this.defaultState.touched = {
+        title: true,
+        username: true,
+        cost: true,
+        experience: true,
+        whereInterviewed: true,
+      };
+      this.defaultState.values.interviewDate = moment(new Date());
+      this.state = this.defaultState;
+    } else {
+      this.state = this.defaultState;
+    }
   }
 
   createCv(values) {
     const currentTime = new Date().getTime();
     const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
+    console.log(values.interviewDate, interviewDate);
     return {
       inHouse: this.state.inHouse,
       ...values,
@@ -193,7 +207,6 @@ class createCV extends React.Component {
 
     return null;
   }
-
   handleInputBlur(target) {
     this.setState({
       touched: {
@@ -463,7 +476,12 @@ class createCV extends React.Component {
       </div>
     );
   }
+
   render() {
+    let skills = [];
+    if (this.state.values.skills) {
+      skills = this.state.values.skills;
+    }
     return (
       <div className="form-wr">
 
@@ -550,9 +568,9 @@ class createCV extends React.Component {
             errorText={this.showError('inHouse')}
           />
           <div className="have-skills">
-            {this.state.values.skills.length > 0 && (<h4>Skills description</h4>)}
+            {skills.length > 0 && (<h4>Skills description</h4>)}
             {
-              this.state.values.skills && (this.state.values.skills.map((item, i) => {
+              skills && (skills.map((item, i) => {
                 // let skillId = {` ${item.skill} + ${i}`}
                 return (
                   <ul className="skill-form" key={`${i}-skill`}>

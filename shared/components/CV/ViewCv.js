@@ -5,6 +5,7 @@ import ReactSVG from 'react-svg';
 export default class ViewCv extends React.PureComponent {
   static propTypes = {};
 
+
   renderMainSkills() {
     if (this.props.item.skills && this.props.item.skills.length > 0) {
       const mainSkills = this.props.item.skills.filter((skill) => { return skill.main; });
@@ -86,8 +87,8 @@ export default class ViewCv extends React.PureComponent {
         cvSummary = summary[0].cvSummary;
         // imageManager = summary[0].imageManager;
         divStyle = {
-          backgroundImage: 'url(' + summary[0].imageManager + ')',
-          //backgroundImage: {`url(${user.image})`},
+          // backgroundImage: 'url(' + summary[0].imageManager + ')',
+          backgroundImage: `url(${summary[0].imageManager})`,
         };
       }
       return (
