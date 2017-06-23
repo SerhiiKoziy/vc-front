@@ -13,7 +13,7 @@ import PreViewCv from '../components/CV/PreViewCv';
 import Header from '../components/Header/Header';
 
 
-class MainPage extends Component {
+class FilterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -376,7 +376,10 @@ class MainPage extends Component {
     const { multiValueTitle, multiValueSkills, multi, sidebar,
       isShowSkillsFilter } = this.state;
     return (
-      <div className="search-wr-inside skills-search">
+      <div
+        // className="search-wr-inside skills-search"
+        className={`search-wr-inside ${sidebar ? 'sidebar ' : ''}skills-search`}
+      >
         {
           isShowSkillsFilter ? (
             <Select
@@ -385,6 +388,8 @@ class MainPage extends Component {
               // onChange={::this.handleOnChange}
               onChange={::this.handleOnChangeSkills}
               value={multiValueSkills}
+              instanceId={'100'}
+              idPrefix={'100'}
               placeholder={"Select Skills..."}
             />
           ) : (
@@ -392,6 +397,8 @@ class MainPage extends Component {
               multi={multi}
               options={optionsTitle}
               onChange={::this.handleOnChangeTitle}
+              instanceId={'100'}
+              idPrefix={'100'}
               value={multiValueTitle}
               disabled={isShowSkillsFilter}
               placeholder={"Select Titles..."}
@@ -661,6 +668,6 @@ const ConnectedComponent = connect(
   {
     push, getUsers,
   }
-)(MainPage);
+)(FilterPage);
 
 export default ConnectedComponent;

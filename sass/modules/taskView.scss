@@ -27,6 +27,7 @@
     width: 50%;
     flex-direction: column;
     overflow: auto;
+    padding: 0 10px 0 0;
     @include scrollbar;
 
     /*.line-cv{
@@ -52,7 +53,7 @@
 
     .main-skills, .addition-skills, .desc-work, .conclusion{
       @include scrollbar;
-      min-height: 90px;
+      // min-height: 90px;
       .skill-title, .desc-title{
         position: relative;
         padding: 0 0 30px 0;

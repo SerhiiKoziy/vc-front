@@ -6,7 +6,7 @@ const config = {
     url: 'http://localhost:7070',
   },
   production: {
-    url: 'http://m-cv.mobilunity.net',
+    url: 'http://m-cv.mobilunity.net:9100',
   },
 };
 

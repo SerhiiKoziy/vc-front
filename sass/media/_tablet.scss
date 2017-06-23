@@ -1,5 +1,70 @@
 @media only screen and (max-width: 1060px) {
 
+}
+@media only screen and (max-width: 960px) {
+  .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr.with-sidebar .ins-lists-wr{
+    &>a, &>div{
+      width: 48%;
+      margin: 0 4% 20px 0;
+      &:nth-child(3n){
+        margin: 0 4% 20px 0;
+      }
+      &:nth-child(2n){
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 840px) {
+  .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr{
+    &>a, &>div{
+      width: 22.75%;
+      margin: 0 3% 20px 0;
+      &:nth-child(5n){
+        margin: 0 3% 20px 0;
+      }
+      &:nth-child(4n){
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+}
 
+@media only screen and (max-width: 700px) {
+  .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr .ins-lists-wr{
+    &>a, &>div{
+      width: 30%;
+      margin: 0 5% 20px 0;
+      &:nth-child(5n){
+        margin: 0 5% 20px 0;
+      }
+      &:nth-child(4n){
+        margin: 0 5% 20px 0;
+      }
+      &:nth-child(3n){
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+  .page.filter-page .dashboard-wr.filter-page .inside-wr .lists-wr.with-sidebar .ins-lists-wr{
+    &>a, &>div{
+      width: 100%;
+      margin: 0 0 20px 0;
+      &:nth-child(3n){
+        margin: 0 0 20px 0;
+      }
+      &:nth-child(2n){
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+}
 
+@media only screen and (max-height: 700px) {
+  .page.send-page .dashboard-wr .inside-wr .builder-task .form-wr form .form-body h4{
+    padding: 0;
+  }
+  .input-box > textarea {
+    height: 100px;
+  }
 }

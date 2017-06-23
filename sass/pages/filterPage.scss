@@ -22,6 +22,7 @@
         display: flex;
         flex-direction: column;
         background: #19242d;
+        @include placeholder;
         .list-wrapper {
           width: 33%;
           display: flex;
@@ -88,7 +89,7 @@
         .search-wr{
           position: relative;
           box-sizing: border-box;
-          padding: 0 20px;
+          margin: 0 20px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -618,13 +619,13 @@
               }
               &.sidebar{
                 .Select-clear-zone{
-                  right: 20px;
+                  right: 120px;
                 }
               }
             }
             &.skills-search{
               .Select-clear-zone{
-                right: 20px;
+                right: 120px;
                 .Select-clear{
                   height: 17px;
                   width: 17px;
@@ -639,9 +640,12 @@
                   .Select-clear{
                     color:#fcd500;
                   }
-
                 }
-
+              }
+              &.sidebar{
+                .Select-clear-zone{
+                  right: 20px;
+                }
               }
             }
 
@@ -716,7 +720,7 @@
         //border-top: 1px solid #ccc;
         overflow: hidden;
         &.with-filter-skill{
-        height: calc(100vh - 160px);
+        height: calc(100vh - 110px);
         }
         .left-filter{
           position: relative;
@@ -971,7 +975,11 @@
           box-sizing: border-box;
           overflow: auto;
           transition: 0.6s width;
+
+          @include scrollbar;
           .ins-lists-wr {
+            zoom:1;
+
             &>a, &>div{
               float: left;
               width: 18%;
@@ -994,8 +1002,17 @@
                 }
               }
             }
+            &:before,
+            &:after {
+              content:"";
+              display:table;
+            }
+            &:after {
+              clear:both;
+            }
           }
           &.with-sidebar{
+            @include scrollbar;
             .ins-lists-wr{
               &>a{
                 float: left;
