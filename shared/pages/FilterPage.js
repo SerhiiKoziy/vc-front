@@ -113,7 +113,7 @@ class FilterPage extends Component {
     groups.map((group) => {
       const filterGroup = dataFilterCost.filter((item) => {
         const exp = parseInt(item.experience, 10);
-        return exp >= (group * 3 - 3) && exp <= group * 3;
+        return exp > (group * 3 - 3) && exp <= group * 3;
       });
       filterGroup.map((item) => {
         dataFilterExperience.push(item);
