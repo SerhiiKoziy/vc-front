@@ -11,7 +11,7 @@ const TextField = (props) => {
       >{props.label}</label>
       {
         props.type !== 'file' && (<input
-          name={props.name}
+          name={props.fieldName}
           label={props.label}
           placeholder={props.placeholder}
           id={props.id}
@@ -26,7 +26,7 @@ const TextField = (props) => {
         props.type === 'file' && (
           <div className="file-input-wr">
             <input
-              name={props.name}
+              name={props.fieldName}
               label={props.label}
               placeholder={props.placeholder}
               id={props.id}

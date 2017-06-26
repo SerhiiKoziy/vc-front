@@ -103,8 +103,14 @@ class PageCV extends Component {
     const { sending, sentText } = this.props;
     return (
       <div>
-        <div className={`bg-popup ${this.state.openPopup ? '' : 'hidden'}`} />
-        <div className={`popup-send-mail ${this.state.openPopup ? 'anim-popup' : 'hidden'}`}>
+        <div
+          className={`bg-popup
+          ${this.state.openPopup && this.props.sentText.length === 0 ? 'anim-bg' : 'hidden'}`}
+        />
+        <div
+          className={`popup-send-mail
+          ${this.state.openPopup && this.props.sentText.length === 0 ? 'anim-popup' : 'hidden'}`}
+        >
           {
             sending && sending === true && (
               <div className="preload">

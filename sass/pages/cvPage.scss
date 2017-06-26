@@ -184,6 +184,10 @@
       z-index: 20;
       background: rgba(0, 0, 0, 0.5);
       transition: 0.6s background;
+      &.anim-bg{
+        z-index: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
       &.hidden {
         z-index: -100;
         background: rgba(0, 0, 0, 0);

@@ -2,7 +2,27 @@ import express from 'express';
 import models from '../../models';
 import sendMessage from '../mailSender';
 const router = express.Router();
+const multer = require('multer');
+const mkdirp = require('mkdirp');
+const upload = multer();
+/* const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+    });
+  }
+});
+const upload = multer({ storage: storage });*/
+// const upload = multer({ dest: './uploads/' })
 
+const uploading = multer({
+  dest: './uploads',
+  limits: { fileSize: 1000000, files: 1 },
+})
+var uploadProfileImgs = multer({ dest: './files/uploads/' }).single('image');
 router.get('/', (req, res) => {
   models.User.findAll({
     include: [
@@ -20,8 +40,21 @@ router.get('/', (req, res) => {
     res.send(result);
   });
 });
+//  upload.single('image'),
 
-router.post('/create', (req, res) => {
+
+router.post('/saveImage', uploadProfileImgs, (req, res) => {
+  console.log('req.files', req.files, req.file)
+  res.send({
+    success: true,
+    result,
+  });
+});
+
+
+router.post('/create', upload.single('image'), (req, res) => {
+  console.log('req.body11111', req.body, req.body.fileImage);
+  console.log('req.files', req.files, req.file)
   models.User.create({
     username: req.body.username,
     title: req.body.title,

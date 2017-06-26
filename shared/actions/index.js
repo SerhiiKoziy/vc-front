@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI,
+import { getAllUsersAPI, saveImageAPI,
          getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {
@@ -29,6 +29,17 @@ export function createUser(dataCV) {
     })
       .catch((error) => {
         console.log('createUser error', error);
+      });
+  };
+}
+export function saveFile(dataCV) {
+  return (dispatch) => {
+    saveImageAPI(dataCV).then(res => {
+      console.log('saveImage res', res);
+      dispatch(getUsers());
+    })
+      .catch((error) => {
+        console.log('saveImage error', error);
       });
   };
 }
@@ -64,7 +75,7 @@ export function deleteUser(userId) {
   return (dispatch) => {
     deleteUserAPI(userId).then(res => {
       if (res) {
-        // console.log('res delete', res);
+        console.log('res delete', res);
         dispatch(getUsers());
       }
     })
