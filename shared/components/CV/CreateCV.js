@@ -7,7 +7,7 @@ import moment from 'moment';
 import TextField from '../TextField/TextField';
 import TextArea from '../TextArea/TextArea';
 import CheckBox from '../CheckBox/CheckBox';
-import { updateUser, getUsers, createUser, saveFile } from '../../actions';
+import { updateUser, getUsers, createUser } from '../../actions';
 
 class createCV extends React.Component {
   static propTypes = {
@@ -17,7 +17,6 @@ class createCV extends React.Component {
     getUsers: React.PropTypes.func,
     updateUser: React.PropTypes.func,
     createCv: React.PropTypes.func,
-    saveFile: React.PropTypes.func,
     createUser: React.PropTypes.func,
     push: React.PropTypes.func,
     paramsEdit: React.PropTypes.string,
@@ -111,10 +110,9 @@ class createCV extends React.Component {
   createCv(values) {
     const currentTime = new Date().getTime();
     const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
-    // console.log('values.interviewDate', document.getElementById('file-input').files[0]);
+    console.log(values.interviewDate, interviewDate);
     return {
       inHouse: this.state.inHouse,
-      fileImage: document.getElementById('file-input').files[0],
       ...values,
       interviewDate,
       id: currentTime,
@@ -165,6 +163,10 @@ class createCV extends React.Component {
   }
   handleFormSubmit(event) {
     event.preventDefault();
+    const formData = new FormData(document.getElementById('upload_form'));
+    formData.append('tax_file', document.getElementById('file-input').files);
+    // console.log('formData', formData);
+    // const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
     let submitHandler;
     if (this.props.currentTask) {
       this.props.push('/admin');
@@ -177,6 +179,8 @@ class createCV extends React.Component {
     if (this.props.currentTask) {
       task.id = this.props.currentTask.id;
     }
+
+    // submitHandler(formData);
     submitHandler(task);
     const skills = this.props.currentTask;
     const works = this.props.currentTask;
@@ -186,17 +190,13 @@ class createCV extends React.Component {
     this.defaultState.values.summary = summary ? summary.summary : [];
     this.setState(this.defaultState);
   }
-  handleFormSubmitSec(event) {
-    event.preventDefault();
-    const fileI = document.getElementById('file-input').files[0];
-    console.log('event', event, fileI);
-    this.props.saveFile(fileI);
-  }
   isValidForm() {
     const validations = Object.keys(this.state.validation).filter(field => {
       return !this.state.validation[field](this.state.values[field]);
     });
+    // console.log('validations', validations)
     return (validations.length === 0);
+    // return ([].length === 0);
   }
   showError(target) {
     if (this.state.touched[target]) {
@@ -233,6 +233,10 @@ class createCV extends React.Component {
   }
   deleteSkill(skillId) {
     const skills = this.state.values.skills;
+    /* const newSkills = [];
+    skills.map((item, i) => {
+      i === skillId ? null : newSkills.push(item);
+    })*/
     const newSkills = skills.filter((item, i) => {
       return i !== skillId;
     });
@@ -261,6 +265,10 @@ class createCV extends React.Component {
   }
   deleteWork(skillId) {
     const works = this.state.values.works;
+    /* const newSkills = [];
+     skills.map((item, i) => {
+     i === skillId ? null : newSkills.push(item);
+     })*/
     const newWorks = works.filter((item, i) => {
       return i !== skillId;
     });
@@ -317,6 +325,15 @@ class createCV extends React.Component {
         },
       });
     };
+    /* this.setState({
+      image: file,
+      fileName: file.name,
+      values: {
+        ...this.state.values,
+        image: file,
+        fileName: file.name,
+      },
+    });*/
     reader.readAsDataURL(file);
   }
   onDropHandlerManager(target, e) {
@@ -470,7 +487,7 @@ class createCV extends React.Component {
 
         <form id="upload_form" onSubmit={::this.handleFormSubmit} encType="multipart/form-data">
           <h4>User CV:</h4>
-          {/* <TextField
+          <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter name'}
             value={this.state.values.username}
@@ -621,61 +638,22 @@ class createCV extends React.Component {
               }))
             }
           </div>
-          <TextField
-            id={'file-input'}
-            classNameBox={'input-wr'}
-            placeholder={'Enter image'}
-            fileName={this.state.values.fileName}
-            preVision={this.state.values.image}
-            type={'file'}
-            fieldName="image"
-            onChange={::this.onDropHandler}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('image')}
-          />
           <button
             type="submit"
             className="btn btn--fw"
-            // disabled={!this.isValidForm()}
-          >
-            {this.props.buttonText || 'Add CV'}
-          </button>*/}
-        </form>
-        <form
-          method="post"
-          id="upload_form-sec"
-          onSubmit={::this.handleFormSubmitSec}
-          encType="multipart/form-data"
-          action="/saveImage"
-        >
-          <TextField
-            id={'file-input'}
-            classNameBox={'input-wr'}
-            placeholder={'Enter image'}
-            fileName={this.state.values.fileName}
-            preVision={this.state.values.image}
-            type={'file'}
-            fieldName="image"
-            onChange={::this.onDropHandler}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('image')}
-          />
-          <button
-            type="submit"
-            className="btn btn--fw"
-            // disabled={!this.isValidForm()}
+            disabled={!this.isValidForm()}
           >
             {this.props.buttonText || 'Add CV'}
           </button>
         </form>
-        {/* <div className="add-desc">
+        <div className="add-desc">
           {this.renderCreateSkill()}
           {this.renderCreateWork()}
           {this.renderCreateSummary()}
-        </div>*/}
+        </div>
       </div>
     );
   }
 }
 
-export default connect(null, { updateUser, getUsers, createUser, push, saveFile })(createCV);
+export default connect(null, { updateUser, getUsers, createUser, push })(createCV);

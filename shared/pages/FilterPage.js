@@ -113,7 +113,7 @@ class FilterPage extends Component {
     groups.map((group) => {
       const filterGroup = dataFilterCost.filter((item) => {
         const exp = parseInt(item.experience, 10);
-        return exp > (group * 3 - 3) && exp <= group * 3;
+        return exp >= (group * 3 - 3) && exp <= group * 3;
       });
       filterGroup.map((item) => {
         dataFilterExperience.push(item);
@@ -150,6 +150,7 @@ class FilterPage extends Component {
     });
   }
   selectGroup(group) {
+    // console.log('groupExp', group);
     const groups = this.state.groupsExp;
     let isSelect = false;
     const newGroups = [];
@@ -206,6 +207,7 @@ class FilterPage extends Component {
       const title = dataCV.title;
       multiValueTitle.map(item => {
         if (item.value === title) {
+          // found = true;
           dataFilterTitle.push(dataCV);
         }
         return null;

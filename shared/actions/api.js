@@ -44,24 +44,6 @@ export function createUserAPI(dataCV) {
     console.error(error);
   });
 }
-export function saveImageAPI(dataCV) {
-  console.log('saveImageAPI', dataCV);
-  return axios.post(resolveUrl('user/saveImage'), dataCV, {
-    /* headers: { 'Content-Type': 'multipart/form-data' },*/
-  }).then((response) => {
-    if (response) {
-      return response;
-    }
-    if (response.error) {
-      console.log('response', response.error);
-      throw new Error(response.error);
-    }
-    return null;
-  }).catch(error => {
-    console.error(error);
-  });
-}
-
 export function updateUserAPI(dataCV) {
   const path = resolveUrl('user');
   const url = `${path}/${dataCV.id}`;
