@@ -12,7 +12,11 @@ const server = express();
 const upload = multer({ dest: './uploads' });
 // console.log(path.join(__dirname, '/../assets'));
 // TODO : add middleware
-server.use(upload.single('image'));
+// server.use(upload.single('image'));
+server.use(upload.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'imageSummary', maxCount: 1 },
+]));
 server.use(bodyParser.json({ limit: '5000mb', uploadDir: './uploads' }));
 server.use(bodyParser.urlencoded({ extended: false }));
 

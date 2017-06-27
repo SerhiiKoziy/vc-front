@@ -102,7 +102,6 @@ router.post('/create', (req, res) => {
   }).then((result) => {
     res.send({
       success: true,
-      result,
     });
   });
 
@@ -115,9 +114,9 @@ router.post('/create', (req, res) => {
       callback(null, file.originalname);
     },
   });*/
-  const upload = multer({ dest: './uploads' }).fields([
-    { name: 'image', maxCount: 1 },
-    { name: 'imageSummary', maxCount: 1 },
+  /* const upload = multer({ dest: './uploads' }).fields([
+    { name: 'image', maxCount: 2 },
+    { name: 'imageSummary', maxCount: 2 },
   ]);
   upload(req, res, (err) => {
     if (err) {
@@ -127,7 +126,7 @@ router.post('/create', (req, res) => {
     console.log(req.body);
     res.end('File has been uploaded');
     return null;
-  });
+  });*/
 });
 /* router.post('/upload', function(req, res) {
   // console.log('req form1111', req.body, 'req.image.name', req.body.image);
