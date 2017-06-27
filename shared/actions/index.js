@@ -33,6 +33,7 @@ export function createUser(dataCV) {
   };
 }
 export function saveFile(dataCV) {
+  console.log('saveFile', dataCV);
   return (dispatch) => {
     saveImageAPI(dataCV).then(res => {
       console.log('saveImage res', res);

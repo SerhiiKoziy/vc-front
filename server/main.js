@@ -19,6 +19,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 // server.use(bodyParser({ keepExtensions: true, uploadDir: path.join(__dirname, '/files') }))
 server.use(cookieParser());
 server.use('/assets', express.static(path.join(__dirname, '/../assets')));
+server.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
 server.use('/public', express.static(path.join(__dirname, '../public')));
 server.use('/user', usersHandler);
 server.use(fileUpload());

@@ -3,26 +3,22 @@ import models from '../../models';
 import sendMessage from '../mailSender';
 const router = express.Router();
 const multer = require('multer');
-const mkdirp = require('mkdirp');
-const upload = multer();
-/* const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    crypto.pseudoRandomBytes(16, function (err, raw) {
-      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
-    });
-  }
-});
-const upload = multer({ storage: storage });*/
-// const upload = multer({ dest: './uploads/' })
 
-const uploading = multer({
-  dest: './uploads',
-  limits: { fileSize: 1000000, files: 1 },
-})
-var uploadProfileImgs = multer({ dest: './files/uploads/' }).single('image');
+/* function generateName() {
+  return 'newname';
+}
+const options = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    console.log('coll', req, file, file.fieldname);
+    callback(null, file.originalname);
+  },
+});
+// console.log('storage2222', options)
+const upload = multer({ storage: options });*/
+
 router.get('/', (req, res) => {
   models.User.findAll({
     include: [
@@ -40,21 +36,54 @@ router.get('/', (req, res) => {
     res.send(result);
   });
 });
-//  upload.single('image'),
 
-
-router.post('/saveImage', uploadProfileImgs, (req, res) => {
-  console.log('req.files', req.files, req.file)
+/* router.post('/saveImage', upload.fields([{ name: 'image', maxCount: 1 }]), (req, res) => {
+  console.log('req.file', req.file, req.file.filename)
   res.send({
     success: true,
-    result,
   });
-});
+});*/
+/*
+  router.post('/saveImage', (req, res) => {
+  console.log('req.file22222', req.body, req.file, req.files);
+  models.User.create({
+    username: 'username',
+    title: 'title',
+    experience: req.body.experience,
+    interviewDate: req.body.interviewDate,
+    whereInterviewed: req.body.whereInterviewed,
+    cost: req.body.cost,
+    inHouse: req.body.inHouse,
+    skills: '',
+    works: '',
+    summary: '',
+    image: req.file.filename,
+    fileName: req.file.filename,
+  }, {
+    include: [models.User.Skill, models.User.Work, models.User.Summary],
+  }).then((result) => {
+    res.send({
+      success: true,
+      result,
+    });
+  });
+  const upload = multer({ storage: options }).fields([{ name: 'image', maxCount: 1 }]);
 
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+      return res.end('Error uploading file.');
+    }
+    console.log(req.body);
 
-router.post('/create', upload.single('image'), (req, res) => {
-  console.log('req.body11111', req.body, req.body.fileImage);
-  console.log('req.files', req.files, req.file)
+    res.end('File has been uploaded');
+    return null;
+  });
+});*/
+
+router.post('/create', (req, res) => {
+  console.log('req.file22222', req.body, req.file);
+  console.log('req.files', req.files);
   models.User.create({
     username: req.body.username,
     title: req.body.title,
@@ -66,8 +95,8 @@ router.post('/create', upload.single('image'), (req, res) => {
     skills: req.body.skills,
     works: req.body.works,
     summary: req.body.summary,
-    image: req.body.image,
-    fileName: req.body.fileName,
+    image: req.file.filename,
+    fileName: req.file.filename,
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
   }).then((result) => {
@@ -75,6 +104,29 @@ router.post('/create', upload.single('image'), (req, res) => {
       success: true,
       result,
     });
+  });
+
+  /* const options = multer.diskStorage({
+    destination: (request, file, callback) => {
+      callback(null, './assets/uploads');
+    },
+    filename: (request, file, callback) => {
+      console.log('coll', request, file, file.fieldname);
+      callback(null, file.originalname);
+    },
+  });*/
+  const upload = multer({ dest: './uploads' }).fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'imageSummary', maxCount: 1 },
+  ]);
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+      return res.end('Error uploading file.');
+    }
+    console.log(req.body);
+    res.end('File has been uploaded');
+    return null;
   });
 });
 /* router.post('/upload', function(req, res) {

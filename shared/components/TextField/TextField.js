@@ -36,9 +36,22 @@ const TextField = (props) => {
               onChange={onChange}
             />
             <span>{props.fileName || 'Choose image...'}</span>
-            <p className={`preVision ${props.preVision ? '' : 'hidden'}`}>
-              <img src={props.preVision} alt="" />
-            </p>
+            {
+              props.preVision.length > 0 && (
+                <p className={`preVision ${props.preVision ? '' : 'hidden'}`}>
+                  {
+                    props.preVision.length > 500
+                      ?
+                      <img src={props.preVision} alt="" />
+                      :
+                      <img
+                        src={`../../../uploads/${props.preVision}.png`}
+                        alt=""
+                      />
+                  }
+                </p>
+              )
+            }
           </div>
         )
       }

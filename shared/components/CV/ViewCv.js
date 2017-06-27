@@ -88,7 +88,7 @@ export default class ViewCv extends React.PureComponent {
         // imageManager = summary[0].imageManager;
         divStyle = {
           // backgroundImage: 'url(' + summary[0].imageManager + ')',
-          backgroundImage: `url(${summary[0].imageManager})`,
+          backgroundImage: `url(../uploads/${summary[0].imageManager})`,
         };
       }
       return (

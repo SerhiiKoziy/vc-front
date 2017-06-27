@@ -21,6 +21,8 @@ class createCV extends React.Component {
     createUser: React.PropTypes.func,
     push: React.PropTypes.func,
     paramsEdit: React.PropTypes.string,
+    image: React.PropTypes.any,
+    user: React.PropTypes.object,
   };
 
   constructor(props) {
@@ -109,16 +111,38 @@ class createCV extends React.Component {
   }
 
   createCv(values) {
-    const currentTime = new Date().getTime();
+    // const currentTime = new Date().getTime();
     const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
     // console.log('values.interviewDate', document.getElementById('file-input').files[0]);
-    return {
+    /* return {
       inHouse: this.state.inHouse,
       fileImage: document.getElementById('file-input').files[0],
       ...values,
       interviewDate,
       id: currentTime,
-    };
+    };*/
+
+    const formData = new FormData();
+    const fileI = document.getElementById('file-input').files[0];
+    const fileSummary = document.getElementById('file-input-imageManager').files[0];
+    const { title, username, cost, experience, whereInterviewed,
+      skills, works, summary } = this.state.values;
+    // console.log('fileI', fileI, 'fileSummary', fileSummary);
+    console.log('skills, works, summary', skills, works, summary);
+    formData.append('image', fileI);
+    formData.append('imageSummary', fileSummary);
+    formData.append('title', title);
+    formData.append('username', username);
+    formData.append('cost', cost);
+    formData.append('experience', experience);
+    formData.append('whereInterviewed', whereInterviewed);
+    formData.append('interviewDate', interviewDate);
+    formData.append('skills', skills);
+    formData.append('works', works);
+    formData.append('summary', summary);
+    formData.append('inHouse', this.state.inHouse);
+    console.log('formData', formData);
+    return formData;
   }
   handleInputChange(target, e) {
     if (target === 'interviewDate') {
@@ -173,7 +197,7 @@ class createCV extends React.Component {
       submitHandler = this.props.createUser;
     }
     const task = this.createCv(this.state.values);
-
+    console.log('handleFormSubmit', task);
     if (this.props.currentTask) {
       task.id = this.props.currentTask.id;
     }
@@ -188,9 +212,17 @@ class createCV extends React.Component {
   }
   handleFormSubmitSec(event) {
     event.preventDefault();
+    const formData = new FormData();
     const fileI = document.getElementById('file-input').files[0];
-    console.log('event', event, fileI);
-    this.props.saveFile(fileI);
+    const atext = this.state.values.experience;
+    formData.append('image', fileI);
+    formData.append('experience', atext);
+    formData.append('interviewDate', '00-00-00');
+    formData.append('whereInterviewed', 'moby');
+    formData.append('cost', '2000');
+    formData.append('inHouse', true);
+    // console.log('handleFormSubmitSec', formData, fileI);
+    this.props.saveFile(formData);
   }
   isValidForm() {
     const validations = Object.keys(this.state.validation).filter(field => {
@@ -465,12 +497,19 @@ class createCV extends React.Component {
     if (this.state.values.skills) {
       skills = this.state.values.skills;
     }
+    let image;
+    if (this.props.user && this.props.user.image) {
+      // image = this.props.user.image;
+      image = this.props.user.image;
+    } else if (this.state.image) {
+      image = this.state.image;
+    }
     return (
       <div className="form-wr">
 
         <form id="upload_form" onSubmit={::this.handleFormSubmit} encType="multipart/form-data">
           <h4>User CV:</h4>
-          {/* <TextField
+          <TextField
             classNameBox={'input-wr'}
             placeholder={'Enter name'}
             value={this.state.values.username}
@@ -529,7 +568,7 @@ class createCV extends React.Component {
             classNameBox={'input-wr'}
             placeholder={'Enter image'}
             fileName={this.state.values.fileName}
-            preVision={this.state.values.image}
+            preVision={image || ''}
             type={'file'}
             fieldName="image"
             onChange={::this.onDropHandler}
@@ -621,33 +660,30 @@ class createCV extends React.Component {
               }))
             }
           </div>
-          <TextField
-            id={'file-input'}
-            classNameBox={'input-wr'}
-            placeholder={'Enter image'}
-            fileName={this.state.values.fileName}
-            preVision={this.state.values.image}
-            type={'file'}
-            fieldName="image"
-            onChange={::this.onDropHandler}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('image')}
-          />
           <button
             type="submit"
             className="btn btn--fw"
             // disabled={!this.isValidForm()}
           >
             {this.props.buttonText || 'Add CV'}
-          </button>*/}
+          </button>
         </form>
-        <form
+        {/* <form
           method="post"
           id="upload_form-sec"
           onSubmit={::this.handleFormSubmitSec}
           encType="multipart/form-data"
           action="/saveImage"
         >
+          <TextField
+            classNameBox={'input-wr'}
+            placeholder={'Enter experience'}
+            value={this.state.values.experience}
+            fieldName="experience"
+            onChange={::this.handleInputChange}
+            onBlur={::this.handleInputBlur}
+            errorText={this.showError('experience')}
+          />
           <TextField
             id={'file-input'}
             classNameBox={'input-wr'}
@@ -667,12 +703,12 @@ class createCV extends React.Component {
           >
             {this.props.buttonText || 'Add CV'}
           </button>
-        </form>
-        {/* <div className="add-desc">
+        </form>*/}
+        <div className="add-desc">
           {this.renderCreateSkill()}
           {this.renderCreateWork()}
           {this.renderCreateSummary()}
-        </div>*/}
+        </div>
       </div>
     );
   }

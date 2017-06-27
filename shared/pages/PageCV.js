@@ -214,13 +214,14 @@ class PageCV extends Component {
     let whereInterviewed = 'Company Name';
     let interviewDate = 'yesterday';
     let divStyle = {};
+    let image = '';
     if (user) {
       cvId = user.id;
       whereInterviewed = user.whereInterviewed;
       interviewDate = user.interviewDate;
+      image = user.image;
       divStyle = {
-        // backgroundImage: 'url(' + user.image + ')',
-        backgroundImage: `url(${user.image})`,
+        backgroundImage: `url(../../uploads/${image})`,
       };
     }
     return (
