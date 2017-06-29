@@ -2,7 +2,7 @@ import express from 'express';
 import models from '../../models';
 import sendMessage from '../mailSender';
 const router = express.Router();
-const multer = require('multer');
+// const multer = require('multer');
 
 /* function generateName() {
   return 'newname';
@@ -82,8 +82,10 @@ router.get('/', (req, res) => {
 });*/
 
 router.post('/create', (req, res) => {
-  console.log('req.file22222', req.body, req.file);
-  console.log('req.files', req.files);
+  console.log('req.headers', 'req.body', req.body, 'req.body.summary[0]', req.body.summary);
+  const summaryParse = JSON.parse(req.body.summary);
+  const skillsParse = JSON.parse(req.body.skills);
+  const worksParse = JSON.parse(req.body.works);
   models.User.create({
     username: req.body.username,
     title: req.body.title,
@@ -92,11 +94,11 @@ router.post('/create', (req, res) => {
     whereInterviewed: req.body.whereInterviewed,
     cost: req.body.cost,
     inHouse: req.body.inHouse,
-    skills: req.body.skills,
-    works: req.body.works,
-    summary: req.body.summary,
-    image: req.file.filename,
-    fileName: req.file.filename,
+    skills: skillsParse,
+    works: worksParse,
+    summary: summaryParse,
+    summaryImage: req.files.imageSummary[0].filename,
+    imageCv: req.files.image[0].filename,
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
   }).then((result) => {
@@ -150,7 +152,9 @@ router.put('/:user_id', (req, res) => {
   }).then(function( result ) {
     return result;
   });*/
-
+  const summaryParse = JSON.parse(req.body.summary);
+  const skillsParse = JSON.parse(req.body.skills);
+  const worksParse = JSON.parse(req.body.works);
   /* const updateProfile = {
     username: req.body.username,
     title: req.body.title,
@@ -176,14 +180,14 @@ router.put('/:user_id', (req, res) => {
     whereInterviewed: req.body.whereInterviewed,
     cost: req.body.cost,
     inHouse: req.body.inHouse,
-    skills: req.body.skills,
-    works: req.body.works,
-    summary: req.body.summary,
-    image: req.body.image,
-    fileName: req.body.fileName,
+    skills: skillsParse,
+    works: worksParse,
+    summary: summaryParse,
+    summaryImage: req.files.imageSummary[0].filename,
+    imageCv: req.files.image[0].filename,
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
-  });
+  })
   Promise.all([
     deleteUser,
     createUser,

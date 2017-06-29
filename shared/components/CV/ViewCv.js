@@ -80,15 +80,13 @@ export default class ViewCv extends React.PureComponent {
       const { summary } = this.props.item;
       let managerName = 'manager Name';
       let cvSummary = 'Summary';
-      // let imageManager = '';
+      const summaryImage = this.props.item.summaryImage || '';
       let divStyle = {};
       if (summary[0]) {
         managerName = summary[0].managerName;
         cvSummary = summary[0].cvSummary;
-        // imageManager = summary[0].imageManager;
         divStyle = {
-          // backgroundImage: 'url(' + summary[0].imageManager + ')',
-          backgroundImage: `url(../uploads/${summary[0].imageManager})`,
+          backgroundImage: `url(../uploads/${summaryImage})`,
         };
       }
       return (

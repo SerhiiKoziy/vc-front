@@ -11,7 +11,7 @@ import Header from '../components/Header/Header';
 
 class PageCV extends Component {
   static propTypes = {
-    currentTask: React.PropTypes.object,
+    currentUser: React.PropTypes.object,
     user: React.PropTypes.object,
     push: React.PropTypes.func,
     letterSent: React.PropTypes.func,
@@ -219,7 +219,7 @@ class PageCV extends Component {
       cvId = user.id;
       whereInterviewed = user.whereInterviewed;
       interviewDate = user.interviewDate;
-      image = user.image;
+      image = user.imageCv;
       divStyle = {
         backgroundImage: `url(../../uploads/${image})`,
       };

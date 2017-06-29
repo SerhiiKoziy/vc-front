@@ -11,7 +11,7 @@ import { updateUser, getUsers, createUser, saveFile } from '../../actions';
 
 class createCV extends React.Component {
   static propTypes = {
-    currentTask: React.PropTypes.object,
+    currentUser: React.PropTypes.object,
     buttonText: React.PropTypes.string,
     editTask: React.PropTypes.func,
     getUsers: React.PropTypes.func,
@@ -46,7 +46,7 @@ class createCV extends React.Component {
       fileName: '',
     };
     this.defaultState = {
-      values: this.props.currentTask || defaultValues,
+      values: this.props.currentUser || defaultValues,
       touched: {
         title: false,
         username: false,
@@ -94,6 +94,8 @@ class createCV extends React.Component {
       managerName: '',
       cvSummary: '',
       imageManager: '',
+      image: '',
+      imageManagerCreate: '',
     };
     if (this.props.paramsEdit) {
       this.defaultState.touched = {
@@ -124,11 +126,16 @@ class createCV extends React.Component {
 
     const formData = new FormData();
     const fileI = document.getElementById('file-input').files[0];
-    const fileSummary = document.getElementById('file-input-imageManager').files[0];
+    const fileSummary = document.getElementById('file-input-imageManager').files[0] || '';
     const { title, username, cost, experience, whereInterviewed,
-      skills, works, summary } = this.state.values;
+      skills, works, summary, inHouse } = this.state.values;
+    const formSummary = JSON.stringify(summary);
+    const formSkills = JSON.stringify(skills);
+    const formWorks = JSON.stringify(works);
+
+    // console.log('fileSummary', fileSummary);
     // console.log('fileI', fileI, 'fileSummary', fileSummary);
-    console.log('skills, works, summary', skills, works, summary);
+    // console.log('skills, works, summary', skills, works, summary);
     formData.append('image', fileI);
     formData.append('imageSummary', fileSummary);
     formData.append('title', title);
@@ -137,11 +144,11 @@ class createCV extends React.Component {
     formData.append('experience', experience);
     formData.append('whereInterviewed', whereInterviewed);
     formData.append('interviewDate', interviewDate);
-    formData.append('skills', skills);
-    formData.append('works', works);
-    formData.append('summary', summary);
-    formData.append('inHouse', this.state.inHouse);
-    console.log('formData', formData);
+    formData.append('skills', formSkills);
+    formData.append('works', formWorks);
+    formData.append('summary', formSummary);
+    formData.append('inHouse', inHouse);
+    // console.log('formData', formData);
     return formData;
   }
   handleInputChange(target, e) {
@@ -190,39 +197,25 @@ class createCV extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
     let submitHandler;
-    if (this.props.currentTask) {
+    if (this.props.currentUser) {
       this.props.push('/admin');
       submitHandler = this.props.updateUser;
     } else {
       submitHandler = this.props.createUser;
     }
     const task = this.createCv(this.state.values);
-    console.log('handleFormSubmit', task);
-    if (this.props.currentTask) {
-      task.id = this.props.currentTask.id;
+    // console.log('handleFormSubmit', task);
+    if (this.props.currentUser) {
+      task.id = this.props.currentUser.id;
     }
     submitHandler(task);
-    const skills = this.props.currentTask;
-    const works = this.props.currentTask;
-    const summary = this.props.currentTask;
+    const skills = this.props.currentUser;
+    const works = this.props.currentUser;
+    const summary = this.props.currentUser;
     this.defaultState.values.skills = skills ? skills.skills : [];
     this.defaultState.values.works = works ? works.works : [];
     this.defaultState.values.summary = summary ? summary.summary : [];
     this.setState(this.defaultState);
-  }
-  handleFormSubmitSec(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    const fileI = document.getElementById('file-input').files[0];
-    const atext = this.state.values.experience;
-    formData.append('image', fileI);
-    formData.append('experience', atext);
-    formData.append('interviewDate', '00-00-00');
-    formData.append('whereInterviewed', 'moby');
-    formData.append('cost', '2000');
-    formData.append('inHouse', true);
-    // console.log('handleFormSubmitSec', formData, fileI);
-    this.props.saveFile(formData);
   }
   isValidForm() {
     const validations = Object.keys(this.state.validation).filter(field => {
@@ -236,7 +229,6 @@ class createCV extends React.Component {
         return this.state.errorMessages[target];
       }
     }
-
     return null;
   }
   handleInputBlur(target) {
@@ -308,13 +300,15 @@ class createCV extends React.Component {
     const managerName = this.state.managerName;
     const cvSummary = this.state.cvSummary;
     const imageManager = this.state.imageManager;
-    const summaryArr = this.state.values.summary;
-    summaryArr.push({ managerName, cvSummary, imageManager });
+    const summaryArr = [{ managerName, cvSummary }];
+    // const summaryArr = this.state.values.summary;
+    // summaryArr.push({ managerName, cvSummary });
     this.setState({
       managerName: '',
       cvSummary: '',
       imageManager: '',
       fileNameManager: '',
+      imageManagerCreate: imageManager,
       values: {
         ...this.state.values,
         summary: summaryArr,
@@ -500,10 +494,22 @@ class createCV extends React.Component {
     let image;
     if (this.props.user && this.props.user.image) {
       // image = this.props.user.image;
-      image = this.props.user.image;
+      image = this.props.user.imageCv;
     } else if (this.state.image) {
       image = this.state.image;
     }
+    /* let imageCV;
+    if (this.props.currentUser && this.props.currentUser.imageCv) {
+      imageCV = this.props.currentUser.imageCv;
+    } else {
+      imageCV = '';
+    }
+    let summaryImage;
+    if (this.props.currentUser && this.props.currentUser.summaryImage) {
+      summaryImage = this.props.currentUser.summaryImage;
+    } else {
+      summaryImage = '';
+    }*/
     return (
       <div className="form-wr">
 
@@ -575,6 +581,14 @@ class createCV extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('image')}
           />
+          <div>
+            {
+              <p>choose new image</p>
+              /* this.props.currentUser && (
+                <img src={`../../../uploads/${imageCV}`} alt="" />
+              )*/
+            }
+          </div>
           <CheckBox
             classNameBox={'input-wr'}
             fieldName={"inHouse"}
@@ -647,7 +661,17 @@ class createCV extends React.Component {
                     <li><span>Name manager: </span><span> {item.managerName}</span></li>
                     <li><span>Summary: </span><span>{item.cvSummary}</span></li>
                     <li className="image-manager">
-                      <img src={item.imageManager} alt="" />
+                      {
+                        this.state.imageManagerCreate && (
+                          <img src={this.state.imageManagerCreate} alt="" />
+                        )
+                      }
+                      {
+                         this.props.currentUser && (
+                           <p>choose new image</p>
+
+                        )
+                      } {/* <img src={`../../../uploads/${summaryImage}`} alt="" />*/}
                     </li>
                     <li
                       className="del-skill"
@@ -668,42 +692,6 @@ class createCV extends React.Component {
             {this.props.buttonText || 'Add CV'}
           </button>
         </form>
-        {/* <form
-          method="post"
-          id="upload_form-sec"
-          onSubmit={::this.handleFormSubmitSec}
-          encType="multipart/form-data"
-          action="/saveImage"
-        >
-          <TextField
-            classNameBox={'input-wr'}
-            placeholder={'Enter experience'}
-            value={this.state.values.experience}
-            fieldName="experience"
-            onChange={::this.handleInputChange}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('experience')}
-          />
-          <TextField
-            id={'file-input'}
-            classNameBox={'input-wr'}
-            placeholder={'Enter image'}
-            fileName={this.state.values.fileName}
-            preVision={this.state.values.image}
-            type={'file'}
-            fieldName="image"
-            onChange={::this.onDropHandler}
-            onBlur={::this.handleInputBlur}
-            errorText={this.showError('image')}
-          />
-          <button
-            type="submit"
-            className="btn btn--fw"
-            // disabled={!this.isValidForm()}
-          >
-            {this.props.buttonText || 'Add CV'}
-          </button>
-        </form>*/}
         <div className="add-desc">
           {this.renderCreateSkill()}
           {this.renderCreateWork()}

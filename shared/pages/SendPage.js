@@ -67,7 +67,7 @@ class SendPage extends Component {
   static propTypes = {
     sendMail: React.PropTypes.func,
     push: React.PropTypes.func,
-    currentTask: React.PropTypes.object,
+    currentUser: React.PropTypes.object,
     sent: React.PropTypes.object,
     user: React.PropTypes.object,
     sending: React.PropTypes.bool,

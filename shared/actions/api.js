@@ -46,9 +46,9 @@ export function createUserAPI(dataCV) {
 }
 export function saveImageAPI(dataCV) {
   console.log('saveImageAPI', dataCV);
-  return axios.post(resolveUrl('user/saveImage'), dataCV, {
+  return axios.post(resolveUrl('user/saveImage'), dataCV/* , {
     headers: { 'Content-Type': 'multipart/form-data' },
-  }).then((response) => {
+  }*/).then((response) => {
     if (response) {
       return response;
     }
