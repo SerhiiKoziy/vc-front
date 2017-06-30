@@ -42,7 +42,7 @@ class createCV extends React.Component {
       skills: [],
       works: [],
       summary: [],
-      image: '',
+      imageCv: '',
       fileName: '',
     };
     this.defaultState = {
@@ -79,9 +79,9 @@ class createCV extends React.Component {
         experience: (value) => {
           return value.length > 0;
         },
-        image: (value) => {
+        imageCv: (value) => {
           return value.length > 0;
-         // return true;
+          // return true;
         },
       },
       skillName: '',
@@ -94,7 +94,7 @@ class createCV extends React.Component {
       managerName: '',
       cvSummary: '',
       imageManager: '',
-      image: '',
+      imageCv: '',
       imageManagerCreate: '',
     };
     if (this.props.paramsEdit) {
@@ -221,7 +221,10 @@ class createCV extends React.Component {
     const validations = Object.keys(this.state.validation).filter(field => {
       return !this.state.validation[field](this.state.values[field]);
     });
-    return (validations.length === 0);
+    if (this.state.values.summary.length > 0) {
+      return (validations.length === 0);
+    }
+    return false;
   }
   showError(target) {
     if (this.state.touched[target]) {
@@ -334,11 +337,11 @@ class createCV extends React.Component {
     const reader = new FileReader();
     reader.onload = (event) => {
       this.setState({
-        image: event.target.result,
+        imageCv: event.target.result,
         fileName: file.name,
         values: {
           ...this.state.values,
-          image: event.target.result,
+          imageCv: event.target.result,
           fileName: file.name,
         },
       });
@@ -442,7 +445,7 @@ class createCV extends React.Component {
   renderCreateSummary() {
     return (
       <div className="add-summary">
-        <h4>Add summary:</h4>
+        <h4>(<span>required</span>) Add summary:</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter manager name'}
@@ -491,19 +494,15 @@ class createCV extends React.Component {
     if (this.state.values.skills) {
       skills = this.state.values.skills;
     }
-    let image;
-    if (this.props.user && this.props.user.image) {
-      // image = this.props.user.image;
-      image = this.props.user.imageCv;
-    } else if (this.state.image) {
-      image = this.state.image;
+    let imageCv;
+    if (this.state.imageCv) {
+      imageCv = this.state.imageCv;
+    } else if (this.props.currentUser && this.props.currentUser.imageCv) {
+      imageCv = this.props.currentUser.imageCv;
+    } else if (this.props.user && this.props.user.image) {
+      imageCv = this.props.user.imageCv;
     }
-    /* let imageCV;
-    if (this.props.currentUser && this.props.currentUser.imageCv) {
-      imageCV = this.props.currentUser.imageCv;
-    } else {
-      imageCV = '';
-    }
+    /*
     let summaryImage;
     if (this.props.currentUser && this.props.currentUser.summaryImage) {
       summaryImage = this.props.currentUser.summaryImage;
@@ -573,17 +572,19 @@ class createCV extends React.Component {
             id={'file-input'}
             classNameBox={'input-wr'}
             placeholder={'Enter image'}
-            fileName={this.state.values.fileName}
-            preVision={image || ''}
+            fileName={this.state.values.fileName || imageCv}
+            preVision={imageCv || ''}
             type={'file'}
-            fieldName="image"
+            fieldName="imageCv"
             onChange={::this.onDropHandler}
             onBlur={::this.handleInputBlur}
             errorText={this.showError('image')}
           />
           <div>
             {
-              <p>choose new image</p>
+              /* this.props.currentUser && (
+                <p>choose new image</p>
+              )*/
               /* this.props.currentUser && (
                 <img src={`../../../uploads/${imageCV}`} alt="" />
               )*/
@@ -669,7 +670,6 @@ class createCV extends React.Component {
                       {
                          this.props.currentUser && (
                            <p>choose new image</p>
-
                         )
                       } {/* <img src={`../../../uploads/${summaryImage}`} alt="" />*/}
                     </li>
@@ -687,7 +687,7 @@ class createCV extends React.Component {
           <button
             type="submit"
             className="btn btn--fw"
-            // disabled={!this.isValidForm()}
+            disabled={!this.isValidForm()}
           >
             {this.props.buttonText || 'Add CV'}
           </button>

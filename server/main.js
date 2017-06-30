@@ -17,8 +17,8 @@ server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(bodyParser.json({ limit: '5000mb' }));
 server.use(upload.fields([
-  { name: 'image', maxCount: 1 },
-  { name: 'imageSummary', maxCount: 1 },
+  { name: 'image' },
+  { name: 'imageSummary' },
 ]));
 
 

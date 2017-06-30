@@ -45,7 +45,7 @@ const TextField = (props) => {
                       <img src={props.preVision} alt="" />
                       :
                       <img
-                        src={`../../../uploads/${props.preVision}.png`}
+                        src={`../../../uploads/${props.preVision}`}
                         alt=""
                       />
                   }
