@@ -381,6 +381,46 @@ class FilterPage extends Component {
         className={`search-wr-inside ${sidebar ? 'sidebar ' : ''}skills-search`}
       >
         {
+          !sidebar && (
+            <div
+              className="filter-btn"
+              onClick={() => {
+                return this.setState({
+                  isShowSkillsFilter: !this.state.isShowSkillsFilter,
+                });
+              }}
+            >
+              <div className={`tab ${isShowSkillsFilter ? 'activeSkill' : 'activeTitle'}`}>
+                <span className={`title ${isShowSkillsFilter ? 'active' : ''}`}>
+                  <ReactSVG
+                    path="../assets/images/svg/primary-skills.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      fill: isShowSkillsFilter ? '#fcd500' : '#a5e3ff',
+                    }}
+                  />
+                </span>
+                <span className={`skill ${isShowSkillsFilter ? '' : 'active'}`}>
+                  <ReactSVG
+                    path="../assets/images/svg/bag.svg"
+                    className="example"
+                    evalScript="always"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      fill: isShowSkillsFilter ? '#a5e3ff' : '#fcd500',
+                    }}
+                  />
+                </span>
+              </div>
+              {/* <span>{isShowSkillsFilter ? 'Titles filter' : 'Skills filter'}</span>*/}
+            </div>
+          )
+        }
+        {
           isShowSkillsFilter ? (
             <Select
               multi={multi}
@@ -403,24 +443,6 @@ class FilterPage extends Component {
               disabled={isShowSkillsFilter}
               placeholder={"Select Titles..."}
             />
-          )
-        }
-        {
-          !sidebar && (
-            <div
-              className="filter-btn"
-              onClick={() => {
-                return this.setState({
-                  isShowSkillsFilter: !this.state.isShowSkillsFilter,
-                });
-              }}
-            >
-              <div className={`tab ${isShowSkillsFilter ? 'titles-filter' : 'skills-filter'}`}>
-                <span className="title">{'Titles filter'}</span>
-                <span className="skill">{'Skills filter'}</span>
-              </div>
-              {/* <span>{isShowSkillsFilter ? 'Titles filter' : 'Skills filter'}</span>*/}
-            </div>
           )
         }
         <div
