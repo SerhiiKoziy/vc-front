@@ -38,6 +38,7 @@ router.post('/create', (req, res) => {
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
   }).then((result) => {
+    console.log('result', result);
     res.send({
       success: true,
       result,

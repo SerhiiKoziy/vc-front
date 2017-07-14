@@ -39,9 +39,10 @@ export function createUserAPI(dataCV) {
       console.log('response', response.error);
       throw new Error(response.error);
     }
+    console.log('empty response');
     return null;
   }).catch(error => {
-    console.error(error);
+    console.error('catch', error);
   });
 }
 export function updateUserAPI(dataCV) {

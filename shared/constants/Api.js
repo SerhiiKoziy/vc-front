@@ -12,5 +12,6 @@ const config = {
 
 export function resolveUrl(path) {
   const conf = config[getEnvironment()];
+  console.log('path url', `${conf.url}/${path}`);
   return `${conf.url}/${path}`;
 }

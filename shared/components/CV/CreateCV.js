@@ -36,6 +36,8 @@ class createCV extends React.Component {
       interviewDate: moment(),
       originalDate: nextDay,
       skillsChange: false,
+      skillEdit: false,
+      workEdit: false,
       skills: [],
       works: [],
       summary: [],
@@ -71,10 +73,12 @@ class createCV extends React.Component {
           return value.length > 0;
         },
         cost: (value) => {
-          return value.length > 0;
+          const valueString = value.toString();
+          return valueString.length > 0;
         },
         experience: (value) => {
-          return value.length > 0;
+          const valueString = value.toString();
+          return valueString.length > 0;
         },
         image: (value) => {
           return value.length > 0;
@@ -110,7 +114,7 @@ class createCV extends React.Component {
   createCv(values) {
     const currentTime = new Date().getTime();
     const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
-    console.log(values.interviewDate, interviewDate);
+    // console.log(values.interviewDate, interviewDate);
     return {
       inHouse: this.state.inHouse,
       ...values,
@@ -224,6 +228,7 @@ class createCV extends React.Component {
     this.setState({
       skillExp: '',
       skillName: '',
+      skillEdit: false,
       values: {
         ...this.state.values,
         skills: newSkills,
@@ -248,6 +253,26 @@ class createCV extends React.Component {
       },
     });
   }
+  editSkill(skillId) {
+    const skills = this.state.values.skills;
+    const selectSkill = skills.filter((item, i) => {
+      return i === skillId;
+    });
+    const newSkills = skills.filter((item, i) => {
+      return i !== skillId;
+    });
+    // console.log('skillId', skillId, selectSkill, newSkills);
+    this.setState({
+      skillName: selectSkill[0].skill,
+      skillExp: selectSkill[0].experience,
+      isMain: selectSkill[0].main,
+      skillEdit: true,
+      values: {
+        ...this.state.values,
+        skills: newSkills,
+      },
+    });
+  }
   addWork() {
     const work = this.state.workName;
     const workDescription = this.state.workDescription;
@@ -256,6 +281,7 @@ class createCV extends React.Component {
     this.setState({
       workName: '',
       workDescription: '',
+      workEdit: false,
       values: {
         ...this.state.values,
         works: newWorks,
@@ -263,20 +289,40 @@ class createCV extends React.Component {
       },
     });
   }
-  deleteWork(skillId) {
+  deleteWork(workId) {
     const works = this.state.values.works;
     /* const newSkills = [];
      skills.map((item, i) => {
      i === skillId ? null : newSkills.push(item);
      })*/
     const newWorks = works.filter((item, i) => {
-      return i !== skillId;
+      return i !== workId;
     });
     this.setState({
       values: {
         ...this.state.values,
         works: newWorks,
         worksChange: true,
+      },
+    });
+  }
+  editWork(workId) {
+    const works = this.state.values.works;
+    const selectWork = works.filter((item, i) => {
+      return i === workId;
+    });
+    const newWorks = works.filter((item, i) => {
+      return i !== workId;
+    });
+   //  console.log('workId', workId, selectWork, newWorks);
+    this.setState({
+      workName: selectWork[0].work,
+      workDescription: selectWork[0].workDescription,
+      workEdit: true,
+      values: {
+        ...this.state.values,
+        works: newWorks,
+
       },
     });
   }
@@ -291,6 +337,7 @@ class createCV extends React.Component {
       cvSummary: '',
       imageManager: '',
       fileNameManager: '',
+      summaryEdit: false,
       values: {
         ...this.state.values,
         summary: summaryArr,
@@ -298,19 +345,40 @@ class createCV extends React.Component {
       },
     });
   }
-  deleteSummary(skillId) {
+  deleteSummary(summaryId) {
     const cvSummary = this.state.values.summary;
-    const summaryArr = cvSummary.filter((item, i) => {
-      return i !== skillId;
+    const newSummary = cvSummary.filter((item, i) => {
+      return i !== summaryId;
     });
     this.setState({
       values: {
         ...this.state.values,
-        summary: summaryArr,
+        summary: newSummary,
         summaryChange: true,
       },
     });
   }
+  editSummary(summaryId) {
+    const cvSummary = this.state.values.summary;
+    const selectSummary = cvSummary.filter((item, i) => {
+      return i === summaryId;
+    });
+    const newSummary = cvSummary.filter((item, i) => {
+      return i !== summaryId;
+    });
+    console.log('workId', summaryId, selectSummary, newSummary);
+    this.setState({
+      managerName: selectSummary[0].managerName,
+      cvSummary: selectSummary[0].cvSummary,
+      imageManager: selectSummary[0].imageManager,
+      summaryEdit: true,
+      values: {
+        ...this.state.values,
+        summary: newSummary,
+      },
+    });
+  }
+
   onDropHandler(target, e) {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -349,8 +417,8 @@ class createCV extends React.Component {
   }
   renderCreateSkill() {
     return (
-      <div className="add-skill">
-        <h4>Add skill:</h4>
+      <div className={`add-skill ${this.state.skillEdit ? 'edit-skill' : ''}`}>
+        <h4>{this.state.skillEdit ? 'Edit skill:' : 'Add skill:'}</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter skill'}
@@ -369,23 +437,23 @@ class createCV extends React.Component {
           onChange={::this.handleInputChange}
           onBlur={::this.handleInputBlur}
         />
-        <CheckBox
-          classNameBox={'input-wr'}
-          fieldName={"isMain"}
-          value={this.state.isMain}
-          id={'isMain'}
-          label={'isMain'}
-          name={'checkbox'}
-          type={'checkbox'}
-          defaultChecked={this.state.isMain}
-          onChange={() => {
+        <div
+          className={`handleMain ${this.state.isMain ? 'main' : ''}`}
+          onClick={() => {
             this.setState({
               isMain: !this.state.isMain,
             });
           }}
-          onBlur={::this.handleInputBlur}
-          errorText={this.showError('isMain')}
-        />
+        >
+          <p>is main skill: </p>
+          {
+            this.state.isMain ? (
+              <span className="main-skill">main</span>
+            ) : (
+              <span className="secondary-skill">secondary</span>
+            )
+          }
+        </div>
 
         <button
           type=""
@@ -393,15 +461,15 @@ class createCV extends React.Component {
           onClick={::this.addSkill}
           disabled={this.state.skillExp && this.state.skillName ? '' : 'disabled'}
         >
-          {this.props.buttonText || 'Add skill'}
+          {this.props.buttonText || this.state.workEdit ? 'Edit skill' : 'Add skill'}
         </button>
       </div>
     );
   }
   renderCreateWork() {
     return (
-      <div className="add-work-exp">
-        <h4>Add works description:</h4>
+      <div className={`add-work-exp ${this.state.workEdit ? 'edit-work' : ''}`}>
+        <h4>{this.state.workEdit ? 'Edit works description:' : 'Add works description:'}</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter work'}
@@ -425,15 +493,15 @@ class createCV extends React.Component {
           onClick={::this.addWork}
           disabled={this.state.workName && this.state.workDescription ? '' : 'disabled'}
         >
-          {this.props.buttonText || 'Add work'}
+          {this.props.buttonText || this.state.workEdit ? 'Edit work' : 'Add work'}
         </button>
       </div>
     );
   }
   renderCreateSummary() {
     return (
-      <div className="add-summary">
-        <h4>Add summary:</h4>
+      <div className={`add-summary ${this.state.summaryEdit ? 'edit-summary' : ''}`} >
+        <h4>{this.state.summaryEdit ? 'Edit summary:' : 'Add summary:'}</h4>
         <TextField
           classNameBox={'input-wr'}
           placeholder={'Enter manager name'}
@@ -471,7 +539,8 @@ class createCV extends React.Component {
             && this.state.managerName && this.state.cvSummary
               ? '' : 'disabled'}
         >
-          {this.props.buttonText || 'Add summary'}
+          {/**/}
+          {this.props.buttonText || this.state.summaryEdit ? 'Edit summary' : 'Add summary'}
         </button>
       </div>
     );
@@ -553,7 +622,27 @@ class createCV extends React.Component {
             onBlur={::this.handleInputBlur}
             errorText={this.showError('image')}
           />
-          <CheckBox
+          <div
+            className={`handleHouse ${this.state.values.inHouse ? 'main' : ''}`}
+            onClick={() => {
+              this.setState({
+                values: {
+                  ...this.state.values,
+                  inHouse: !this.state.values.inHouse,
+                },
+              });
+            }}
+          >
+            <p>house: </p>
+            {
+              this.state.values.inHouse ? (
+                <span className="main-skill">in house</span>
+              ) : (
+                <span className="secondary-skill">out of house</span>
+              )
+            }
+          </div>
+          {/* <CheckBox
             classNameBox={'input-wr'}
             fieldName={"inHouse"}
             id={'inHouse'}
@@ -566,7 +655,7 @@ class createCV extends React.Component {
             }}
             onBlur={::this.handleInputBlur}
             errorText={this.showError('inHouse')}
-          />
+          />*/}
           <div className="have-skills">
             {skills.length > 0 && (<h4>Skills description</h4>)}
             {
@@ -583,6 +672,12 @@ class createCV extends React.Component {
                     >
                       <i className="fa fa-trash" aria-hidden="true" />
                     </li>
+                    <li
+                      className="edit-skill"
+                      onClick={(e) => { this.editSkill(i, e); }}
+                    >
+                      <i className="fa fa-pencil-square-o" aria-hidden="true" />
+                    </li>
                   </ul>
                 );
               })
@@ -590,6 +685,7 @@ class createCV extends React.Component {
             }
           </div>
           <div className="have-work">
+
             {
               this.state.values.works && this.state.values.works.length > 0 && (
                 <h4>Works description</h4>)
@@ -606,6 +702,12 @@ class createCV extends React.Component {
                       onClick={(e) => { this.deleteWork(i, e); }}
                     >
                       <i className="fa fa-trash" aria-hidden="true" />
+                    </li>
+                    <li
+                      className="edit-skill"
+                      onClick={(e) => { this.editWork(i, e); }}
+                    >
+                      <i className="fa fa-pencil-square-o" aria-hidden="true" />
                     </li>
                   </ul>
                 );
@@ -632,6 +734,12 @@ class createCV extends React.Component {
                       onClick={(e) => { this.deleteSummary(i, e); }}
                     >
                       <i className="fa fa-trash" aria-hidden="true" />
+                    </li>
+                    <li
+                      className="edit-skill"
+                      onClick={(e) => { this.editSummary(i, e); }}
+                    >
+                      <i className="fa fa-pencil-square-o" aria-hidden="true" />
                     </li>
                   </ul>
                 );
