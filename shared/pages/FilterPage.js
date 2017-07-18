@@ -150,7 +150,6 @@ class FilterPage extends Component {
     });
   }
   selectGroup(group) {
-    // console.log('groupExp', group);
     const groups = this.state.groupsExp;
     let isSelect = false;
     const newGroups = [];
@@ -232,13 +231,11 @@ class FilterPage extends Component {
     }
   }
   filterDataJustSkills(value) {
-    // console.log('value', value);
     const { data } = this.props.data;
     const { multiValueSkills } = this.state;
     const dataFilterSkills = [];
     data.map(dataCV => {
       let found = false;
-      console.log(found);
       if (dataCV.skills) {
         dataCV.skills.map(skill => {
           if (skill.main) {
@@ -251,7 +248,7 @@ class FilterPage extends Component {
               return null;
             });
           }
-          return null;
+          return found;
         });
       }
       return null;

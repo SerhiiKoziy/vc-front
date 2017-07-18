@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { getAllUsersAPI,
+import { getAllUsersAPI, CHANGE_STATUS_LETTER,
          getUserAPI, createUserAPI, updateUserAPI, deleteUserAPI, sendMailAPI } from './api';
 
 export function addDataBase(payload) {
@@ -98,5 +98,11 @@ export function sendMail(userId, clientMail) {
       .catch((error) => {
         console.log('catch send error', error);
       });
+  };
+}
+// CHANGE STATUS SEND LETTER
+export function changeStatusSend() {
+  return {
+    type: types.CHANGE_STATUS_LETTER,
   };
 }

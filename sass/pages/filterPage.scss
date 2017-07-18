@@ -196,7 +196,7 @@
                 }
                 &.activeTitle{
                   &:before{
-                    left: 51%;
+                    left: 52%;
                   }
                 }
                 span{
@@ -328,7 +328,7 @@
               text-decoration: underline;
             }
             .Select-input {
-              height: 34px;
+              height: 36px;
               padding-left: 10px;
               padding-right: 10px;
               vertical-align: middle;
@@ -623,7 +623,7 @@
             &.titles-search{
 
               .Select-clear-zone{
-                right: 120px;
+                right: 20px;
                 .Select-clear{
                   height: 17px;
                   width: 17px;
@@ -643,13 +643,13 @@
               }
               &.sidebar{
                 .Select-clear-zone{
-                  right: 120px;
+                  right: 20px;
                 }
               }
             }
             &.skills-search{
               .Select-clear-zone{
-                right: 120px;
+                right: 20px;
                 .Select-clear{
                   height: 17px;
                   width: 17px;

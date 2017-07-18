@@ -18,7 +18,10 @@ router.get('/', (req, res) => {
     ],
   }).then((result) => {
     res.send(result);
-  });
+  })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 router.post('/create', (req, res) => {
@@ -38,12 +41,15 @@ router.post('/create', (req, res) => {
   }, {
     include: [models.User.Skill, models.User.Work, models.User.Summary],
   }).then((result) => {
-    console.log('result', result);
+    // console.log('result', result);
     res.send({
       success: true,
       result,
     });
-  });
+  })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 /* router.post('/upload', function(req, res) {
   // console.log('req form1111', req.body, 'req.image.name', req.body.image);
@@ -106,8 +112,10 @@ router.put('/:user_id', (req, res) => {
     createUser,
   ]).then((result) => {
     res.send(result);
+  })
+  .catch((error) => {
+    console.log(error);
   });
-
   /* models.User.update({
     username: req.body.username,
     title: req.body.title,
@@ -146,7 +154,10 @@ router.get('/:user_id', (req, res) => {
       res.status(404).send('error 404');
     }
     res.send(result);
-  });
+  })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 /* router.post('/:user_id/tasks/create', function (req, res) {
   models.Task.create({
@@ -181,7 +192,10 @@ router.post('/contact', (req, res) => {
     sendMessage(req.body.from, result[0]).then((info) => {
       res.send(info);
     });
-  });
+  })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 

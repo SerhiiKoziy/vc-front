@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { getUsers, sendMail } from '../actions';
+import { getUsers, sendMail, changeStatusSend } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
@@ -71,6 +71,7 @@ class SendPage extends Component {
     sent: React.PropTypes.object,
     user: React.PropTypes.object,
     sending: React.PropTypes.bool,
+    changeStatusSend: React.PropTypes.func,
   };
   handleFormSubmit(event) {
     event.preventDefault();
@@ -84,7 +85,7 @@ class SendPage extends Component {
       descriptionClient: description,
     };
     // const userId = this.props.user.id;
-    const userId = 1;
+    const userId = this.props.user.id;
     // console.log('sendMail front', clientInfo);
     this.props.sendMail(userId, clientInfo);
     // this.setState({ sending: true });
@@ -365,7 +366,13 @@ class SendPage extends Component {
             <p>for filling out your information</p>
             <p><span>We have received your enquiry and will respond to you soon</span></p>
 
-            <Link className="exit-btn" to={'/'}>
+            <Link
+              className="exit-btn"
+              to={'/'}
+              onClick={() => {
+                this.props.changeStatusSend();
+              }}
+            >
               <span>exit</span>
             </Link>
           </div>
@@ -433,7 +440,7 @@ const ConnectedComponent = connect(
     return {};
   },
   {
-    getUsers, push, sendMail,
+    getUsers, push, sendMail, changeStatusSend,
   }
 )(SendPage);
 

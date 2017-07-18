@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import ReactSVG from 'react-svg';
-import { getUser, sendMail, letterSent } from '../actions';
+import { getUser, sendMail, letterSent, changeStatusSend } from '../actions';
 // import MAIL_REG from '../constants/regExp';
 import ViewCv from '../components/CV/ViewCv';
 import TextField from '../components/TextField/TextField';
@@ -23,6 +23,7 @@ class PageCV extends Component {
     sentText: React.PropTypes.string,
     sent: React.PropTypes.object,
     sending: React.PropTypes.bool,
+    changeStatusSend: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -198,7 +199,13 @@ class PageCV extends Component {
             // onClick={::this.goToMainSendMail}
             className="proc-btn"
           >
-            <Link className="" to={`/send/${cvId || ''}`}>
+            <Link
+              className=""
+              to={`/send/${cvId || ''}`}
+              onClick={() => {
+                this.props.changeStatusSend();
+              }}
+            >
               <span>Proceed to Request</span>
             </Link>
 
@@ -272,7 +279,13 @@ class PageCV extends Component {
                       <p className="cost-desc">this cost is all</p>
                     </div>
                     <div className="proc-btn">
-                      <Link className="" to={`/send/${cvId || ''}`}>
+                      <Link
+                        className=""
+                        to={`/send/${cvId || ''}`}
+                        onClick={() => {
+                          this.props.changeStatusSend();
+                        }}
+                      >
                         <span>Proceed to Request</span>
                       </Link>
                     </div>
@@ -332,5 +345,5 @@ export default connect(
     }
     return {};
   },
-  { getUser, sendMail, letterSent, push }
+  { getUser, sendMail, letterSent, push, changeStatusSend }
 )(PageCV);

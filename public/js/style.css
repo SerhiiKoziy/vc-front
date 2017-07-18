@@ -2317,6 +2317,8 @@ main {
   line-height: 60px; }
 
 .page.start-page .dashboard-wr {
+  max-width: 1040px;
+  margin: 0 auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -2740,7 +2742,7 @@ main {
             .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside .filter-btn .tab.activeSkill:before {
               left: -1px; }
             .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside .filter-btn .tab.activeTitle:before {
-              left: 51%; }
+              left: 52%; }
             .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside .filter-btn .tab span {
               width: 100%;
               height: 100%;
@@ -2844,7 +2846,7 @@ main {
           outline: none;
           text-decoration: underline; }
         .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside .Select-input {
-          height: 34px;
+          height: 36px;
           padding-left: 10px;
           padding-right: 10px;
           vertical-align: middle;
@@ -3087,7 +3089,7 @@ main {
   to {
     -webkit-transform: rotate(1turn); } }
         .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.titles-search .Select-clear-zone {
-          right: 120px; }
+          right: 20px; }
           .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.titles-search .Select-clear-zone .Select-clear {
             height: 17px;
             width: 17px;
@@ -3109,9 +3111,9 @@ main {
           .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.titles-search .Select-clear-zone:hover .Select-clear {
             color: #fcd500; }
         .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.titles-search.sidebar .Select-clear-zone {
-          right: 120px; }
+          right: 20px; }
         .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.skills-search .Select-clear-zone {
-          right: 120px; }
+          right: 20px; }
           .page.filter-page .dashboard-wr.filter-page .header-wr .search-wr .search-wr-inside.skills-search .Select-clear-zone .Select-clear {
             height: 17px;
             width: 17px;
@@ -4003,6 +4005,8 @@ main {
       height: calc(100% - 85px);
       padding: 60px 20px 10px 60px; }
   .page.task-page.admin-task {
+    max-width: 1040px;
+    margin: 0 auto;
     padding: 0 40px;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -5530,7 +5534,7 @@ footer {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 60px 0 0 0;
-  padding: 40px 0 40px 0; }
+  padding: 40px 10px; }
   .builder-task.edit-builder-task {
     width: 100%;
     height: 100%;
@@ -5542,7 +5546,7 @@ footer {
     display: flex;
     padding: 0 0 40px 0; }
     .builder-task .form-wr form {
-      padding: 10px;
+      padding: 10px 10px 10px 0;
       width: 100%;
       display: -webkit-box;
       display: -webkit-flex;
@@ -5587,18 +5591,33 @@ footer {
         -webkit-box-sizing: border-box;
                 box-sizing: border-box; }
         .builder-task .form-wr form .have-skills h4, .builder-task .form-wr form .have-work h4, .builder-task .form-wr form .have-summary h4 {
-          color: #5d5b5b; }
+          color: #006ec5; }
         .builder-task .form-wr form .have-skills .skill-form, .builder-task .form-wr form .have-skills .work-form, .builder-task .form-wr form .have-skills .summary-form, .builder-task .form-wr form .have-work .skill-form, .builder-task .form-wr form .have-work .work-form, .builder-task .form-wr form .have-work .summary-form, .builder-task .form-wr form .have-summary .skill-form, .builder-task .form-wr form .have-summary .work-form, .builder-task .form-wr form .have-summary .summary-form {
           position: relative;
-          border-bottom: 1px solid #ccc;
           padding: 20px 0 15px 0;
           -webkit-box-sizing: border-box;
                   box-sizing: border-box; }
+          .builder-task .form-wr form .have-skills .skill-form:after, .builder-task .form-wr form .have-skills .work-form:after, .builder-task .form-wr form .have-skills .summary-form:after, .builder-task .form-wr form .have-work .skill-form:after, .builder-task .form-wr form .have-work .work-form:after, .builder-task .form-wr form .have-work .summary-form:after, .builder-task .form-wr form .have-summary .skill-form:after, .builder-task .form-wr form .have-summary .work-form:after, .builder-task .form-wr form .have-summary .summary-form:after {
+            position: absolute;
+            content: '';
+            left: 50%;
+            bottom: 0;
+            height: 1px;
+            width: 50%;
+            background: rgba(0, 110, 197, 0.9);
+            -webkit-transition: 0.4s width;
+            transition: 0.4s width;
+            -webkit-transform: translate(-50%, 0);
+                -ms-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0); }
+          .builder-task .form-wr form .have-skills .skill-form:hover:after, .builder-task .form-wr form .have-skills .work-form:hover:after, .builder-task .form-wr form .have-skills .summary-form:hover:after, .builder-task .form-wr form .have-work .skill-form:hover:after, .builder-task .form-wr form .have-work .work-form:hover:after, .builder-task .form-wr form .have-work .summary-form:hover:after, .builder-task .form-wr form .have-summary .skill-form:hover:after, .builder-task .form-wr form .have-summary .work-form:hover:after, .builder-task .form-wr form .have-summary .summary-form:hover:after {
+            width: 100%; }
           .builder-task .form-wr form .have-skills .skill-form li, .builder-task .form-wr form .have-skills .work-form li, .builder-task .form-wr form .have-skills .summary-form li, .builder-task .form-wr form .have-work .skill-form li, .builder-task .form-wr form .have-work .work-form li, .builder-task .form-wr form .have-work .summary-form li, .builder-task .form-wr form .have-summary .skill-form li, .builder-task .form-wr form .have-summary .work-form li, .builder-task .form-wr form .have-summary .summary-form li {
             display: -webkit-box;
             display: -webkit-flex;
             display: -ms-flexbox;
-            display: flex; }
+            display: flex;
+            z-index: 1; }
             .builder-task .form-wr form .have-skills .skill-form li span, .builder-task .form-wr form .have-skills .work-form li span, .builder-task .form-wr form .have-skills .summary-form li span, .builder-task .form-wr form .have-work .skill-form li span, .builder-task .form-wr form .have-work .work-form li span, .builder-task .form-wr form .have-work .summary-form li span, .builder-task .form-wr form .have-summary .skill-form li span, .builder-task .form-wr form .have-summary .work-form li span, .builder-task .form-wr form .have-summary .summary-form li span {
               color: #585858; }
               .builder-task .form-wr form .have-skills .skill-form li span:first-child, .builder-task .form-wr form .have-skills .work-form li span:first-child, .builder-task .form-wr form .have-skills .summary-form li span:first-child, .builder-task .form-wr form .have-work .skill-form li span:first-child, .builder-task .form-wr form .have-work .work-form li span:first-child, .builder-task .form-wr form .have-work .summary-form li span:first-child, .builder-task .form-wr form .have-summary .skill-form li span:first-child, .builder-task .form-wr form .have-summary .work-form li span:first-child, .builder-task .form-wr form .have-summary .summary-form li span:first-child {
@@ -5806,6 +5825,16 @@ footer {
   width: 40%; }
   .builder-task-wr .edit-builder-task {
     width: 100%; }
+
+@media only screen and (max-width: 960px) {
+  .page.start-page .dashboard-wr {
+    padding: 20px; }
+  .builder-task .form-wr {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; } }
 
 .Select {
   position: relative; }

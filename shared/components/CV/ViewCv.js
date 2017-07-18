@@ -11,7 +11,12 @@ export default class ViewCv extends React.PureComponent {
       const mainSkills = this.props.item.skills.filter((skill) => { return skill.main; });
       return mainSkills.map(this.renderSkill);
     }
-    return null;
+    return (
+      <div className="skill">
+        <span><span /></span>
+        <p>not found main skill</p>
+      </div>
+    );
   }
 
   renderOtherSkills() {
@@ -19,7 +24,12 @@ export default class ViewCv extends React.PureComponent {
       const mainSkills = this.props.item.skills.filter((skill) => { return !skill.main; });
       return mainSkills.map(this.renderSkill);
     }
-    return null;
+    return (
+      <div className="skill">
+        <span><span /></span>
+        <p>not found additional skill</p>
+      </div>
+    );
   }
   renderSkill(skill, i) {
     return (
@@ -34,7 +44,13 @@ export default class ViewCv extends React.PureComponent {
     if (works && works.length > 0) {
       return works.map(this.renderExperience);
     }
-    return null;
+    return (
+      <div className="skill">
+        <span><span /></span>
+        <p className="title">not found name company</p>
+        <p>not found description</p>
+      </div>
+    );
   }
   renderExperience(work, i) {
     return (
@@ -78,8 +94,8 @@ export default class ViewCv extends React.PureComponent {
   render() {
     if (this.props.item) {
       const { summary } = this.props.item;
-      let managerName = 'manager Name';
-      let cvSummary = 'Summary';
+      let managerName = 'not fount manager name';
+      let cvSummary = 'not fount summary ';
       // let imageManager = '';
       let divStyle = {};
       if (summary[0]) {

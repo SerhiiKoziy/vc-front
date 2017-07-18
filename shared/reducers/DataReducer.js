@@ -69,6 +69,11 @@ export default function DataReducer(state = INITIAL_STATE, action) {
         sentText: payload.statusText,
         sending: false,
       };
+    case 'CHANGE_STATUS_LETTER':
+      return {
+        ...state,
+        sent: 100,
+      };
     case 'REQUEST_LETTER':
       return {
         ...state,

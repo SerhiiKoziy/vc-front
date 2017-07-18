@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import TextField from '../TextField/TextField';
 import TextArea from '../TextArea/TextArea';
-import CheckBox from '../CheckBox/CheckBox';
+// import CheckBox from '../CheckBox/CheckBox';
 import { updateUser, getUsers, createUser } from '../../actions';
 
 class createCV extends React.Component {
@@ -114,7 +114,6 @@ class createCV extends React.Component {
   createCv(values) {
     const currentTime = new Date().getTime();
     const interviewDate = moment(values.interviewDate).format('YYYY/MM/DD');
-    // console.log(values.interviewDate, interviewDate);
     return {
       inHouse: this.state.inHouse,
       ...values,
@@ -169,7 +168,6 @@ class createCV extends React.Component {
     event.preventDefault();
     const formData = new FormData(document.getElementById('upload_form'));
     formData.append('tax_file', document.getElementById('file-input').files);
-    // console.log('formData', formData);
     // const submitHandler = this.props.currentTask ? this.props.updateUser : this.props.createUser;
     let submitHandler;
     if (this.props.currentTask) {
@@ -198,7 +196,6 @@ class createCV extends React.Component {
     const validations = Object.keys(this.state.validation).filter(field => {
       return !this.state.validation[field](this.state.values[field]);
     });
-    // console.log('validations', validations)
     return (validations.length === 0);
     // return ([].length === 0);
   }
@@ -261,7 +258,6 @@ class createCV extends React.Component {
     const newSkills = skills.filter((item, i) => {
       return i !== skillId;
     });
-    // console.log('skillId', skillId, selectSkill, newSkills);
     this.setState({
       skillName: selectSkill[0].skill,
       skillExp: selectSkill[0].experience,
@@ -314,7 +310,6 @@ class createCV extends React.Component {
     const newWorks = works.filter((item, i) => {
       return i !== workId;
     });
-   //  console.log('workId', workId, selectWork, newWorks);
     this.setState({
       workName: selectWork[0].work,
       workDescription: selectWork[0].workDescription,
@@ -366,7 +361,6 @@ class createCV extends React.Component {
     const newSummary = cvSummary.filter((item, i) => {
       return i !== summaryId;
     });
-    console.log('workId', summaryId, selectSummary, newSummary);
     this.setState({
       managerName: selectSummary[0].managerName,
       cvSummary: selectSummary[0].cvSummary,
@@ -461,7 +455,7 @@ class createCV extends React.Component {
           onClick={::this.addSkill}
           disabled={this.state.skillExp && this.state.skillName ? '' : 'disabled'}
         >
-          {this.props.buttonText || this.state.workEdit ? 'Edit skill' : 'Add skill'}
+          { this.state.skillEdit ? 'Edit skill' : 'Add skill'}
         </button>
       </div>
     );
@@ -493,7 +487,7 @@ class createCV extends React.Component {
           onClick={::this.addWork}
           disabled={this.state.workName && this.state.workDescription ? '' : 'disabled'}
         >
-          {this.props.buttonText || this.state.workEdit ? 'Edit work' : 'Add work'}
+          { this.state.workEdit ? 'Edit work' : 'Add work'}
         </button>
       </div>
     );
@@ -540,7 +534,7 @@ class createCV extends React.Component {
               ? '' : 'disabled'}
         >
           {/**/}
-          {this.props.buttonText || this.state.summaryEdit ? 'Edit summary' : 'Add summary'}
+          { this.state.summaryEdit ? 'Edit summary' : 'Add summary'}
         </button>
       </div>
     );
@@ -657,7 +651,7 @@ class createCV extends React.Component {
             errorText={this.showError('inHouse')}
           />*/}
           <div className="have-skills">
-            {skills.length > 0 && (<h4>Skills description</h4>)}
+            {skills.length > 0 && (<h4>Skills description:</h4>)}
             {
               skills && (skills.map((item, i) => {
                 // let skillId = {` ${item.skill} + ${i}`}
@@ -688,7 +682,7 @@ class createCV extends React.Component {
 
             {
               this.state.values.works && this.state.values.works.length > 0 && (
-                <h4>Works description</h4>)
+                <h4>Works description:</h4>)
             }
             {
               this.state.values.works && (this.state.values.works.map((item, i) => {
