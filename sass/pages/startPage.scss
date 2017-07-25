@@ -15,6 +15,24 @@
     padding: 40px;
     .builder-task{
       margin: 0;
+      padding: 10px;
+      .form-wr{
+        padding: 0;
+        form{
+          position: relative;
+          padding: 10px;
+          margin: 0 10px 0 0;
+          border: 1px solid #f71616;
+          &:after{
+            position: absolute;
+            content: 'required *';
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            color: #f71616;
+          }
+        }
+      }
     }
     .inside-wr {
       padding-top: 40px;

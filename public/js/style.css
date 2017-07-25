@@ -2332,7 +2332,22 @@ main {
           flex-direction: column;
   padding: 40px; }
   .page.start-page .dashboard-wr .builder-task {
-    margin: 0; }
+    margin: 0;
+    padding: 10px; }
+    .page.start-page .dashboard-wr .builder-task .form-wr {
+      padding: 0; }
+      .page.start-page .dashboard-wr .builder-task .form-wr form {
+        position: relative;
+        padding: 10px;
+        margin: 0 10px 0 0;
+        border: 1px solid #f71616; }
+        .page.start-page .dashboard-wr .builder-task .form-wr form:after {
+          position: absolute;
+          content: 'required *';
+          top: 10px;
+          right: 10px;
+          font-size: 16px;
+          color: #f71616; }
   .page.start-page .dashboard-wr .inside-wr {
     padding-top: 40px;
     display: -webkit-box;
@@ -5727,7 +5742,8 @@ footer {
       .builder-task .form-wr .add-desc .add-summary {
         padding: 10px;
         -webkit-box-sizing: border-box;
-                box-sizing: border-box; }
+                box-sizing: border-box;
+        margin: 0; }
     .builder-task .form-wr .radio-wr {
       display: -webkit-box;
       display: -webkit-flex;
