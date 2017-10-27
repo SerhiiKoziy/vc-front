@@ -168,7 +168,7 @@ export default class ViewCv extends React.PureComponent {
                     style={{ width: 20, fill: '#fcd500' }}
                   />
                 </span>
-                <p>Summary from Mobilunity recruter</p>
+                <p>Summary from recruter</p>
               </div>
               <div className="recruter-header">
                 <p>{managerName}</p>

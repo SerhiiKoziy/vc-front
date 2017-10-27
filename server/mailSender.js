@@ -7,8 +7,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 's.koziy@mobilunity.com',
-    pass: '1478965Z',
+    user: '@gmail.com',
+    pass: '',
   },
   logger: bunyan.createLogger({
     name: 'nodemailer',
@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
   // default message fields
 
   // sender info
-  from: 'Pangalink <s.koziy@mobilunity.com>',
+  from: 'Pangalink <s.koziy@gmail.com>',
   headers: {
     'X-Laziness-level': 1000, // just an example header, no need to use this
   },
@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 // https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbtFoSoYzkzcoJ-hbYK6QfLB3yiWPXM49tOIgUCK59VP4ZXAccsclaUzCLhKQigFCa8IGRWitVdQSQB-6zL3eBxni5Q1wXHNj4tMS1yuKOkD4dVq39Pd1QK3Xq0kfTOPmKrIRfcie5sjlfAcNKnKTn7sqGVbBGY7j1NHVSBwyLXG6efBAMIWBb9c424Sy38un0CeoFfC61_lRVeOE1uA1tu0bKHQhkDBDvjVDKN1bj8SiMz04B0>
 // console.log('SMTP Configured');
 
-const DEFAULT_EMAIL = 's.koziy@mobilunity.com';
+const DEFAULT_EMAIL = '@gmail.com';
 
 class Email extends React.PureComponent {
   render() {
