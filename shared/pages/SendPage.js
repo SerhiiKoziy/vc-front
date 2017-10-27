@@ -161,8 +161,8 @@ class SendPage extends Component {
             <div className="left-name">
 
               <div className="part-header left-work">
-                <h4>Alfonsine Williams</h4>
-                <p>Director of Business Development</p>
+                <h4></h4>
+                <p>Director </p>
               </div>
             </div>
 
@@ -171,8 +171,8 @@ class SendPage extends Component {
             </div>
             <div className="right-name">
               <div className="part-header right-work">
-                <h4>Olga Zhuk</h4>
-                <p>Account Manager</p>
+                <h4></h4>
+                <p> Manager</p>
               </div>
             </div>
           </div>
@@ -180,12 +180,11 @@ class SendPage extends Component {
             <div className="left-part">
 
               <div className="part-image">
-                <img src="../assets/images/pres-work-3.png" alt="work-1" />
+
               </div>
             </div>
             <div className="right-part">
               <div className="part-image">
-                <img src="../assets/images/pres-work-2.png" alt="work-2" />
               </div>
             </div>
           </div>
@@ -228,14 +227,12 @@ class SendPage extends Component {
                 <div className="left-part">
 
                   <div className="part-image">
-                    <img src="../assets/images/pres-work-3.png" alt="work-1" />
                   </div>
                 </div>
 
                 <div className="right-part">
 
                   <div className="part-image">
-                    <img src="../assets/images/pres-work-2.png" alt="work-2" />
                   </div>
                 </div>
               </div>

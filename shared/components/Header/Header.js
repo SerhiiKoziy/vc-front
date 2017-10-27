@@ -10,12 +10,7 @@ const Header = ({ isAdminPanel }) => {
         <span>? FIQ</span>
       </div>
       <div className="header-title">
-        <ReactSVG
-          path="../assets/images/svg/logo.svg"
-          className="example"
-          evalScript="always"
-          style={{ width: 110, fill: '#fff' }}
-        />
+
       </div>
       <div className="header-contact">
         <span>contact us</span>
